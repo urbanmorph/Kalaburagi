@@ -215,6 +215,275 @@ function toggleMobileMenu() {
 }
 
 // ============================================
+// Plan Modal Functions
+// ============================================
+function showPlan(phase, componentIndex) {
+    const phaseData = dashboardData.roadmap.phases[phase];
+    const component = phaseData.components[componentIndex];
+    
+    if (!component.plan) {
+        alert('Detailed plan not yet available for this component.');
+        return;
+    }
+    
+    const plan = component.plan;
+    const modal = document.getElementById('planModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    
+    // Set title
+    modalTitle.textContent = plan.title;
+    
+    // Render plan content
+    let html = '';
+    
+    // Objective
+    if (plan.objective) {
+        html += `<div class="plan-objective">
+            <strong>📍 Objective:</strong> ${plan.objective}
+        </div>`;
+    }
+    
+    // Components
+    if (plan.components && plan.components.length > 0) {
+        html += '<div class="plan-section">';
+        html += '<h3>Detailed Action Plan</h3>';
+        
+        plan.components.forEach((comp, index) => {
+            html += `<div class="plan-component-card">`;
+            html += `<h4>${index + 1}. ${comp.name}</h4>`;
+            
+            // Meta information
+            html += '<div class="plan-meta">';
+            if (comp.budget) {
+                html += `<div class="plan-meta-item">
+                    <div class="plan-meta-label">Budget</div>
+                    <div class="plan-meta-value">${comp.budget}</div>
+                </div>`;
+            }
+            if (comp.target) {
+                html += `<div class="plan-meta-item">
+                    <div class="plan-meta-label">Target</div>
+                    <div class="plan-meta-value">${comp.target}</div>
+                </div>`;
+            }
+            if (comp.impact) {
+                html += `<div class="plan-meta-item">
+                    <div class="plan-meta-label">Expected Impact</div>
+                    <div class="plan-meta-value">${comp.impact}</div>
+                </div>`;
+            }
+            if (comp.timeline) {
+                html += `<div class="plan-meta-item">
+                    <div class="plan-meta-label">Timeline</div>
+                    <div class="plan-meta-value">${comp.timeline}</div>
+                </div>`;
+            }
+            if (comp.responsibleDept) {
+                html += `<div class="plan-meta-item">
+                    <div class="plan-meta-label">Responsible Department</div>
+                    <div class="plan-meta-value">${comp.responsibleDept}</div>
+                </div>`;
+            }
+            html += '</div>';
+            
+            // Tasks
+            if (comp.tasks && comp.tasks.length > 0) {
+                html += '<div class="plan-tasks">';
+                html += '<h5>Key Tasks & Activities:</h5>';
+                html += '<ul>';
+                comp.tasks.forEach(task => {
+                    html += `<li>${task}</li>`;
+                });
+                html += '</ul>';
+                html += '</div>';
+            }
+            
+            // Specifications (if available)
+            if (comp.specifications && comp.specifications.length > 0) {
+                html += '<div class="plan-tasks">';
+                html += '<h5>Technical Specifications:</h5>';
+                html += '<ul>';
+                comp.specifications.forEach(spec => {
+                    html += `<li>${spec}</li>`;
+                });
+                html += '</ul>';
+                html += '</div>';
+            }
+            
+            html += '</div>';
+        });
+        
+        html += '</div>';
+    }
+    
+    // Financing
+    if (plan.financing) {
+        html += '<div class="plan-financing">';
+        html += '<h5>💰 Financing Sources</h5>';
+        html += '<ul>';
+        if (plan.financing.sources) {
+            plan.financing.sources.forEach(source => {
+                html += `<li>${source}</li>`;
+            });
+        }
+        html += '</ul>';
+        
+        if (plan.financing.disbursementSchedule) {
+            html += '<h5 style="margin-top: 1rem;">📅 Disbursement Schedule</h5>';
+            html += '<ul>';
+            plan.financing.disbursementSchedule.forEach(schedule => {
+                html += `<li>${schedule}</li>`;
+            });
+            html += '</ul>';
+        }
+        
+        if (plan.financing.creditSupport) {
+            html += '<h5 style="margin-top: 1rem;">🏦 Credit Support Mechanisms</h5>';
+            html += '<ul>';
+            plan.financing.creditSupport.forEach(support => {
+                html += `<li>${support}</li>`;
+            });
+            html += '</ul>';
+        }
+        
+        html += '</div>';
+    }
+    
+    // Success Metrics
+    if (plan.successMetrics && plan.successMetrics.length > 0) {
+        html += '<div class="plan-metrics">';
+        html += '<h5>📊 Success Metrics & KPIs</h5>';
+        html += '<ul>';
+        plan.successMetrics.forEach(metric => {
+            html += `<li>${metric}</li>`;
+        });
+        html += '</ul>';
+        html += '</div>';
+    }
+    
+    // Risks
+    if (plan.risks && plan.risks.length > 0) {
+        html += '<div class="plan-risks">';
+        html += '<h5>⚠️ Risk Mitigation</h5>';
+        html += '<ul>';
+        plan.risks.forEach(risk => {
+            html += `<li>${risk}</li>`;
+        });
+        html += '</ul>';
+        html += '</div>';
+    }
+    
+    // Cluster details (for agro-processing)
+    if (plan.clusterDetails) {
+        html += '<div class="plan-section">';
+        html += '<h3>📍 Cluster-wise Breakdown</h3>';
+        plan.clusterDetails.forEach(cluster => {
+            html += `<div class="plan-component-card">`;
+            html += `<h4>${cluster.cluster}</h4>`;
+            html += '<div class="plan-meta">';
+            html += `<div class="plan-meta-item">
+                <div class="plan-meta-label">Mills</div>
+                <div class="plan-meta-value">${cluster.mills}</div>
+            </div>`;
+            html += `<div class="plan-meta-item">
+                <div class="plan-meta-label">Investment</div>
+                <div class="plan-meta-value">${cluster.investment}</div>
+            </div>`;
+            html += `<div class="plan-meta-item">
+                <div class="plan-meta-label">Focus Area</div>
+                <div class="plan-meta-value">${cluster.focus}</div>
+            </div>`;
+            html += `<div class="plan-meta-item">
+                <div class="plan-meta-label">Jobs</div>
+                <div class="plan-meta-value">${cluster.jobs}</div>
+            </div>`;
+            html += '</div>';
+            html += '</div>';
+        });
+        html += '</div>';
+    }
+    
+    // FPO Types
+    if (plan.fpoTypes) {
+        html += '<div class="plan-section">';
+        html += '<h3>🌾 FPO Categories</h3>';
+        plan.fpoTypes.forEach(fpo => {
+            html += `<div class="plan-component-card">`;
+            html += `<h4>${fpo.type}</h4>`;
+            html += '<div class="plan-meta">';
+            html += `<div class="plan-meta-item">
+                <div class="plan-meta-label">Number of FPOs</div>
+                <div class="plan-meta-value">${fpo.number}</div>
+            </div>`;
+            html += `<div class="plan-meta-item">
+                <div class="plan-meta-label">Member Coverage</div>
+                <div class="plan-meta-value">${fpo.members}</div>
+            </div>`;
+            html += `<div class="plan-meta-item">
+                <div class="plan-meta-label">Focus Area</div>
+                <div class="plan-meta-value">${fpo.focus}</div>
+            </div>`;
+            html += '</div>';
+            html += '</div>';
+        });
+        html += '</div>';
+    }
+    
+    // Enablers (for MSME)
+    if (plan.enablers) {
+        html += '<div class="plan-section">';
+        html += '<h3>🔧 Enablers & Support Infrastructure</h3>';
+        plan.enablers.forEach(enabler => {
+            html += `<div class="plan-component-card">`;
+            html += `<h4>${enabler.name}</h4>`;
+            if (enabler.budget) {
+                html += `<p><strong>Budget:</strong> ${enabler.budget}</p>`;
+            }
+            if (enabler.target) {
+                html += `<p><strong>Target:</strong> ${enabler.target}</p>`;
+            }
+            if (enabler.tasks && enabler.tasks.length > 0) {
+                html += '<div class="plan-tasks">';
+                html += '<ul>';
+                enabler.tasks.forEach(task => {
+                    html += `<li>${task}</li>`;
+                });
+                html += '</ul>';
+                html += '</div>';
+            }
+            html += '</div>';
+        });
+        html += '</div>';
+    }
+    
+    modalBody.innerHTML = html;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closePlanModal() {
+    const modal = document.getElementById('planModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('planModal');
+    if (e.target === modal) {
+        closePlanModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closePlanModal();
+    }
+});
+
+// ============================================
 // Export functions for testing
 // ============================================
 if (typeof module !== 'undefined' && module.exports) {
@@ -222,7 +491,9 @@ if (typeof module !== 'undefined' && module.exports) {
         renderKPIs,
         formatCrore,
         formatNumber,
-        getStatusColor
+        getStatusColor,
+        showPlan,
+        closePlanModal
     };
 }
 
