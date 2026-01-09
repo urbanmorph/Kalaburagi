@@ -1,60 +1,60 @@
 // ============================================
 // Live Data Feed - Auto-updated by GitHub Actions
-// Last Updated: 9/1/2026, 11:22:05 pm
+// Last Updated: 9/1/2026, 11:23:46 pm
 // ============================================
 
 const liveData = {
-    "lastUpdated": "2026-01-09T17:52:05.411Z",
+    "lastUpdated": "2026-01-09T17:53:46.757Z",
     "commodityPrices": {
         "turDal": {
             "market": "Kalaburagi APMC",
-            "price": 9498,
+            "price": 9412,
             "unit": "₹/quintal",
             "date": "2026-01-09",
-            "priceChange": 0,
-            "percentChange": 0,
+            "priceChange": -86,
+            "percentChange": -0.9,
             "lastWeekPrice": 9498
         },
         "bengalGram": {
             "market": "Kalaburagi APMC",
-            "price": 5790,
+            "price": 5888,
             "unit": "₹/quintal",
             "date": "2026-01-09",
-            "priceChange": 0,
-            "percentChange": 0,
+            "priceChange": 98,
+            "percentChange": 1.7,
             "lastWeekPrice": 5790
         },
         "greenGram": {
             "market": "Kalaburagi APMC",
-            "price": 7183,
+            "price": 7230,
             "unit": "₹/quintal",
             "date": "2026-01-09",
-            "priceChange": 0,
-            "percentChange": 0,
+            "priceChange": 47,
+            "percentChange": 0.7,
             "lastWeekPrice": 7183
         }
     },
     "rainfall": {
         "district": "Kalaburagi",
         "today": {
-            "amount": 1.2,
+            "amount": 0,
             "unit": "mm",
             "date": "2026-01-09"
         },
         "thisWeek": {
-            "amount": 9.7,
+            "amount": 7.1,
             "unit": "mm",
             "period": "Last 7 days"
         },
         "thisMonth": {
-            "amount": 18.9,
+            "amount": 17.3,
             "unit": "mm",
             "period": "January 2026",
             "normalAmount": 8,
             "deviation": 25
         },
         "thisSeason": {
-            "amount": 450.9,
+            "amount": 444.1,
             "unit": "mm",
             "period": "Jun-Dec 2024",
             "normalAmount": 528,
