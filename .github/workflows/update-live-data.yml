@@ -1,0 +1,64 @@
+name: Update Live Data
+
+on:
+  # Run daily at 6:00 AM IST (00:30 UTC)
+  schedule:
+    - cron: '30 0 * * *'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+  
+  # Run on push to main (for testing)
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/update-live-data.js'
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Run data update script
+        run: |
+          echo "🚀 Starting live data update..."
+          node scripts/update-live-data.js
+          echo "✅ Data update completed"
+      
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code js/live-data.js || echo "changed=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push if changed
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add js/live-data.js
+          git commit -m "🔄 Auto-update: Live data refresh ($(date +'%Y-%m-%d %H:%M IST'))"
+          git push
+      
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "✅ Live data updated successfully"
+          echo "📅 Date: $(date +'%Y-%m-%d')"
+          echo "⏰ Time: $(date +'%H:%M:%S IST')"
+      
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "❌ Data update failed"
+          echo "Check logs for details"

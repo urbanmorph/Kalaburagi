@@ -7,6 +7,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     initializeTabs();
     renderKPIs();
+    renderLiveData();
     updateLastUpdated();
     
     // Add smooth scroll for anchor links
@@ -104,6 +105,132 @@ function renderKPIs() {
             </div>
         `;
     }).join('');
+}
+
+// ============================================
+// Render Live Data Widget
+// ============================================
+function renderLiveData() {
+    const liveDataGrid = document.getElementById('liveDataGrid');
+    if (!liveDataGrid || typeof liveData === 'undefined') return;
+    
+    const lastUpdate = new Date(liveData.lastUpdated).toLocaleString('en-IN', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+        timeZone: 'Asia/Kolkata'
+    });
+    
+    let html = '';
+    
+    // Commodity Prices Card
+    html += `
+        <div class="live-data-card commodity">
+            <div class="live-data-header">
+                <div class="live-data-title">🌾 Commodity Prices (APMC)</div>
+                <div class="live-data-timestamp">Updated: ${lastUpdate}</div>
+            </div>
+            ${renderCommodityPrices(liveData.commodityPrices)}
+        </div>
+    `;
+    
+    // Rainfall Card
+    html += `
+        <div class="live-data-card rainfall">
+            <div class="live-data-header">
+                <div class="live-data-title">🌧️ Rainfall Data</div>
+                <div class="live-data-timestamp">Updated: ${lastUpdate}</div>
+            </div>
+            ${renderRainfallData(liveData.rainfall)}
+        </div>
+    `;
+    
+    liveDataGrid.innerHTML = html;
+}
+
+function renderCommodityPrices(prices) {
+    const commodities = [
+        { key: 'turDal', name: 'Tur Dal (Arhar)' },
+        { key: 'bengalGram', name: 'Bengal Gram (Chana)' },
+        { key: 'greenGram', name: 'Green Gram (Moong)' }
+    ];
+    
+    let html = '';
+    
+    commodities.forEach(commodity => {
+        const data = prices[commodity.key];
+        if (!data) return;
+        
+        const changeClass = data.priceChange > 0 ? 'positive' : data.priceChange < 0 ? 'negative' : '';
+        const changeIcon = data.priceChange > 0 ? '↑' : data.priceChange < 0 ? '↓' : '→';
+        
+        html += `
+            <div class="commodity-item">
+                <div class="commodity-name">${commodity.name}</div>
+                <div class="commodity-price-row">
+                    <div class="commodity-price">₹${data.price.toLocaleString()}</div>
+                    ${data.priceChange !== 0 ? `
+                        <div class="commodity-change ${changeClass}">
+                            ${changeIcon} ₹${Math.abs(data.priceChange)} (${data.percentChange > 0 ? '+' : ''}${data.percentChange}%)
+                        </div>
+                    ` : '<div class="commodity-change">No change</div>'}
+                </div>
+                <div class="commodity-name" style="margin-top: 0.25rem;">per quintal • ${data.market}</div>
+            </div>
+        `;
+    });
+    
+    return html;
+}
+
+function renderRainfallData(rainfall) {
+    let html = '';
+    
+    // Today's rainfall
+    html += `
+        <div class="rainfall-metric">
+            <div class="rainfall-label">Today's Rainfall</div>
+            <div class="rainfall-value">${rainfall.today.amount} mm</div>
+            <div class="rainfall-detail">${rainfall.today.date}</div>
+        </div>
+    `;
+    
+    // This week
+    html += `
+        <div class="rainfall-metric">
+            <div class="rainfall-label">This Week</div>
+            <div class="rainfall-value">${rainfall.thisWeek.amount} mm</div>
+            <div class="rainfall-detail">${rainfall.thisWeek.period}</div>
+        </div>
+    `;
+    
+    // This month
+    html += `
+        <div class="rainfall-metric">
+            <div class="rainfall-label">This Month</div>
+            <div class="rainfall-value">${rainfall.thisMonth.amount} mm</div>
+            <div class="rainfall-detail">
+                Normal: ${rainfall.thisMonth.normalAmount} mm • 
+                ${rainfall.thisMonth.deviation > 0 ? '+' : ''}${rainfall.thisMonth.deviation}% deviation
+            </div>
+        </div>
+    `;
+    
+    // This season
+    if (rainfall.thisSeason) {
+        const statusClass = rainfall.thisSeason.status.toLowerCase();
+        html += `
+            <div class="rainfall-metric">
+                <div class="rainfall-label">Monsoon Season (${rainfall.thisSeason.period})</div>
+                <div class="rainfall-value">${rainfall.thisSeason.amount} mm</div>
+                <div class="rainfall-detail">
+                    Normal: ${rainfall.thisSeason.normalAmount} mm
+                </div>
+                <span class="rainfall-status ${statusClass}">${rainfall.thisSeason.status}</span>
+            </div>
+        `;
+    }
+    
+    return html;
 }
 
 // ============================================
