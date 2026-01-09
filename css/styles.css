@@ -137,6 +137,24 @@ a:hover {
     gap: var(--space-lg);
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+.brand-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
 .logo h1 {
     color: white;
     font-size: 1.75rem;
@@ -161,6 +179,21 @@ a:hover {
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
+        text-align: center;
+    }
+    
+    .logo {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    .brand-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .logo-text {
+        align-items: center;
         text-align: center;
     }
     
