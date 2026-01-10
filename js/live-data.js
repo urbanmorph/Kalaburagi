@@ -1,87 +1,81 @@
 // ============================================
 // Live Data Feed - Auto-updated by GitHub Actions
-// Last Updated: Will be replaced by automation
+// Last Updated: 10/1/2026, 6:18:33 am
 // ============================================
 
 const liveData = {
-    lastUpdated: "2025-01-09T12:00:00+05:30",
-    
-    // Commodity Prices (Agmarknet API)
-    commodityPrices: {
-        turDal: {
-            market: "Kalaburagi APMC",
-            price: 9500, // Rs per quintal
-            priceChange: +150,
-            percentChange: +1.6,
-            lastWeekPrice: 9350,
-            unit: "₹/quintal",
-            date: "2025-01-09"
+    "lastUpdated": "2026-01-10T00:48:33.340Z",
+    "commodityPrices": {
+        "turDal": {
+            "market": "Kalaburagi APMC",
+            "price": 9456,
+            "unit": "₹/quintal",
+            "date": "2026-01-10",
+            "priceChange": 44,
+            "percentChange": 0.5,
+            "lastWeekPrice": 9412
         },
-        bengalGram: {
-            market: "Kalaburagi APMC",
-            price: 5800,
-            priceChange: -50,
-            percentChange: -0.9,
-            lastWeekPrice: 5850,
-            unit: "₹/quintal",
-            date: "2025-01-09"
+        "bengalGram": {
+            "market": "Kalaburagi APMC",
+            "price": 5855,
+            "unit": "₹/quintal",
+            "date": "2026-01-10",
+            "priceChange": -33,
+            "percentChange": -0.6,
+            "lastWeekPrice": 5888
         },
-        greenGram: {
-            market: "Kalaburagi APMC",
-            price: 7200,
-            priceChange: +100,
-            percentChange: +1.4,
-            lastWeekPrice: 7100,
-            unit: "₹/quintal",
-            date: "2025-01-09"
+        "greenGram": {
+            "market": "Kalaburagi APMC",
+            "price": 7261,
+            "unit": "₹/quintal",
+            "date": "2026-01-10",
+            "priceChange": 31,
+            "percentChange": 0.4,
+            "lastWeekPrice": 7230
         }
     },
-    
-    // Rainfall Data (IMD API)
-    rainfall: {
-        district: "Kalaburagi",
-        today: {
-            amount: 0,
-            unit: "mm",
-            date: "2025-01-09"
+    "rainfall": {
+        "district": "Kalaburagi",
+        "today": {
+            "amount": 0,
+            "unit": "mm",
+            "date": "2026-01-10"
         },
-        thisWeek: {
-            amount: 5.2,
-            unit: "mm",
-            period: "Last 7 days"
+        "thisWeek": {
+            "amount": 7.6,
+            "unit": "mm",
+            "period": "Last 7 days"
         },
-        thisMonth: {
-            amount: 12.5,
-            unit: "mm",
-            period: "January 2025",
-            normalAmount: 8.0,
-            deviation: +56.3
+        "thisMonth": {
+            "amount": 8.3,
+            "unit": "mm",
+            "period": "January 2026",
+            "normalAmount": 8,
+            "deviation": 25
         },
-        thisSeason: {
-            amount: 445.2,
-            unit: "mm",
-            period: "Jun-Dec 2024",
-            normalAmount: 528.0,
-            deviation: -15.7,
-            status: "Deficient"
+        "thisSeason": {
+            "amount": 458,
+            "unit": "mm",
+            "period": "Jun-Dec 2024",
+            "normalAmount": 528,
+            "deviation": -15.7,
+            "status": "Deficient"
         },
-        lastRainfall: {
-            amount: 2.5,
-            date: "2025-01-07"
+        "lastRainfall": {
+            "amount": 2.5,
+            "date": "2026-01-08"
         }
     },
-    
-    // Data quality indicators
-    dataQuality: {
-        commodityPrices: {
-            status: "live",
-            source: "Agmarknet API",
-            confidence: "high"
+    "dataQuality": {
+        "commodityPrices": {
+            "status": "live",
+            "source": "Agmarknet API",
+            "confidence": "high"
         },
-        rainfall: {
-            status: "live",
-            source: "IMD API",
-            confidence: "high"
+        "rainfall": {
+            "status": "live",
+            "source": "IMD API",
+            "confidence": "high"
         }
     }
 };
