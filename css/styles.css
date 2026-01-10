@@ -1773,6 +1773,23 @@ a:hover {
 }
 
 /* ============================================
+   About Page Link Styling
+   ============================================ */
+.nav-link-about {
+    background: transparent !important;
+    border: 2px solid white;
+    color: white;
+    text-decoration: none;
+    margin-left: var(--space-md);
+}
+
+.nav-link-about:hover {
+    background: white !important;
+    color: var(--primary-blue);
+    text-decoration: none;
+}
+
+/* ============================================
    Print Styles
    ============================================ */
 @media print {
