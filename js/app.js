@@ -53,6 +53,54 @@ function initializeTabs() {
     });
 }
 
+// Switch to a specific tab (for quick navigation cards)
+function switchToTab(tabId) {
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    // Remove active class from all
+    navButtons.forEach(btn => btn.classList.remove('active'));
+    tabContents.forEach(content => content.classList.remove('active'));
+    
+    // Find and activate the target tab
+    const targetButton = document.querySelector(`[data-tab="${tabId}"]`);
+    const targetContent = document.getElementById(tabId);
+    
+    if (targetButton && targetContent) {
+        targetButton.classList.add('active');
+        targetContent.classList.add('active');
+        
+        // Scroll to top
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// Toggle about section expand/collapse
+function toggleAboutSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    const header = section.previousElementSibling;
+    
+    if (section.classList.contains('active')) {
+        section.classList.remove('active');
+        header.classList.remove('active');
+    } else {
+        section.classList.add('active');
+        header.classList.add('active');
+        
+        // Scroll to section after opening
+        setTimeout(() => {
+            header.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+                inline: 'nearest'
+            });
+        }, 100);
+    }
+}
+
 // ============================================
 // Render KPI Cards
 // ============================================
