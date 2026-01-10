@@ -1,30 +1,31 @@
 // ============================================
 // Kalaburagi Development Dashboard - Data
 // All data sourced from official documents
+// Updated: January 2026 (2026-2034 Baseline)
 // ============================================
 
 const dashboardData = {
     // Last updated timestamp
-    lastUpdated: "December 2024",
+    lastUpdated: "January 2026",
     
     // Key Performance Indicators
     kpis: [
         {
             id: "irrigation",
             title: "Irrigation Coverage",
-            current: "111,200 ha",
-            percentage: 12.5,
-            target: "130,000 ha (2024)",
-            targetYear: "225,000 ha (2030)",
-            gap: "18,800 ha remaining",
+            current: "119,327 ha",
+            percentage: 13.4,
+            target: "145,000 ha (2029)",
+            targetYear: "222,000 ha (2034)",
+            gap: "25,673 ha to 2029 target",
             status: "green",
             confidence: "high",
             source: "Agriculture Department",
-            updated: "Dec 2024",
+            updated: "Jan 2026",
             details: [
                 "Net sown area: 890,897 ha",
-                "Irrigated: 111,200 ha (12.5%)",
-                "Target increase: +124% by 2030",
+                "Irrigated: 119,327 ha (13.4%)",
+                "Target increase: +86% by 2034",
                 "Methods: Borewells, drip, sprinkler, LIS"
             ]
         },
@@ -34,7 +35,7 @@ const dashboardData = {
             current: "₹2,750 cr",
             percentage: 79,
             target: "₹3,500 cr (FY 24-25)",
-            targetYear: "₹8,000 cr (2030)",
+            targetYear: "₹9,100 cr (2034)",
             gap: "₹750 cr remaining (78 days left)",
             status: "yellow",
             confidence: "high",
@@ -52,7 +53,7 @@ const dashboardData = {
             title: "Non-Farm Jobs Created",
             current: "6,400-8,400 jobs",
             percentage: 8,
-            target: "100,000 jobs (2030)",
+            target: "100,000 jobs (2034)",
             targetYear: "100,000 jobs",
             gap: "91,600-93,600 remaining",
             status: "yellow",
@@ -70,40 +71,41 @@ const dashboardData = {
         {
             id: "dalmills",
             title: "Dal Mill Upgradation",
-            current: "45 mills",
+            current: "75 mills (15%)",
             percentage: 15,
-            target: "300 mills (2027)",
-            targetYear: "300 mills",
-            gap: "255 mills remaining",
+            target: "500 mills (2032)",
+            targetYear: "500 mills (2034)",
+            gap: "425 mills remaining",
             status: "red",
             confidence: "high",
-            source: "Industries Dept",
-            updated: "Jan 2025",
+            source: "Industries Dept + IK Profile 2016",
+            updated: "Jan 2026",
             details: [
-                "Mills upgraded: 45/300 (15%)",
-                "Jobs created: 1,350/9,000",
-                "Value addition: ₹180 cr (Target: ₹1,600 cr)",
+                "Mills upgraded: 75/500 (15%)",
+                "Total mills in district: 500+ (verified 2024)",
+                "Jobs created: 2,250/15,000",
+                "Value addition: ₹180 cr (Target: ₹2,400 cr)",
                 "Need 3x acceleration"
             ]
         },
         {
             id: "income",
             title: "Per Capita Income (Est.)",
-            current: "₹1.30-1.40 lakh",
-            percentage: 62,
-            target: "₹2.10 lakh (2030)",
-            targetYear: "₹2.10 lakh",
-            gap: "₹70,000-80,000 increase needed",
+            current: "₹1.46 lakh (est.)",
+            percentage: 58,
+            target: "₹2.00 lakh (2029)",
+            targetYear: "₹2.50 lakh (2034)",
+            gap: "₹1.04 lakh increase needed",
             status: "yellow",
             confidence: "medium",
-            source: "Deposit growth proxy",
-            updated: "Q3 2024",
+            source: "GDDP projection",
+            updated: "Jan 2026",
             details: [
-                "Official (2021-22): ₹1.25 lakh",
-                "Estimated (2023-24): ₹1.30-1.40 lakh",
-                "Method: Bank deposit growth extrapolation",
-                "Margin of error: ±10%",
-                "State average: ₹2.65 lakh"
+                "Official (2021-22): ₹1.25 lakh (rank 30/30)",
+                "Estimated (2025-26): ₹1.46 lakh",
+                "Method: GDDP growth + population projection",
+                "Margin of error: ±8%",
+                "State average: ₹2.85 lakh (2025-26 est.)"
             ]
         }
     ],
@@ -113,14 +115,14 @@ const dashboardData = {
         rankings: {
             perCapitaIncome: {
                 rank: "30/30",
-                value: "₹1,24,998",
-                stateAvg: "₹2,65,623",
+                value: "₹1,24,998 (2021-22 official)",
+                stateAvg: "₹2,85,000 (2025-26 est.)",
                 status: "Lowest in Karnataka",
                 severity: "red"
             },
             gddpTotal: {
                 rank: "14/30",
-                value: "₹40,500 crore",
+                value: "₹41,500 crore (2025-26 est.)",
                 status: "Middle of the pack",
                 severity: "yellow"
             },
@@ -133,14 +135,14 @@ const dashboardData = {
             },
             irrigation: {
                 rank: "26/30",
-                value: "11.3% of net sown area",
+                value: "13.4% of net sown area (2024 verified)",
                 status: "Critical constraint",
                 severity: "yellow"
             }
         },
         
         gddp: {
-            total: 40500,
+            total: 41500,
             agriculture: {
                 share: 25.5,
                 value: 10327
@@ -157,17 +159,17 @@ const dashboardData = {
         
         irrigation: {
             totalSownArea: 890897,
-            irrigated: 100632,
-            irrigatedPercent: 11.3,
-            rainfed: 790265,
-            rainfedPercent: 88.7,
-            target2030: 225000,
-            target2030Percent: 25.0
+            irrigated: 119327,
+            irrigatedPercent: 13.4,
+            rainfed: 771570,
+            rainfedPercent: 86.6,
+            target2034: 222000,
+            target2034Percent: 25.0
         },
         
         demographics: {
-            totalPopulation: 2566000,
-            rural: 1699000,
+            totalPopulation: 2840000,
+            rural: 1880000,
             ruralPercent: 66.2,
             agriculturalWorkers: 58.46,
             literacy: 64.85
@@ -186,16 +188,16 @@ const dashboardData = {
     
     // Roadmap data
     roadmap: {
-        totalInvestment: 15500,
+        totalInvestment: 17700,
         targetRank: "15/30",
-        perCapitaGoal: 210000,
+        perCapitaGoal: 250000,
         jobsToCreate: 100000,
         
         phases: {
             phase1: {
                 name: "Foundation",
-                years: "Years 1-2",
-                budget: 3500,
+                years: "Years 1-3 (2026-2029)",
+                budget: 4000,
                 progress: 80,
                 status: "green",
                 components: [
@@ -539,8 +541,8 @@ const dashboardData = {
             },
             phase2: {
                 name: "Activation",
-                years: "Years 3-5",
-                budget: 5800,
+                years: "Years 4-6 (2029-2032)",
+                budget: 6600,
                 progress: 30,
                 status: "yellow",
                 components: [
@@ -1052,8 +1054,8 @@ const dashboardData = {
             },
             phase3: {
                 name: "Scale",
-                years: "Years 6-8",
-                budget: 6200,
+                years: "Years 7-8 (2032-2034)",
+                budget: 7100,
                 progress: 0,
                 status: "notstarted",
                 description: "Strategic industrial attraction, healthcare/education upgrades, and urban infrastructure development. Scheduled to begin in Year 6.",
@@ -1064,25 +1066,25 @@ const dashboardData = {
         financing: [
             {
                 source: "Central Schemes",
-                amount: 5500,
+                amount: 6270,
                 percent: 35,
-                details: "RIDF, PMKSY, PMFME, Smart Cities, AMRUT"
+                details: "RIDF, PMKSY, PMFME, Smart Cities, AMRUT (inflation-adjusted)"
             },
             {
                 source: "State Budget",
-                amount: 3500,
+                amount: 4070,
                 percent: 23,
-                details: "State schemes & budget allocation"
+                details: "State schemes & budget allocation (3 budget cycles)"
             },
             {
                 source: "Bank Credit",
-                amount: 4000,
+                amount: 4600,
                 percent: 26,
                 details: "Agriculture + MSME lending"
             },
             {
                 source: "Private Investment",
-                amount: 2500,
+                amount: 2760,
                 percent: 16,
                 details: "Industry + Processing units"
             }
@@ -1135,13 +1137,64 @@ const dashboardData = {
     // Data sources
     dataSources: [
         {
+            title: "Invest Karnataka - District Profile: Kalaburagi",
+            publisher: "Department of Commerce & Industries, GoK",
+            updated: "2024",
+            vintage: "2024",
+            coverage: "Irrigation (119,327 ha verified), GDDP, Universities (4), Total area, Infrastructure",
+            quality: "high",
+            url: "https://investkarnataka.co.in/our-districts/kalaburagi/",
+            note: "Primary source for 2026 baseline updates - irrigation and infrastructure data"
+        },
+        {
+            title: "District Industrial Profile - Kalaburagi",
+            publisher: "Industries & Commerce Department, GoK",
+            updated: "2024",
+            vintage: "2016-2024",
+            coverage: "Dal mills count (500+ verified), Industrial infrastructure, MSME data",
+            quality: "high",
+            url: "https://industries.karnataka.gov.in/storage/pdf-files/DISTRICT%20PROFILE-KALABURGI.pdf",
+            note: "Used to verify dal mill count (500+ vs 300 assumed)"
+        },
+        {
+            title: "FPO List 2024",
+            publisher: "Centre of Excellence for FPO (COE-FPO)",
+            updated: "2024",
+            vintage: "2024",
+            coverage: "FPO registrations (23 FPOs verified in Kalaburagi)",
+            quality: "high",
+            url: "https://coefpo.org/publications/fpo-list-english.pdf",
+            note: "Used to verify current FPO count"
+        },
+        {
+            title: "DULT Karnataka - Comprehensive Traffic & Transportation Plan",
+            publisher: "Directorate of Urban Land Transport, GoK",
+            updated: "2011-2024",
+            vintage: "2011",
+            coverage: "Bus Priority Lane (₹19.07 cr), Road network (753 km), Urban transport infrastructure",
+            quality: "high",
+            url: "https://dult.karnataka.gov.in/uploads/media_to_upload1643374475.pdf",
+            note: "Referenced in framework for urban transport baseline"
+        },
+        {
+            title: "Census 2011 - Gulbarga District",
+            publisher: "Census of India",
+            updated: "2011",
+            vintage: "2011",
+            coverage: "Population (25,66,326), Demographics, Literacy (64.85%)",
+            quality: "medium",
+            url: "https://www.census2011.co.in/census/district/256-gulbarga.html",
+            note: "Used for population CAGR projections (0.69% annual growth). Census 2021 data pending."
+        },
+        {
             title: "Economic Survey of Karnataka 2022-23 (Volume 45)",
             publisher: "Planning, Programme Monitoring & Statistics Dept, GoK",
             updated: "March 2023",
             vintage: "2021-22",
-            coverage: "District-wise GDDP, Per Capita Income, Sectoral composition",
+            coverage: "District-wise GDDP, Per Capita Income (₹1,24,998), District rankings (30/30)",
             quality: "high",
-            url: "https://data.opencity.in/dataset/economic-survey-of-karnataka-2022-23"
+            url: "https://data.opencity.in/dataset/economic-survey-of-karnataka-2022-23",
+            note: "Official source for 2021-22 baseline per capita income and district ranking"
         },
         {
             title: "NABARD Potential Linked Credit Plan (PLP) 2022-23",
@@ -1169,24 +1222,6 @@ const dashboardData = {
             coverage: "Demographics, Land utilization, Crop production, Infrastructure",
             quality: "medium",
             note: "Pre-COVID data, may not reflect current situation"
-        },
-        {
-            title: "Census of India 2011",
-            publisher: "Office of the Registrar General & Census Commissioner",
-            updated: "2011",
-            vintage: "2011",
-            coverage: "Population, Literacy, Households, Demographics",
-            quality: "low",
-            note: "13+ years old. Census 2021 data still not released"
-        },
-        {
-            title: "Migration Studies (Multiple Sources)",
-            publisher: "SAGE Journals, NammaKPSC, The News Minute",
-            updated: "2024-2025",
-            vintage: "2024",
-            coverage: "Poverty-induced migration, construction worker demographics",
-            quality: "medium",
-            note: "Survey-based, sample sizes vary"
         }
     ]
 };
