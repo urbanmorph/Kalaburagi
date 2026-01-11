@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeTabs();
     renderKPIs();
     renderIndustries();
+    renderAlerts();
     renderLiveData();
     updateLastUpdated();
     
@@ -100,6 +101,40 @@ function toggleAboutSection(sectionId) {
             });
         }, 100);
     }
+}
+
+// ============================================
+// Render Alerts
+// ============================================
+function renderAlerts() {
+    const alertsGrid = document.getElementById('alertsGrid');
+    if (!alertsGrid || !dashboardData.alerts) return;
+    
+    alertsGrid.innerHTML = dashboardData.alerts.map(alert => {
+        const severityClass = alert.severity === 'red' ? 'alert-red' : 'alert-yellow';
+        
+        return `
+            <div class="alert-card ${severityClass}">
+                <div class="alert-icon">${alert.icon}</div>
+                <div class="alert-content">
+                    <h3>${alert.title}</h3>
+                    <div class="alert-meta">
+                        ${Object.entries(alert.meta).map(([key, value]) => `
+                            <span>${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}</span>
+                        `).join('')}
+                    </div>
+                    <p>${alert.description}</p>
+                    ${alert.impact ? `<p class="alert-impact"><strong>Impact:</strong> ${alert.impact}</p>` : ''}
+                    <div class="alert-deadline"><strong>Deadline:</strong> ${alert.deadline}</div>
+                    <div class="alert-actions">
+                        ${alert.actions.map(action => `
+                            <button class="btn-${action.includes('Approve') || action.includes('Initiate') || action.includes('Release') || action.includes('Fund') || action.includes('Issue') || action.includes('Contact') ? 'primary' : 'secondary'}">${action}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
 }
 
 // ============================================

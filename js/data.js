@@ -1110,6 +1110,66 @@ const dashboardData = {
             id: 1,
             severity: "red",
             icon: "🔴",
+            title: "Garments & Textiles: Land Acquisition Deadline (Q1 2026)",
+            meta: {
+                priority: "HIGHEST",
+                funding: "₹390cr PM MITRA approved Dec 2024",
+                deadline: "March 31, 2026"
+            },
+            description: "Critical Q1 action: PM MITRA MoU signing + 200-acre land identification. Delay risks ₹390cr funding lapse.",
+            deadline: "This quarter (15 weeks remaining)",
+            impact: "26,000 jobs at risk",
+            actions: ["Initiate Land Search", "Schedule MoU Meeting", "View Full Plan"]
+        },
+        {
+            id: 2,
+            severity: "red",
+            icon: "🔴",
+            title: "Limestone & Cement: Geological Survey Overdue",
+            meta: {
+                priority: "HIGH",
+                timeline: "Mining leases take 24-36 months",
+                resource: "2.5-4 billion MT proven reserves"
+            },
+            description: "Q1 2026 deadline missed. Need ₹50L survey + 3-5 mining lease applications immediately. Regulatory delays will push revenue to 2028+.",
+            deadline: "Start this month",
+            impact: "12,000 jobs, 2-year delay risk",
+            actions: ["Release ₹50L Survey Fund", "Draft Lease Applications", "View Risks"]
+        },
+        {
+            id: 3,
+            severity: "yellow",
+            icon: "🟡",
+            title: "Aerospace Components: Quality Infrastructure Planning Required",
+            meta: {
+                priority: "MEDIUM-HIGH",
+                risk: "AS9100 certification (60% first-time fail rate)",
+                value: "Highest value/job: ₹30L"
+            },
+            description: "Q2 2026 action: AS9100 consultant RFP + OEM outreach. Aerospace has zero-tolerance quality (10-100 PPM). Must invest in triple-layer quality from Day 1.",
+            deadline: "Q2 2026 (June 30)",
+            impact: "12,000 high-skill jobs, ₹1,200cr revenue",
+            actions: ["Issue Consultant RFP", "Contact Hyderabad OEMs", "View Quality Plan"]
+        },
+        {
+            id: 4,
+            severity: "yellow",
+            icon: "🟡",
+            title: "Pharma Packaging: Market Validation Pending",
+            meta: {
+                priority: "MEDIUM-HIGH",
+                opportunity: "250km from Hyderabad Pharma City",
+                timeline: "24-30 months to revenue"
+            },
+            description: "Q1-Q2 2026 action: Market study ₹15L + MoUs with 2-3 Hyderabad pharma companies (Dr. Reddy's, Hetero, Aurobindo). Schedule M consultant hiring critical.",
+            deadline: "Q2 2026",
+            impact: "6,700 jobs, ₹900cr revenue by 2034",
+            actions: ["Fund Market Study", "Contact Pharma Companies", "View Schedule M Plan"]
+        },
+        {
+            id: 5,
+            severity: "red",
+            icon: "🔴",
             title: "Solar Pump Installation: 40% Behind Schedule",
             meta: {
                 current: "450/1,910 (24%)",
@@ -1120,7 +1180,7 @@ const dashboardData = {
             actions: ["View Details", "Escalate Issue"]
         },
         {
-            id: 2,
+            id: 6,
             severity: "red",
             icon: "🔴",
             title: "Dal Mill Funding Release Pending (₹8 cr)",
@@ -1133,7 +1193,7 @@ const dashboardData = {
             actions: ["Approve Now", "Request Info"]
         },
         {
-            id: 3,
+            id: 7,
             severity: "yellow",
             icon: "🟡",
             title: "FPO Formation: Behind Target",

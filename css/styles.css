@@ -2196,6 +2196,28 @@ a:hover {
     color: var(--gray-900);
 }
 
+/* Alert impact and deadline */
+.alert-impact {
+    margin-top: 0.75rem;
+    padding: 0.5rem;
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 3px solid var(--red-500);
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.alert-yellow .alert-impact {
+    background: rgba(245, 158, 11, 0.1);
+    border-left-color: var(--yellow-500);
+}
+
+.alert-deadline {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    font-weight: 600;
+}
+
 /* Stat notes for roadmap */
 .stat-note {
     font-size: 0.75rem;
