@@ -517,11 +517,317 @@ function toggleMobileMenu() {
 // ============================================
 // Plan Modal Functions
 // ============================================
-function showPlan(phase, componentIndex) {
-    const phaseData = dashboardData.roadmap.phases[phase];
-    const component = phaseData.components[componentIndex];
+
+// Get industry-specific plan components
+function getIndustryPlanComponents(industry, phase) {
+    const plans = {
+        'garments': {
+            'phase1': [
+                {
+                    name: 'Land Acquisition & MoU Signing',
+                    budget: '₹5.3 crore',
+                    timeline: 'Q1-Q2 2026 (CRITICAL: MoU by March 31)',
+                    responsibleDept: 'Industries + Revenue',
+                    tasks: [
+                        'Land search committee formation (Week 1-2)',
+                        'Identify 3 candidate sites - 300 acres each (Sedam/Afzalpur)',
+                        'Due diligence: Encumbrances, soil tests, water, power',
+                        'Revenue Dept issues acquisition notices',
+                        'PM MITRA MoU signing in New Delhi (CM + Union Minister)'
+                    ],
+                    target: '200 acres acquired, ₹50cr first tranche',
+                    impact: 'Unlock ₹390cr PM MITRA funding'
+                },
+                {
+                    name: 'Infrastructure Development',
+                    budget: '₹55 crore',
+                    timeline: 'Q3-Q4 2026',
+                    responsibleDept: 'KIADB + GESCOM',
+                    tasks: [
+                        'KIADB develops industrial plots (roads, drainage, boundary)',
+                        'GESCOM installs 11KV industrial feeder (₹5cr, 24×7 power)',
+                        '2 MLD water pipeline from nearest STP (₹3cr)',
+                        'Common facilities tender: ETP (₹15cr), worker hostels (₹10cr)',
+                        'SPV formation: PM MITRA Kalaburagi Textile Park Pvt Ltd'
+                    ],
+                    target: 'First 5 factory plots allocated',
+                    impact: 'Ready for private investment'
+                }
+            ],
+            'phase2': [
+                {
+                    name: 'Scale to 15 Factories',
+                    budget: '₹350 crore',
+                    timeline: '2029-2031',
+                    responsibleDept: 'Industries + Banks',
+                    tasks: [
+                        'Land expansion: 100 acres additional',
+                        '10 new factories (1,200 workers each = 12,000 jobs)',
+                        'Export setup: DPIIT registration, buyer meets Dubai',
+                        'Backward integration: 2 fabric processing units',
+                        'Quality certifications: ISO 9001, WRAP, Oeko-Tex'
+                    ],
+                    target: '15 factories operational, 18,000 jobs',
+                    impact: '₹600cr/year revenue, 40% exports'
+                }
+            ],
+            'phase3': [
+                {
+                    name: 'Full Scale 30 Factories',
+                    budget: '₹150 crore',
+                    timeline: '2032-2034',
+                    responsibleDept: 'Industries',
+                    tasks: [
+                        'Final 15 factories (faster execution from learning)',
+                        'Brand establishment: "Made in Kalaburagi" apparel',
+                        'Export expansion: Middle East 60%, EU 30%, USA 10%',
+                        'Ancillary industries: Packaging, logistics (2,000 jobs)'
+                    ],
+                    target: '30 factories, 26,000 total jobs',
+                    impact: '₹1,800cr/year revenue'
+                }
+            ]
+        },
+        'limestone': {
+            'phase1': [
+                {
+                    name: 'Geological Survey',
+                    budget: '₹50 lakh (OVERDUE)',
+                    timeline: 'THIS MONTH (Critical)',
+                    responsibleDept: 'Mines & Geology',
+                    tasks: [
+                        '⚠️ Release ₹50L survey fund IMMEDIATELY',
+                        'Empanel 2-3 CIMFR/CSIR/NIT-certified geologists',
+                        'Survey 5 sites simultaneously (Chincholi-3, Sedam-1, Chittapur-1)',
+                        'Parameters: Reserve estimation, grade analysis, overburden',
+                        'Output: 5 detailed geological reports (UNFC Code 111)'
+                    ],
+                    target: '5 geological reports within 3 months',
+                    impact: 'Unlock mining lease applications'
+                },
+                {
+                    name: 'Mining Lease Applications',
+                    budget: '₹40 lakh',
+                    timeline: 'Q3-Q4 2026',
+                    responsibleDept: 'Mines & Geology',
+                    tasks: [
+                        'Submit 5 parallel applications to Director of Mines',
+                        'Application package: Geological report, mining plan, EIA TOR',
+                        'Public hearing in affected villages (18-24 month process)',
+                        'SEIAA review and Ministry clearance',
+                        'First 3 mining leases approved'
+                    ],
+                    target: '5 applications submitted, 3 approvals by 2029',
+                    impact: 'Legal permission to mine 2.5-4 billion MT reserves'
+                }
+            ],
+            'phase2': [
+                {
+                    name: 'First 1,000 TPD Cement Plant',
+                    budget: '₹300 crore',
+                    timeline: '2029-2031',
+                    responsibleDept: 'Industries + Private',
+                    tasks: [
+                        'Technology: VSK or FBC (₹200cr for 1,000 TPD)',
+                        'Land: 50 acres (captive mining lease + factory)',
+                        'Power: 15 MW industrial feeder',
+                        'Products: OPC 43 grade, PPC',
+                        'Employment: 800 direct + 1,200 indirect'
+                    ],
+                    target: '1,000 TPD plant operational',
+                    impact: '₹350cr/year revenue, 2,000 jobs'
+                }
+            ],
+            'phase3': [
+                {
+                    name: 'Second 1,500 TPD Plant',
+                    budget: '₹100 crore',
+                    timeline: '2032-2034',
+                    responsibleDept: 'Industries',
+                    tasks: [
+                        'Location: Different taluk (Sedam or Chittapur)',
+                        'Total capacity: 3,000 TPD combined',
+                        'Market expansion: Hyderabad + North Karnataka',
+                        'Zero environmental violations (KSPCB green rating)'
+                    ],
+                    target: '3,000 TPD total capacity',
+                    impact: '₹750cr/year revenue, 12,000 jobs'
+                }
+            ]
+        },
+        'aerospace': {
+            'phase1': [
+                {
+                    name: 'Feasibility & Quality Infrastructure',
+                    budget: '₹55 lakh',
+                    timeline: 'Q1-Q2 2026',
+                    responsibleDept: 'Industries',
+                    tasks: [
+                        'Feasibility study: ₹25L (aerospace consultant - ex-HAL/Boeing)',
+                        'Market demand: Interview 10 OEMs (HAL, Tata, Boeing, Airbus)',
+                        'Product selection: Non-critical precision parts',
+                        '⚠️ CRITICAL: Hire AS9100 consultant (₹30L/year for 3 years)',
+                        'Consultant designs factory from Day 1 (cannot retrofit quality)'
+                    ],
+                    target: 'AS9100 consultant hired, OEM MoUs signed',
+                    impact: 'Quality foundation from start'
+                },
+                {
+                    name: 'Land & ITI Setup',
+                    budget: '₹7.5 crore',
+                    timeline: 'Q3-Q4 2026',
+                    responsibleDept: 'KIADB + Education',
+                    tasks: [
+                        'Land: 500 acres (KIADB Sedam Industrial Area)',
+                        'ITI curriculum: CNC machining, sheet metal, CMM operation',
+                        'Equipment: ₹7.5cr (5 CNC machines, 2 CMM, welding robots)',
+                        'First batch: 300 students × 2 years = 600 skilled by 2028',
+                        'OEM outreach: Hyderabad roadshow (5 companies)'
+                    ],
+                    target: '500 acres, ITI operational, 2-3 OEM MoUs',
+                    impact: 'Skilled workforce pipeline'
+                }
+            ],
+            'phase2': [
+                {
+                    name: '15 Factories + AS9100 Certification',
+                    budget: '₹350 crore',
+                    timeline: '2029-2031',
+                    responsibleDept: 'Industries + Private',
+                    tasks: [
+                        'Factory construction: 15 units × ₹15cr = ₹225cr',
+                        'Machinery: German/Israeli precision CNC, CMM, sheet metal',
+                        'AS9100 certification: 18-month preparation, mock audits',
+                        'Trial production: Aluminum brackets, SS fasteners',
+                        'Product diversification: CNC parts, sheet metal, surface treatment'
+                    ],
+                    target: '15 factories AS9100-certified',
+                    impact: '₹450cr/year revenue, 6,000 jobs'
+                }
+            ],
+            'phase3': [
+                {
+                    name: '30 Factories + R&D Center',
+                    budget: '₹300 crore',
+                    timeline: '2032-2034',
+                    responsibleDept: 'Industries + IIT',
+                    tasks: [
+                        'Final 15 factories (replication of proven model)',
+                        'R&D center: ₹40cr (IIT Hyderabad partnership)',
+                        'Focus: Design services (CAD modeling), metallurgy testing',
+                        'NADCAP certification: Heat treatment, surface finishing',
+                        'Direct supply to Boeing, Airbus (export 60%)'
+                    ],
+                    target: '30 factories, R&D center operational',
+                    impact: '₹1,200cr/year revenue, 12,000 jobs'
+                }
+            ]
+        },
+        'pharma': {
+            'phase1': [
+                {
+                    name: 'Market Study & MoUs',
+                    budget: '₹15 lakh',
+                    timeline: 'Q1-Q2 2026',
+                    responsibleDept: 'Industries',
+                    tasks: [
+                        'Market study: ₹15L (pharma packaging consultant)',
+                        'Demand forecast: Interview 10 Hyderabad pharma companies',
+                        'Product mix: Blister packs 40%, bottles 30%, cartons 20%',
+                        'DC delegation to Hyderabad (March 2026)',
+                        'Target: 2-3 MoUs (Dr. Reddy\'s ₹100cr, Hetero ₹80cr)'
+                    ],
+                    target: '2-3 signed MoUs, ₹150-200cr commitments',
+                    impact: 'Guaranteed demand from day one'
+                },
+                {
+                    name: 'Schedule M Consultant & Land',
+                    budget: '₹65 lakh',
+                    timeline: 'Q3-Q4 2026',
+                    responsibleDept: 'Industries + KIADB',
+                    tasks: [
+                        'Schedule M consultant: ₹30L/year (ex-CDSCO inspector)',
+                        'Consultant designs factory layout, SOPs, documentation',
+                        'Land: 200 acres (dedicated pharma zone)',
+                        'Infrastructure: Treated water (pharma grade), HEPA filtration',
+                        'Mock inspections every 3 months'
+                    ],
+                    target: '200 acres acquired, consultant hired',
+                    impact: 'GMP compliance from Day 1'
+                }
+            ],
+            'phase2': [
+                {
+                    name: '15 Factories + ISO 15378',
+                    budget: '₹325 crore',
+                    timeline: '2029-2031',
+                    responsibleDept: 'Industries + State Drug Controller',
+                    tasks: [
+                        'Factory construction: 15 units × ₹8cr = ₹120cr',
+                        'Machinery: Blister packing, bottle lines, printing/labeling',
+                        'Schedule M licensing: State Drug Controller inspections',
+                        'ISO 15378 certification: International pharma packaging std',
+                        'Product diversification: Specialty packs, cold chain'
+                    ],
+                    target: '15 factories Schedule M-licensed',
+                    impact: '₹450cr/year revenue, 3,000 jobs'
+                }
+            ],
+            'phase3': [
+                {
+                    name: '20 Factories + WHO-GMP',
+                    budget: '₹95 crore',
+                    timeline: '2032-2034',
+                    responsibleDept: 'Industries + Export Promotion',
+                    tasks: [
+                        'Final 5 factories (export-oriented packaging)',
+                        'WHO-GMP certification: UN procurement qualification',
+                        'Export focus: Africa 40%, Middle East 35%, CIS 25%',
+                        'Products: Antimalarials, ARVs (Africa), generic analgesics',
+                        'Enable ₹200+cr export contracts (GAVI, UNICEF, Global Fund)'
+                    ],
+                    target: '20 factories WHO-GMP certified',
+                    impact: '₹900cr/year revenue (30% exports), 6,700 jobs'
+                }
+            ]
+        }
+    };
     
-    if (!component.plan) {
+    return plans[industry] && plans[industry][phase] ? plans[industry][phase] : [];
+}
+
+// ============================================
+function showPlan(phase, componentOrIndustry) {
+    const phaseData = dashboardData.roadmap.phases[phase];
+    
+    // Handle industry-specific calls (new format)
+    const industryMap = {
+        'garments': 'Garments & Textiles Manufacturing',
+        'limestone': 'Limestone Mining & Cement Production',
+        'aerospace': 'Aerospace Components Manufacturing',
+        'pharma': 'Pharmaceutical Packaging'
+    };
+    
+    let component;
+    
+    // Check if this is an industry name (string)
+    if (typeof componentOrIndustry === 'string' && industryMap[componentOrIndustry]) {
+        // This is an industry call - create a placeholder plan
+        const industryName = industryMap[componentOrIndustry];
+        component = {
+            name: industryName,
+            plan: {
+                title: `${industryName} - ${phase.toUpperCase()} Detailed Plan`,
+                objective: `Implementation plan for ${industryName} in ${phase.toUpperCase()}`,
+                components: getIndustryPlanComponents(componentOrIndustry, phase)
+            }
+        };
+    } else {
+        // Legacy component index call
+        component = phaseData.components[componentOrIndustry];
+    }
+    
+    if (!component || !component.plan) {
         alert('Detailed plan not yet available for this component.');
         return;
     }
