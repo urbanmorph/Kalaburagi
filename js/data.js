@@ -53,8 +53,8 @@ const dashboardData = {
             title: "Non-Farm Jobs Created",
             current: "6,400-8,400 jobs",
             percentage: 8,
-            target: "100,000 jobs (2034)",
-            targetYear: "100,000 jobs",
+            target: "156,700 jobs (2034)",
+            targetYear: "156,700 jobs",
             gap: "91,600-93,600 remaining",
             status: "yellow",
             confidence: "medium",
@@ -188,10 +188,10 @@ const dashboardData = {
     
     // Roadmap data
     roadmap: {
-        totalInvestment: 17700,
+        totalInvestment: 20150,
         targetRank: "15/30",
         perCapitaGoal: 250000,
-        jobsToCreate: 100000,
+        jobsToCreate: 156700,
         
         phases: {
             phase1: {
