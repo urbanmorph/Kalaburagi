@@ -7,6 +7,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     initializeTabs();
     renderKPIs();
+    renderIndustries();
     renderLiveData();
     updateLastUpdated();
     
@@ -99,6 +100,96 @@ function toggleAboutSection(sectionId) {
             });
         }, 100);
     }
+}
+
+// ============================================
+// Render Industries Cards
+// ============================================
+function renderIndustries() {
+    const industriesGrid = document.getElementById('industriesGrid');
+    if (!industriesGrid || !dashboardData.alternateIndustries) return;
+    
+    const industries = dashboardData.alternateIndustries.industries;
+    
+    industriesGrid.innerHTML = industries.map(industry => {
+        // Determine current phase and progress
+        let currentPhase = 'Phase 1 (Planning)';
+        let progress = 5; // 5% for all in planning phase
+        let statusClass = 'status-yellow';
+        
+        // Calculate which phase we're in based on timeline
+        const now = new Date();
+        const year = now.getFullYear();
+        if (year >= 2029 && year < 2032) {
+            currentPhase = 'Phase 2 (Activation)';
+            progress = 15;
+        } else if (year >= 2032) {
+            currentPhase = 'Phase 3 (Scale)';
+            progress = 35;
+        }
+        
+        const priorityColors = {
+            'HIGHEST': '#16a34a',
+            'HIGH': '#2563eb',
+            'MEDIUM-HIGH': '#f59e0b'
+        };
+        
+        return `
+            <div class="industry-card" style="border-top: 4px solid ${priorityColors[industry.priority] || '#6b7280'};">
+                <div class="industry-header">
+                    <div>
+                        <div class="industry-name">${industry.name}</div>
+                        <div class="industry-meta">
+                            <span class="priority-badge" style="background: ${priorityColors[industry.priority] || '#6b7280'};">${industry.priority}</span>
+                            <span class="confidence-badge confidence-medium">${industry.confidence}% Confidence</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="industry-metrics">
+                    <div class="metric-small">
+                        <div class="metric-label">Investment</div>
+                        <div class="metric-value">₹${formatCrore(industry.totalInvestment)} cr</div>
+                    </div>
+                    <div class="metric-small">
+                        <div class="metric-label">Jobs</div>
+                        <div class="metric-value">${formatNumber(industry.jobs)}</div>
+                    </div>
+                    <div class="metric-small">
+                        <div class="metric-label">Revenue Target</div>
+                        <div class="metric-value">₹${formatCrore(industry.impact.annualRevenue)} cr/yr</div>
+                    </div>
+                </div>
+                
+                <div class="industry-progress">
+                    <div class="progress-label">
+                        <span>${currentPhase}</span>
+                        <span>${progress}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                </div>
+                
+                <div class="industry-timeline">
+                    <strong>Timeline:</strong> ${industry.timeline.revenueGeneration}
+                </div>
+                
+                <div class="industry-location">
+                    <strong>Location:</strong> ${industry.location.primary}
+                </div>
+                
+                ${industry.nextSteps && industry.nextSteps.length > 0 ? `
+                    <details style="margin-top: 1rem; font-size: 0.875rem;">
+                        <summary style="cursor: pointer; font-weight: 600; color: #2563eb;">Next Steps</summary>
+                        <ul style="margin: 0.5rem 0 0 1.5rem;">
+                            ${industry.nextSteps.slice(0, 3).map(step => `<li style="margin-bottom: 0.25rem;">${step}</li>`).join('')}
+                        </ul>
+                    </details>
+                ` : ''}
+            </div>
+        `;
+    }).join('');
 }
 
 // ============================================
@@ -643,6 +734,137 @@ function closePlanModal() {
     document.body.style.overflow = 'auto';
 }
 
+// ============================================
+// Show Industries Detail Modal
+// ============================================
+function showIndustriesDetail(phase) {
+    const modal = document.getElementById('planModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    
+    if (!dashboardData.alternateIndustries) {
+        modalBody.innerHTML = '<p>Industries data not available.</p>';
+        return;
+    }
+    
+    const industries = dashboardData.alternateIndustries;
+    
+    // Set title based on phase
+    const phaseNames = {
+        'phase1': 'Phase 1 (2026-2029)',
+        'phase2': 'Phase 2 (2029-2032)',
+        'phase3': 'Phase 3 (2032-2034)'
+    };
+    
+    modalTitle.textContent = `Alternate Industries - ${phaseNames[phase]}`;
+    
+    // Build HTML
+    let html = '';
+    
+    // Overview section
+    html += '<div class="plan-section">';
+    html += '<h3>📊 Industries Overview</h3>';
+    html += `<div class="plan-component-card">`;
+    html += `<p><strong>Total Investment:</strong> ₹${formatCrore(industries.overview.totalInvestment)} cr</p>`;
+    html += `<p><strong>Total Jobs:</strong> ${formatNumber(industries.overview.totalJobs)}</p>`;
+    html += `<p><strong>GDDP Contribution:</strong> ₹${formatCrore(industries.overview.gddpContribution)} cr (${industries.overview.percentOfTarget}% of target)</p>`;
+    html += `<p><strong>Status:</strong> ${industries.overview.status}</p>`;
+    html += '</div>';
+    html += '</div>';
+    
+    // Filter industries by phase investment
+    html += '<div class="plan-section">';
+    html += `<h3>🏭 Industries in ${phaseNames[phase]}</h3>`;
+    
+    industries.industries.forEach(industry => {
+        const phaseInvestment = industry.investmentBreakdown[phase];
+        
+        if (phaseInvestment && phaseInvestment.amount > 0) {
+            html += `<div class="plan-component-card" style="border-left: 4px solid #2563eb;">`;
+            
+            // Header
+            html += `<div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">`;
+            html += `<div>`;
+            html += `<h4 style="margin: 0 0 0.5rem 0;">${industry.name}</h4>`;
+            html += `<div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">`;
+            html += `<span class="confidence-badge confidence-${industry.priority.toLowerCase().replace(' ', '-')}" style="font-size: 0.75rem;">${industry.priority} Priority</span>`;
+            html += `<span class="confidence-badge confidence-medium" style="font-size: 0.75rem;">${industry.confidence}% Confidence</span>`;
+            html += `</div>`;
+            html += `</div>`;
+            html += `<div style="text-align: right;">`;
+            html += `<div style="font-size: 1.5rem; font-weight: 700; color: #2563eb;">₹${formatCrore(phaseInvestment.amount)} cr</div>`;
+            html += `<div style="font-size: 0.875rem; color: #6b7280;">${phaseInvestment.focus}</div>`;
+            html += `</div>`;
+            html += `</div>`;
+            
+            // Key Metrics
+            html += '<div class="plan-meta">';
+            html += `<div class="plan-meta-item">`;
+            html += `<div class="plan-meta-label">Total Investment</div>`;
+            html += `<div class="plan-meta-value">₹${formatCrore(industry.totalInvestment)} cr</div>`;
+            html += `</div>`;
+            html += `<div class="plan-meta-item">`;
+            html += `<div class="plan-meta-label">Jobs Created</div>`;
+            html += `<div class="plan-meta-value">${formatNumber(industry.jobs)} jobs</div>`;
+            html += `</div>`;
+            html += `<div class="plan-meta-item">`;
+            html += `<div class="plan-meta-label">Timeline</div>`;
+            html += `<div class="plan-meta-value">${industry.timeline.revenueGeneration}</div>`;
+            html += `</div>`;
+            html += '</div>';
+            
+            // Phase Activities
+            if (phaseInvestment.activities && phaseInvestment.activities.length > 0) {
+                html += '<div style="margin-top: 1rem;">';
+                html += `<strong style="color: #374151;">Phase Activities:</strong>`;
+                html += '<ul style="margin-top: 0.5rem; margin-left: 1.5rem;">';
+                phaseInvestment.activities.forEach(activity => {
+                    html += `<li style="margin-bottom: 0.25rem; color: #4b5563;">${activity}</li>`;
+                });
+                html += '</ul>';
+                html += '</div>';
+            }
+            
+            // Key Metrics for this industry
+            if (phase === 'phase1') {
+                html += '<div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">';
+                html += `<strong style="color: #374051;">Location:</strong> ${industry.location.primary}<br>`;
+                html += `<strong style="color: #374051;">Primary Products:</strong> ${industry.products.primary.join(', ')}`;
+                html += '</div>';
+            }
+            
+            html += '</div>';
+        }
+    });
+    
+    html += '</div>';
+    
+    // Recommendations for this phase
+    const phaseRecs = industries.recommendations.immediate.filter(r => r.includes(phase.replace('phase', 'Q')));
+    if (phaseRecs.length > 0 || (phase === 'phase2' && industries.recommendations.shortTerm.length > 0)) {
+        html += '<div class="plan-section">';
+        html += '<h3>💡 Recommendations</h3>';
+        html += '<ul style="margin-left: 1.5rem;">';
+        
+        if (phase === 'phase1') {
+            industries.recommendations.immediate.forEach(rec => {
+                html += `<li style="margin-bottom: 0.5rem; color: #4b5563;">${rec}</li>`;
+            });
+        } else if (phase === 'phase2') {
+            industries.recommendations.shortTerm.forEach(rec => {
+                html += `<li style="margin-bottom: 0.5rem; color: #4b5563;">${rec}</li>`;
+            });
+        }
+        
+        html += '</ul>';
+        html += '</div>';
+    }
+    
+    modalBody.innerHTML = html;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
 // Close modal when clicking outside
 document.addEventListener('click', function(e) {
     const modal = document.getElementById('planModal');
@@ -668,7 +890,8 @@ if (typeof module !== 'undefined' && module.exports) {
         formatNumber,
         getStatusColor,
         showPlan,
-        closePlanModal
+        closePlanModal,
+        showIndustriesDetail
     };
 }
 

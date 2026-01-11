@@ -63,11 +63,11 @@
                             <div class="stat-label">Target by 2034</div>
                         </div>
                         <div class="hero-stat">
-                            <div class="stat-number">₹17,700 Cr</div>
+                            <div class="stat-number">₹20,150 Cr</div>
                             <div class="stat-label">Investment</div>
                         </div>
                         <div class="hero-stat">
-                            <div class="stat-number">100,000</div>
+                            <div class="stat-number">156,700</div>
                             <div class="stat-label">New Jobs</div>
                         </div>
                     </div>
@@ -197,9 +197,9 @@
                     </div>
                     <div class="metric-card">
                         <div class="metric-label">Jobs Created</div>
-                        <div class="metric-value">Target: 100K</div>
+                        <div class="metric-value">Target: 156.7K</div>
                         <div class="metric-current">Current: 6.4-8.4K</div>
-                        <div class="metric-status status-yellow">8% Complete</div>
+                        <div class="metric-status status-yellow">5% Complete</div>
                     </div>
                     <div class="metric-card">
                         <div class="metric-label">Credit Flow</div>
@@ -306,6 +306,16 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </section>
+
+                <!-- Alternate Industries Progress -->
+                <section class="section">
+                    <h2 class="section-title">
+                        <span class="section-icon">🏭</span> Alternate Industries Progress
+                    </h2>
+                    <div class="industries-grid" id="industriesGrid">
+                        <!-- Industries will be populated by JavaScript -->
                     </div>
                 </section>
 
@@ -469,11 +479,12 @@
             <div class="tab-content" id="roadmap">
                 
                 <section class="section">
-                    <h2 class="section-title">8-Year Investment Roadmap (2022-2030)</h2>
+                    <h2 class="section-title">8-Year Investment Roadmap (2026-2034)</h2>
                     <div class="roadmap-overview">
                         <div class="roadmap-stat">
                             <div class="stat-label">Total Investment</div>
-                            <div class="stat-value">₹15,500 crore</div>
+                            <div class="stat-value">₹20,150 crore</div>
+                            <div class="stat-note">₹17,700cr core + ₹2,450cr industries</div>
                         </div>
                         <div class="roadmap-stat">
                             <div class="stat-label">Target Rank</div>
@@ -481,11 +492,13 @@
                         </div>
                         <div class="roadmap-stat">
                             <div class="stat-label">Per Capita Goal</div>
-                            <div class="stat-value">₹2.10 lakh</div>
+                            <div class="stat-value">₹2.50 lakh</div>
+                            <div class="stat-note">Updated for 2026 baseline</div>
                         </div>
                         <div class="roadmap-stat">
                             <div class="stat-label">Jobs to Create</div>
-                            <div class="stat-value">100,000</div>
+                            <div class="stat-value">156,700</div>
+                            <div class="stat-note">100K core + 56.7K industries</div>
                         </div>
                     </div>
                 </section>
@@ -496,8 +509,8 @@
                     
                     <div class="phase-detail">
                         <div class="phase-detail-header status-green">
-                            <h3>Phase 1: Foundation (Years 1-2) - ₹3,500 cr</h3>
-                            <span class="phase-status">80% Complete</span>
+                            <h3>Phase 1: Foundation (Years 1-3, 2026-2029) - ₹3,980 cr</h3>
+                            <span class="phase-status">30% Complete (Year 1 of 3)</span>
                         </div>
                         <div class="phase-detail-content">
                             <div class="component-list">
@@ -554,13 +567,36 @@
                                         <span class="progress-percent">65%</span>
                                     </div>
                                 </div>
+                                <div class="component-item">
+                                    <div class="component-header">
+                                        <div>
+                                            <div class="component-name">🏭 Alternate Industries (Phase 1 Investment)</div>
+                                            <div class="component-budget">₹480 cr</div>
+                                        </div>
+                                        <button class="btn-plan" onclick="showIndustriesDetail('phase1')">📋 View Industries</button>
+                                    </div>
+                                    <div class="component-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 5%"></div>
+                                        </div>
+                                        <span class="progress-percent">5% (Planning)</span>
+                                    </div>
+                                    <div class="component-details">
+                                        <ul>
+                                            <li>👔 Garments: ₹150cr (Land acquisition, first factories)</li>
+                                            <li>🏗️ Limestone: ₹100cr (Geological survey, mining leases)</li>
+                                            <li>✈️ Aerospace: ₹150cr (Feasibility, ITI setup, land)</li>
+                                            <li>💊 Pharma: ₹80cr (Market study, consultant, land)</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="phase-detail">
                         <div class="phase-detail-header status-yellow">
-                            <h3>Phase 2: Activation (Years 3-5) - ₹5,800 cr</h3>
+                            <h3>Phase 2: Activation (Years 4-6, 2029-2032) - ₹7,125 cr</h3>
                             <span class="phase-status">30% Complete</span>
                         </div>
                         <div class="phase-detail-content">
@@ -638,17 +674,65 @@
                                         <span class="progress-percent">20%</span>
                                     </div>
                                 </div>
+                                <div class="component-item">
+                                    <div class="component-header">
+                                        <div>
+                                            <div class="component-name">🏭 Alternate Industries (Phase 2 Investment)</div>
+                                            <div class="component-budget">₹1,325 cr</div>
+                                        </div>
+                                        <button class="btn-plan" onclick="showIndustriesDetail('phase2')">📋 View Industries</button>
+                                    </div>
+                                    <div class="component-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 0%"></div>
+                                        </div>
+                                        <span class="progress-percent">0% (Scheduled 2029)</span>
+                                    </div>
+                                    <div class="component-details">
+                                        <ul>
+                                            <li>👔 Garments: ₹350cr (Scale to 15 units, exports)</li>
+                                            <li>🏗️ Limestone: ₹300cr (First cement plant operational)</li>
+                                            <li>✈️ Aerospace: ₹350cr (Production, AS9100 certification)</li>
+                                            <li>💊 Pharma: ₹325cr (Scale to 15 factories, ISO 15378)</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="phase-detail">
                         <div class="phase-detail-header">
-                            <h3>Phase 3: Scale (Years 6-8) - ₹6,200 cr</h3>
+                            <h3>Phase 3: Scale (Years 7-8, 2032-2034) - ₹6,845 cr</h3>
                             <span class="phase-status">Not Started</span>
                         </div>
                         <div class="phase-detail-content">
-                            <p class="phase-description">Strategic industrial attraction, healthcare/education upgrades, and urban infrastructure development. Scheduled to begin in Year 6.</p>
+                            <p class="phase-description">Strategic industrial attraction, healthcare/education upgrades, and urban infrastructure development. Scheduled to begin in Year 7.</p>
+                            <div class="component-list">
+                                <div class="component-item">
+                                    <div class="component-header">
+                                        <div>
+                                            <div class="component-name">🏭 Alternate Industries (Phase 3 Investment)</div>
+                                            <div class="component-budget">₹645 cr</div>
+                                        </div>
+                                        <button class="btn-plan" onclick="showIndustriesDetail('phase3')">📋 View Industries</button>
+                                    </div>
+                                    <div class="component-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 0%"></div>
+                                        </div>
+                                        <span class="progress-percent">0% (Scheduled 2032)</span>
+                                    </div>
+                                    <div class="component-details">
+                                        <ul>
+                                            <li>👔 Garments: ₹150cr (Full 30 units, ₹1,800cr revenue)</li>
+                                            <li>🏗️ Limestone: ₹100cr (Second plant, 3,000 TPD capacity)</li>
+                                            <li>✈️ Aerospace: ₹300cr (30 factories, R&D center)</li>
+                                            <li>💊 Pharma: ₹95cr (20 factories, WHO-GMP, ₹900cr revenue)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -659,27 +743,27 @@
                     <div class="financing-grid">
                         <div class="financing-card">
                             <div class="financing-label">Central Schemes</div>
-                            <div class="financing-value">₹5,500 cr</div>
-                            <div class="financing-percent">35%</div>
-                            <div class="financing-detail">RIDF, PMKSY, PMFME, Smart Cities</div>
+                            <div class="financing-value">₹6,660 cr</div>
+                            <div class="financing-percent">33%</div>
+                            <div class="financing-detail">RIDF, PMKSY, PMFME, PM MITRA (₹390cr approved)</div>
                         </div>
                         <div class="financing-card">
                             <div class="financing-label">State Budget</div>
-                            <div class="financing-value">₹3,500 cr</div>
-                            <div class="financing-percent">23%</div>
-                            <div class="financing-detail">State schemes & budget allocation</div>
+                            <div class="financing-value">₹4,120 cr</div>
+                            <div class="financing-percent">20%</div>
+                            <div class="financing-detail">State schemes + Industrial subsidies</div>
                         </div>
                         <div class="financing-card">
                             <div class="financing-label">Bank Credit</div>
-                            <div class="financing-value">₹4,000 cr</div>
+                            <div class="financing-value">₹5,185 cr</div>
                             <div class="financing-percent">26%</div>
-                            <div class="financing-detail">Agriculture + MSME lending</div>
+                            <div class="financing-detail">Agriculture + MSME + Industry loans</div>
                         </div>
                         <div class="financing-card">
                             <div class="financing-label">Private Investment</div>
-                            <div class="financing-value">₹2,500 cr</div>
-                            <div class="financing-percent">16%</div>
-                            <div class="financing-detail">Industry + Processing units</div>
+                            <div class="financing-value">₹4,185 cr</div>
+                            <div class="financing-percent">21%</div>
+                            <div class="financing-detail">Processing + Manufacturing (₹1,685cr from industries)</div>
                         </div>
                     </div>
                 </section>
