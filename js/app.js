@@ -7,7 +7,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     initializeTabs();
     renderKPIs();
-    renderIndustries();
     renderAlerts();
     renderLiveData();
     updateLastUpdated();
