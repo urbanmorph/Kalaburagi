@@ -1226,8 +1226,555 @@
     font-weight: 500;
 }
 
+/* ============================================
+   Municipal Commissioner Dashboard
+   ============================================ */
+
+.municipal-commissioner-dashboard .dashboard-header {
+    margin-bottom: 2.5rem;
+}
+
+.municipal-commissioner-dashboard .dashboard-subtitle {
+    color: #64748b;
+    font-size: 1.05rem;
+    margin-top: 0.5rem;
+}
+
+.city-overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.city-stat-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.city-stat-card:hover {
+    border-color: #2563eb;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+    transform: translateY(-2px);
+}
+
+.city-stat-card .stat-icon {
+    font-size: 2.5rem;
+}
+
+.city-stat-card .stat-content {
+    flex: 1;
+}
+
+.city-stat-card .stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.2;
+}
+
+.city-stat-card .stat-label {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-top: 0.25rem;
+}
+
+.city-stat-card .stat-meta {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 0.25rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.service-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.service-card.alert-yellow {
+    border-color: #fbbf24;
+    background: linear-gradient(to bottom, #fffbeb 0%, white 50%);
+}
+
+.service-card.alert-green {
+    border-color: #10b981;
+    background: linear-gradient(to bottom, #ecfdf5 0%, white 50%);
+}
+
+.service-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.service-icon {
+    font-size: 1.8rem;
+}
+
+.service-header h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+}
+
+.service-progress {
+    margin-bottom: 1rem;
+}
+
+.service-progress .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+}
+
+.service-actions {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.service-actions .action-item {
+    font-size: 0.85rem;
+    color: #475569;
+    padding: 0.4rem 0;
+    line-height: 1.5;
+}
+
+.housing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.housing-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.housing-card.alert-red {
+    border-color: #ef4444;
+    background: linear-gradient(to bottom, #fef2f2 0%, white 50%);
+}
+
+.housing-card.alert-yellow {
+    border-color: #fbbf24;
+    background: linear-gradient(to bottom, #fffbeb 0%, white 50%);
+}
+
+.housing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.housing-header h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+}
+
+.housing-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.housing-status.status-yellow {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.housing-status.status-red {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.housing-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.housing-metric {
+    flex: 1;
+    text-align: center;
+}
+
+.housing-metric .metric-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+}
+
+.housing-metric .metric-value {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.housing-metric.alert-red .metric-value {
+    color: #ef4444;
+}
+
+.housing-note {
+    font-size: 0.9rem;
+    color: #475569;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin: 1rem 0;
+    line-height: 1.6;
+}
+
+.housing-actions {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.housing-actions .action-urgent {
+    font-size: 0.85rem;
+    color: #991b1b;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background: #fef2f2;
+    border-left: 3px solid #ef4444;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.housing-actions .action-item {
+    font-size: 0.85rem;
+    color: #475569;
+    padding: 0.4rem 0;
+    line-height: 1.5;
+}
+
+.industrial-support-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.support-header {
+    margin-bottom: 1.5rem;
+}
+
+.support-header h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 0.5rem 0;
+}
+
+.support-header p {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.support-grid {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.support-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 3px solid #2563eb;
+}
+
+.support-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.support-content {
+    flex: 1;
+}
+
+.support-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.4rem;
+}
+
+.support-detail {
+    font-size: 0.9rem;
+    color: #475569;
+    margin-bottom: 0.4rem;
+}
+
+.support-action {
+    font-size: 0.85rem;
+    color: #2563eb;
+    font-weight: 500;
+}
+
+.support-summary {
+    padding: 1.5rem;
+    background: #eff6ff;
+    border-radius: 8px;
+    border: 1px solid #bfdbfe;
+}
+
+.support-summary strong {
+    color: #1e40af;
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.support-summary ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.support-summary li {
+    color: #475569;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+}
+
+.finance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.finance-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.finance-card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 1.25rem 0;
+}
+
+.revenue-list,
+.allocation-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.revenue-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.revenue-source {
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.revenue-amount {
+    color: #059669;
+    font-weight: 600;
+}
+
+.revenue-efficiency {
+    color: #64748b;
+}
+
+.revenue-total {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid #2563eb;
+    text-align: center;
+    color: #1e293b;
+    font-size: 1rem;
+}
+
+.allocation-bar {
+    margin-bottom: 0.75rem;
+}
+
+.allocation-label {
+    font-size: 0.9rem;
+    color: #1e293b;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+}
+
+.allocation-progress {
+    height: 24px;
+    background: #f1f5f9;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.25rem;
+}
+
+.allocation-fill {
+    height: 100%;
+    transition: width 0.5s ease;
+}
+
+.allocation-value {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.actions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.action-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-left-width: 4px;
+    border-radius: 8px;
+}
+
+.action-card.urgent {
+    border-left-color: #ef4444;
+    background: linear-gradient(to right, #fef2f2 0%, white 20%);
+}
+
+.action-card.high {
+    border-left-color: #f59e0b;
+    background: linear-gradient(to right, #fffbeb 0%, white 20%);
+}
+
+.action-card.medium {
+    border-left-color: #3b82f6;
+    background: linear-gradient(to right, #eff6ff 0%, white 20%);
+}
+
+.action-priority {
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    align-self: flex-start;
+    white-space: nowrap;
+}
+
+.action-card.urgent .action-priority {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.action-card.high .action-priority {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.action-card.medium .action-priority {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.action-content {
+    flex: 1;
+}
+
+.action-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.action-desc {
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.action-owner {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-style: italic;
+}
+
+.dashboard-footer {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.dashboard-footer p {
+    font-size: 0.85rem;
+    color: #475569;
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
 @media (max-width: 768px) {
     .investment-breakdown {
         grid-template-columns: 1fr;
+    }
+
+    .city-overview-grid,
+    .services-grid,
+    .housing-grid,
+    .finance-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .housing-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .revenue-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
     }
 }
