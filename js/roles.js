@@ -39,14 +39,14 @@ const roleConfigs = {
         id: 'sp',
         name: 'Superintendent of Police',
         icon: '👮',
-        description: 'Security, law & order, and industrial workforce monitoring',
-        tabs: ['command', 'baseline'],
+        description: 'Law & order for 40K migrant workers, industrial security, crime prevention in industrial areas',
+        tabs: ['command', 'baseline', 'roadmap'],
         kpis: ['jobs'],
         alerts: [1, 2],
         roadmap: ['phase1', 'phase2'],
         industries: ['all'],
         showLiveData: false,
-        customDashboard: null
+        customDashboard: 'sp-security'
     },
 
     // Tier 2: Infrastructure & Planning
@@ -167,14 +167,14 @@ const roleConfigs = {
         id: 'health',
         name: 'Health Department',
         icon: '🏥',
-        description: 'Health infrastructure, occupational health, worker welfare',
-        tabs: ['command'],
+        description: 'Occupational health for 156K jobs, industrial worker clinics, PHCs near industrial areas',
+        tabs: ['command', 'roadmap'],
         kpis: ['jobs'],
         alerts: [],
-        roadmap: [],
-        industries: [],
+        roadmap: ['phase1', 'phase2'],
+        industries: ['all'],
         showLiveData: false,
-        customDashboard: null
+        customDashboard: 'health-occupational'
     },
 
     'agriculture': {
@@ -224,14 +224,14 @@ const roleConfigs = {
         id: 'labour',
         name: 'Labour Officer',
         icon: '👷',
-        description: 'Factory registrations, safety compliance, worker welfare',
-        tabs: ['command'],
+        description: 'Factory safety for 156K jobs, compliance inspections, worker welfare, dispute resolution',
+        tabs: ['command', 'roadmap'],
         kpis: ['jobs'],
         alerts: [3],
         roadmap: ['all'],
         industries: ['all'],
         showLiveData: false,
-        customDashboard: null
+        customDashboard: 'labour-safety'
     },
 
     // Tier 5: Consolidated View
@@ -353,6 +353,12 @@ function renderCustomDashboard(roleId, data) {
             return renderTPODashboard(data);
         case 'khb-housing':
             return renderKHBHousingDashboard(data);
+        case 'sp-security':
+            return renderSPDashboard(data);
+        case 'health-occupational':
+            return renderHealthDashboard(data);
+        case 'labour-safety':
+            return renderLabourDashboard(data);
         default:
             return '';
     }
@@ -2514,6 +2520,366 @@ function renderKHBHousingDashboard(data) {
             <div class="dashboard-footer">
                 <p><strong>Data Sources:</strong> KHB Records, PMAY Portal, Framework v2.0, Karnataka Affordable Housing Policy 2016</p>
                 <p><strong>Role Context:</strong> As KHB Officer, you are responsible for preventing a humanitarian crisis. 40,000 workers without proper housing = slums, disease, crime, industrial failure. Your worker housing program (₹645.5 cr) is NOT optional - it's ESSENTIAL for Framework v2.0 success. Start land acquisition and DPRs immediately.</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Superintendent of Police - Industrial Security Dashboard
+ */
+function renderSPDashboard(data) {
+    const migrantWorkers = 40000; // by 2030
+    const currentPoliceStrength = 2800; // district police force
+    const industrialPoliceNeeded = 150; // for 4 clusters
+    const policeStationsCurrent = 42;
+
+    return `
+        <div class="custom-dashboard sp-dashboard">
+            <div class="dashboard-header">
+                <h2>👮 Superintendent of Police - Industrial Security & Law Order Dashboard</h2>
+                <p class="dashboard-subtitle">Managing 40K migrant workers | Industrial area security | Crime prevention for 156K jobs</p>
+            </div>
+
+            <div class="alert-section">
+                <div class="alert-banner alert-yellow">
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-content">
+                        <h3>Law & Order Challenge: 40,000 Migrant Workers by 2030</h3>
+                        <p><strong>Framework Reality:</strong> 156,700 jobs → ~40,000 migrant workers from other districts/states</p>
+                        <p><strong>Security Risks:</strong> Worker housing clusters (8,000 beds), industrial area security, labor disputes, social tensions, crime prevention</p>
+                        <p><strong>Current Capacity:</strong> ${currentPoliceStrength} district police | Need ${industrialPoliceNeeded} dedicated industrial security personnel</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Industrial Area Security Requirements</h3>
+                <div class="security-grid">
+                    <div class="security-card">
+                        <h4>👔 PM MITRA Textile Park (26K workers, 3K hostel beds)</h4>
+                        <div class="security-needs">
+                            <strong>Security Needs:</strong>
+                            <ul>
+                                <li>Dedicated police station within 5 km radius</li>
+                                <li>30 personnel (3 shifts x 10 officers)</li>
+                                <li>Women's safety: Special patrols for women's hostels (2,100 beds)</li>
+                                <li>CCTV integration: Factory + hostel premises</li>
+                                <li>Emergency response: <15 min response time</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="security-card">
+                        <h4>✈️ Aerospace Cluster (12K workers)</h4>
+                        <div class="security-needs">
+                            <strong>Security Needs:</strong>
+                            <ul>
+                                <li>High-security protocols (defense applications possible)</li>
+                                <li>20 personnel trained in industrial security</li>
+                                <li>Access control coordination with companies</li>
+                                <li>Theft prevention: High-value components</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="security-card">
+                        <h4>🏗️ Worker Housing Zones (3 zones, 7.75K beds)</h4>
+                        <div class="security-needs">
+                            <strong>Security Needs:</strong>
+                            <ul>
+                                <li>Beat constables: 1 per 1,000 workers</li>
+                                <li>Night patrols: Alcohol control, conflict resolution</li>
+                                <li>Women's safety: Special focus (40% workforce female)</li>
+                                <li>Community policing: Migrant worker liaison officers</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">⚡ Priority Actions</h3>
+                <div class="actions-list">
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Establish Industrial Security Force (150 personnel)</div>
+                            <div class="action-desc">Recruit & train 150 dedicated industrial police by 2028. State Industrial Security Force model. Budget: ₹25 cr (training, vehicles, infrastructure).</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">2 New Police Stations Near Industrial Areas</div>
+                            <div class="action-desc">Near PM MITRA Park (Sedam) & Aerospace Cluster. Response time <15 min. Construction: ₹8 cr (2 stations).</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card medium">
+                        <div class="action-priority">MEDIUM</div>
+                        <div class="action-content">
+                            <div class="action-title">Migrant Worker Registration System</div>
+                            <div class="action-desc">Digital database of all migrant workers (name, origin, employer, hostel). Track movements, prevent crime, respond to emergencies.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-footer">
+                <p><strong>Role Context:</strong> As SP, industrial expansion brings law & order challenges. 40K migrant workers = potential for crime, labor disputes, social tensions. Proactive policing (dedicated force, new stations, registration system) prevents these issues. Industrial security is district security.</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Health Department - Occupational Health Dashboard
+ */
+function renderHealthDashboard(data) {
+    const totalJobs = 156700;
+    const industrialWorkers = 80000; // subset needing occupational health
+    const currentPHCs = 85; // district primary health centers
+    const industrialPHCsNeeded = 3;
+
+    return `
+        <div class="custom-dashboard health-dashboard">
+            <div class="dashboard-header">
+                <h2>🏥 Health Department - Occupational Health Dashboard</h2>
+                <p class="dashboard-subtitle">Industrial worker health for 156K jobs | Occupational disease prevention | PHCs near industrial areas</p>
+            </div>
+
+            <div class="alert-section">
+                <div class="alert-banner alert-yellow">
+                    <div class="alert-icon">🏥</div>
+                    <div class="alert-content">
+                        <h3>Occupational Health Challenge: 80,000 Industrial Workers</h3>
+                        <p><strong>Framework Reality:</strong> 156,700 jobs → ~80,000 in factories (garments, aerospace, pharma, cement)</p>
+                        <p><strong>Health Risks:</strong> Factory accidents, chemical exposure (pharma), silicosis (limestone mining), repetitive strain (garments), long work hours</p>
+                        <p><strong>Current Capacity:</strong> ${currentPHCs} PHCs district-wide | ZERO dedicated industrial worker clinics | Need ${industrialPHCsNeeded} new PHCs near industrial areas</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Industry-Specific Occupational Health Needs</h3>
+                <div class="health-needs-grid">
+                    <div class="health-card">
+                        <h4>👔 Garments (26K workers, 70% women)</h4>
+                        <ul>
+                            <li>Repetitive strain injuries (sewing, sitting 8-10 hours)</li>
+                            <li>Eye strain (poor lighting, precision work)</li>
+                            <li>Women's health: Menstrual hygiene, reproductive health</li>
+                            <li>Mental health: Migrant worker stress, homesickness</li>
+                        </ul>
+                        <div class="health-solution"><strong>Solution:</strong> On-site clinic in textile park (1 doctor, 2 nurses) | Physiotherapy services | Women's health counselor</div>
+                    </div>
+
+                    <div class="health-card alert-red">
+                        <h4>🏗️ Limestone Mining (12K workers)</h4>
+                        <ul>
+                            <li><strong>Silicosis risk:</strong> Lung disease from limestone dust (chronic, fatal)</li>
+                            <li>Hearing loss (blasting, crushing machinery)</li>
+                            <li>Accidents (mining operations, heavy machinery)</li>
+                            <li>Heat stress (outdoor work, Kalaburagi temperatures)</li>
+                        </ul>
+                        <div class="health-solution alert-red"><strong>CRITICAL:</strong> Mandatory 6-month health screenings (chest X-ray, spirometry) | Dust masks enforcement | PHC 10 km from mining site</div>
+                    </div>
+
+                    <div class="health-card">
+                        <h4>💊 Pharma Packaging (6.7K workers)</h4>
+                        <ul>
+                            <li>Chemical exposure (solvents, cleaning agents)</li>
+                            <li>Eye/skin irritation</li>
+                            <li>Allergic reactions</li>
+                            <li>Clean room stress (restricted environment)</li>
+                        </ul>
+                        <div class="health-solution"><strong>Solution:</strong> Annual chemical exposure testing | Dermatology services | Emergency protocols for chemical accidents</div>
+                    </div>
+
+                    <div class="health-card">
+                        <h4>✈️ Aerospace (12K workers)</h4>
+                        <ul>
+                            <li>Metal dust/fumes exposure</li>
+                            <li>Precision work stress (zero-defect pressure)</li>
+                            <li>Shift work fatigue (24x7 operations)</li>
+                        </ul>
+                        <div class="health-solution"><strong>Solution:</strong> Respiratory health monitoring | Mental health support (high-pressure environment)</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">⚡ Priority Actions</h3>
+                <div class="actions-list">
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">3 New PHCs Near Industrial Areas</div>
+                            <div class="action-desc">1 near PM MITRA, 1 near Sedam cluster, 1 near limestone belt. Budget: ₹15 cr (construction + equipment). Staff: 3 doctors, 9 nurses, lab technicians.</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Occupational Health Screening Protocol</div>
+                            <div class="action-desc">Mandatory pre-employment + 6-month screenings for all industrial workers. Coordinate with Labour Dept for enforcement. Database of worker health records.</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Silicosis Prevention Program (Limestone Workers)</div>
+                            <div class="action-desc">Most critical: Chronic lung disease affects 20-30% of limestone workers after 5-10 years exposure. Dust mask distribution + enforcement + health camps every 6 months.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-footer">
+                <p><strong>Role Context:</strong> As Health Officer, industrial expansion = occupational health crisis if unprepared. Silicosis, chemical exposure, workplace accidents → workers disabled, productivity loss, litigation. 3 new PHCs + screening protocols prevent this. Industrial health IS district health.</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Labour Officer - Factory Safety Dashboard
+ */
+function renderLabourDashboard(data) {
+    const totalJobs = 156700;
+    const factoriesExpected = 450; // new factories by 2034
+    const currentLabourInspectors = 8;
+    const inspectorsNeeded = 25;
+
+    return `
+        <div class="custom-dashboard labour-dashboard">
+            <div class="dashboard-header">
+                <h2>👷 Labour Officer - Factory Safety & Compliance Dashboard</h2>
+                <p class="dashboard-subtitle">156,700 jobs compliance | 450 new factories by 2034 | Worker safety inspections</p>
+            </div>
+
+            <div class="alert-section">
+                <div class="alert-banner alert-red">
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-content">
+                        <h3>Compliance Crisis: 450 New Factories, 8 Inspectors</h3>
+                        <p><strong>Framework Reality:</strong> 156,700 jobs → ~450 new factories (garments 30, aerospace 30, pharma 20, cement 5, others 365)</p>
+                        <p><strong>Current Capacity:</strong> Only ${currentLabourInspectors} labour inspectors for entire district | Need ${inspectorsNeeded} inspectors (1 per 18 factories)</p>
+                        <p><strong>Risk:</strong> Without inspections → workplace accidents, illegal working hours, child labor, wage theft → Worker exploitation, Framework v2.0 reputation damage</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Factory Registration & Compliance</h3>
+                <div class="compliance-stats">
+                    <div class="compliance-card">
+                        <div class="stat-big">450</div>
+                        <div class="stat-label">New Factories Expected (2026-2034)</div>
+                        <div class="stat-detail">30 garments | 30 aerospace | 20 pharma | 5 cement | 365 MSME/other</div>
+                    </div>
+                    <div class="compliance-card alert-yellow">
+                        <div class="stat-big">8 → 25</div>
+                        <div class="stat-label">Inspectors Needed</div>
+                        <div class="stat-detail">Currently 8 | Need 25 by 2028 (1 per 18 factories)</div>
+                    </div>
+                    <div class="compliance-card">
+                        <div class="stat-big">156.7K</div>
+                        <div class="stat-label">Worker Registrations</div>
+                        <div class="stat-detail">ESIC, PF, minimum wage compliance</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Industry-Specific Compliance Challenges</h3>
+                <div class="compliance-industry-grid">
+                    <div class="compliance-industry-card">
+                        <h4>👔 Garments (26K workers, 70% women)</h4>
+                        <div class="compliance-issues">
+                            <strong>Key Risks:</strong>
+                            <ul>
+                                <li>Excessive working hours (12-14 hr shifts during peak season)</li>
+                                <li>Below minimum wage (₹8,000 vs mandated ₹10,500)</li>
+                                <li>No maternity benefits (female workers)</li>
+                                <li>Unsafe fire exits (overcrowded factories)</li>
+                            </ul>
+                        </div>
+                        <div class="compliance-action"><strong>Action:</strong> Quarterly inspections | Fire safety audits | Wage payment digitization (prevent underpayment)</div>
+                    </div>
+
+                    <div class="compliance-industry-card alert-red">
+                        <h4>🏗️ Limestone Mining (12K workers)</h4>
+                        <div class="compliance-issues">
+                            <strong>CRITICAL Risks:</strong>
+                            <ul>
+                                <li>Mining accidents (blasting, cave-ins, machinery)</li>
+                                <li>No safety equipment (helmets, boots, dust masks often skipped)</li>
+                                <li>Contractor exploitation (informal workers, no ESI/PF)</li>
+                                <li>Silicosis = occupational disease (chronic, no compensation)</li>
+                            </ul>
+                        </div>
+                        <div class="compliance-action alert-red"><strong>URGENT:</strong> Monthly safety inspections | Mandatory safety equipment | Workers compensation insurance | Coordinate with Mines Dept</div>
+                    </div>
+
+                    <div class="compliance-industry-card">
+                        <h4>💊 Pharma & ✈️ Aerospace (18.7K skilled workers)</h4>
+                        <div class="compliance-issues">
+                            <strong>Key Risks:</strong>
+                            <ul>
+                                <li>Shift work violations (max 48 hr/week, rest periods)</li>
+                                <li>Chemical safety protocols (pharma)</li>
+                                <li>Skill certification verification (aerospace quality)</li>
+                            </ul>
+                        </div>
+                        <div class="compliance-action"><strong>Action:</strong> Shift register audits | Chemical safety training verification | Grievance redressal systems</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">⚡ Priority Actions</h3>
+                <div class="actions-list">
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Recruit 17 Additional Labour Inspectors</div>
+                            <div class="action-desc">8 → 25 inspectors by 2028. Training in factory safety, labor laws, digital compliance tracking. Budget: ₹5 cr/year (salaries + vehicles + equipment).</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Digital Factory Registration & Inspection System</div>
+                            <div class="action-desc">Online factory registration | Digital inspection reports | Compliance dashboard (track violations) | Mobile app for surprise inspections. Reduces corruption, increases efficiency.</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Mining Safety Protocol (Limestone)</div>
+                            <div class="action-desc">Most dangerous industry: Monthly inspections, safety equipment enforcement, workers' compensation insurance mandatory. Coordinate with Mines Dept + Health Dept (silicosis).</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Worker Grievance Redressal Cells</div>
+                            <div class="action-desc">1 cell per industrial area. Workers can report wage theft, safety violations, harassment (especially women workers). Toll-free helpline. Fast resolution (30 days).</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-footer">
+                <p><strong>Role Context:</strong> As Labour Officer, you are the LAST LINE OF DEFENSE for worker rights. Framework v2.0 creates 156K jobs - but if workers are exploited (low wages, unsafe conditions, no benefits), it's a FAILURE. Your inspections, compliance enforcement, and grievance redressal determine if these are GOOD jobs or EXPLOITATION. Reputation matters - companies won't invest if Kalaburagi known for labor violations.</p>
             </div>
         </div>
     `;
