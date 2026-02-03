@@ -15,6 +15,15 @@ This dashboard provides:
 
 ## 📊 Features
 
+### Role-Based Dashboard Views (NEW!)
+Access customized views for different government actors via URL parameters:
+- **15 actor-specific dashboards** - District Collector, KIADB, Agriculture, PWD, etc.
+- **Filtered data** - Only relevant KPIs, alerts, and roadmap phases
+- **Custom sections** - Role-specific executive summaries and action dashboards
+- **Easy sharing** - Share dashboard links like `index.html?role=dc`
+
+See [Role-Based Access](#-role-based-dashboard-views) section below for complete list.
+
 ### Command Center
 - Live metrics banner with 4 key indicators
 - Phase-wise progress tracking (Foundation → Activation → Scale)
@@ -28,7 +37,7 @@ This dashboard provides:
 - Demographics and migration analysis
 
 ### Development Roadmap
-- 8-year investment plan (₹15,500 crore)
+- 8-year investment plan (₹20,150 crore)
 - Phase-wise breakdown with components
 - Financing architecture (Central, State, Banks, Private)
 - Progress tracking per component
@@ -68,17 +77,72 @@ git push origin main
    - URL: `https://[your-username].github.io/Kalaburagi/`
    - It will be live in 2-3 minutes
 
+## 🎭 Role-Based Dashboard Views
+
+Access customized dashboards for different government actors by adding `?role=` parameter to the URL:
+
+### Tier 1: Executive & Law Enforcement
+
+| Role | URL | Features |
+|------|-----|----------|
+| 👔 **District Collector** | `index.html?role=dc` | Executive summary, all departments, quick actions |
+| 👮 **Superintendent of Police** | `index.html?role=sp` | Security, workforce monitoring, industrial safety |
+
+### Tier 2: Infrastructure & Planning
+
+| Role | URL | Features |
+|------|-----|----------|
+| 🏗️ **Town Planning Officer** | `index.html?role=tpo` | Urban planning, zoning, building approvals |
+| 🏘️ **Karnataka Housing Board** | `index.html?role=khb` | PMAY progress, worker hostels, housing gap analysis |
+| 📚 **Block Education Officer** | `index.html?role=beo` | School infrastructure, skill development |
+
+### Tier 3: Development Departments
+
+| Role | URL | Features |
+|------|-----|----------|
+| 🛣️ **PWD Engineer** | `index.html?role=pwd` | Road connectivity tracker, block-wise breakdown |
+| 🏭 **KIADB Officer** | `index.html?role=kiadb` | Land allocation table, infrastructure readiness |
+| 💧 **Water Resources Officer** | `index.html?role=water` | Irrigation coverage, dam levels, water allocation |
+| ⚡ **GESCOM Officer** | `index.html?role=gescom` | Power distribution, industrial feeders |
+| 🏥 **Health Department** | `index.html?role=health` | Health infrastructure, occupational health |
+| 🌾 **Agriculture Officer** | `index.html?role=agriculture` | Crop irrigation dashboard, FPO tracker, dal mills |
+
+### Tier 4: Regulatory & Support
+
+| Role | URL | Features |
+|------|-----|----------|
+| 🌲 **Forest Officer** | `index.html?role=forest` | Forest clearances, afforestation |
+| 📋 **Revenue Officer** | `index.html?role=revenue` | Land acquisition, conversions, mutations |
+| 👷 **Labour Officer** | `index.html?role=labour` | Factory compliance, worker welfare |
+
+### Tier 5: Consolidated View
+
+| Role | URL | Features |
+|------|-----|----------|
+| 🏛️ **Minister's Dashboard** | `index.html?role=minister` | High-level consolidated view, scheme tracker |
+
+### How to Use
+
+1. **Direct Access**: Navigate to `index.html?role=agriculture` in your browser
+2. **Role Switcher**: Use the dropdown in the header to switch between roles
+3. **Share Links**: Copy and share role-specific URLs with team members
+4. **Default View**: Access `index.html` without parameters for full dashboard
+
 ## 📁 Project Structure
 
 ```
 Kalaburagi/
-├── index.html          # Main dashboard page
+├── index.html              # Main dashboard page
 ├── css/
-│   └── styles.css      # All styling and responsive design
+│   ├── styles.css          # Core styling and responsive design
+│   └── roles.css           # Role-specific UI components
 ├── js/
-│   ├── data.js         # All dashboard data (sourced from official docs)
-│   └── app.js          # Interactive functionality
-└── README.md           # This file
+│   ├── data.js             # All dashboard data (sourced from official docs)
+│   ├── live-data.js        # Live market & weather data
+│   ├── roles.js            # Role configurations and data filtering
+│   ├── role-router.js      # URL-based role detection and routing
+│   └── app.js              # Interactive functionality
+└── README.md               # This file
 ```
 
 ## 📱 Responsive Design
@@ -116,10 +180,27 @@ Complete source documentation available in the "Data Sources" tab.
 - **No build tools**: Works directly in browser
 - **Hosting**: GitHub Pages (free)
 
-## 📈 Future Enhancements (Phase 2)
+## 📈 Recent Updates
+
+### Version 2.0 - Role-Based Dashboards (February 2026)
+- ✅ 15 actor-specific dashboard views
+- ✅ URL parameter-based role switching
+- ✅ Custom executive summaries (DC, KIADB, Agriculture, PWD, KHB, Minister)
+- ✅ Filtered KPIs, alerts, and roadmap phases per role
+- ✅ Role switcher dropdown in header
+- ✅ Mobile-responsive role-specific components
+
+### Version 1.0 - MVP (January 2026)
+- ✅ Command Center with live metrics
+- ✅ Baseline data and district rankings
+- ✅ 8-year development roadmap
+- ✅ Complete data source documentation
+- ✅ Mobile-first responsive design
+
+## 📈 Future Enhancements (Phase 3)
 
 - [ ] Real-time data integration via APIs
-- [ ] User authentication for role-based views
+- [ ] User authentication for secure role-based access
 - [ ] Mobile app (PWA)
 - [ ] Offline capability
 - [ ] WhatsApp alert integration

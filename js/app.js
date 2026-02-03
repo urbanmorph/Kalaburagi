@@ -5,12 +5,21 @@
 
 // Initialize dashboard on page load
 document.addEventListener('DOMContentLoaded', function() {
-    initializeTabs();
-    renderKPIs();
-    renderAlerts();
-    renderLiveData();
-    updateLastUpdated();
-    
+    // Check if role-based view is requested
+    const currentRole = typeof getCurrentRole === 'function' ? getCurrentRole() : 'default';
+
+    if (currentRole !== 'default') {
+        // Role-specific initialization
+        initializeRoleView(currentRole);
+    } else {
+        // Default dashboard initialization
+        initializeTabs();
+        renderKPIs();
+        renderAlerts();
+        renderLiveData();
+        updateLastUpdated();
+    }
+
     // Add smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -105,11 +114,12 @@ function toggleAboutSection(sectionId) {
 // ============================================
 // Render Alerts
 // ============================================
-function renderAlerts() {
+function renderAlerts(filteredAlerts) {
     const alertsGrid = document.getElementById('alertsGrid');
-    if (!alertsGrid || !dashboardData.alerts) return;
-    
-    alertsGrid.innerHTML = dashboardData.alerts.map(alert => {
+    const alerts = filteredAlerts || dashboardData.alerts;
+    if (!alertsGrid || !alerts) return;
+
+    alertsGrid.innerHTML = alerts.map(alert => {
         const severityClass = alert.severity === 'red' ? 'alert-red' : 'alert-yellow';
         
         return `
@@ -229,11 +239,12 @@ function renderIndustries() {
 // ============================================
 // Render KPI Cards
 // ============================================
-function renderKPIs() {
+function renderKPIs(filteredKPIs) {
     const kpiGrid = document.getElementById('kpiGrid');
-    if (!kpiGrid) return;
-    
-    kpiGrid.innerHTML = dashboardData.kpis.map(kpi => {
+    const kpis = filteredKPIs || dashboardData.kpis;
+    if (!kpiGrid || !kpis) return;
+
+    kpiGrid.innerHTML = kpis.map(kpi => {
         const confidenceClass = kpi.confidence === 'high' ? 'confidence-high' : 
                                kpi.confidence === 'medium' ? 'confidence-medium' : 
                                'confidence-low';

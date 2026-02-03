@@ -1,0 +1,837 @@
+/* ============================================
+   Kalaburagi Development Dashboard - Role Styles
+   Role-specific UI components and styling
+   ============================================ */
+
+/* ============================================
+   Role Switcher
+   ============================================ */
+
+.role-switcher-container {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+}
+
+.role-switcher {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    background: white;
+    color: #374151;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    min-width: 200px;
+}
+
+.role-switcher:hover {
+    border-color: #2563eb;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+}
+
+.role-switcher:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* ============================================
+   Role Banner
+   ============================================ */
+
+.role-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-right: 2rem;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+
+.role-icon {
+    font-size: 1.2rem;
+}
+
+.role-name {
+    white-space: nowrap;
+}
+
+/* ============================================
+   Custom Dashboard Sections
+   ============================================ */
+
+.custom-section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.custom-section .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid #2563eb;
+}
+
+/* ============================================
+   Executive Summary (DC)
+   ============================================ */
+
+.executive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.executive-card {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #2563eb;
+}
+
+.executive-label {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.executive-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+}
+
+.executive-detail {
+    font-size: 0.85rem;
+    color: #475569;
+}
+
+.top-alerts {
+    margin-top: 2rem;
+}
+
+.top-alerts h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+.alert-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    border-left: 4px solid;
+}
+
+.alert-summary.alert-red {
+    background: #fef2f2;
+    border-left-color: #dc2626;
+}
+
+.alert-summary.alert-yellow {
+    background: #fefce8;
+    border-left-color: #f59e0b;
+}
+
+.alert-summary-icon {
+    font-size: 1.5rem;
+}
+
+.alert-summary-content {
+    flex: 1;
+}
+
+.alert-summary-title {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+}
+
+.alert-summary-deadline {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* ============================================
+   Land Allocation Table (KIADB)
+   ============================================ */
+
+.land-allocation-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.land-allocation-table thead {
+    background: #f1f5f9;
+}
+
+.land-allocation-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #1e293b;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.land-allocation-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #475569;
+}
+
+.land-allocation-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-badge.status-green {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-badge.status-yellow {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-badge.status-red {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.priority-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.priority-badge.priority-highest {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.priority-badge.priority-high {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.priority-badge.priority-medium-high {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.infrastructure-readiness {
+    margin-top: 2rem;
+}
+
+.infrastructure-readiness h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+.checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.checklist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 4px solid #cbd5e1;
+}
+
+.checklist-label {
+    font-weight: 500;
+    color: #334155;
+}
+
+.checklist-status {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   Crop Irrigation Dashboard (Agriculture)
+   ============================================ */
+
+.crop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.crop-card {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #16a34a;
+}
+
+.crop-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.crop-area {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.crop-irrigation {
+    margin-bottom: 0.75rem;
+}
+
+.irrigation-label {
+    font-size: 0.9rem;
+    color: #475569;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.crop-target {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+}
+
+.dal-mill-status,
+.fpo-tracker {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.dal-mill-status h3,
+.fpo-tracker h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+.dal-mill-metrics {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.dal-mill-metrics .metric {
+    flex: 1;
+    min-width: 150px;
+    text-align: center;
+}
+
+.dal-mill-metrics .metric-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 0.25rem;
+}
+
+.dal-mill-metrics .metric-label {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.fpo-progress {
+    margin-top: 1rem;
+}
+
+.fpo-detail {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+}
+
+/* ============================================
+   Road Projects Tracker (PWD)
+   ============================================ */
+
+.road-overview {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.road-metric {
+    text-align: center;
+}
+
+.road-metric .metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+}
+
+.road-metric .metric-label {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.road-progress-bar {
+    margin: 2rem 0;
+}
+
+.road-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.road-table thead {
+    background: #f1f5f9;
+}
+
+.road-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #1e293b;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.road-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #475569;
+}
+
+.road-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.budget-utilization {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.budget-utilization h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+.budget-metrics {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.budget-item {
+    flex: 1;
+    min-width: 150px;
+    text-align: center;
+}
+
+.budget-label {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+}
+
+.budget-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* ============================================
+   Housing Progress (KHB)
+   ============================================ */
+
+.housing-overview h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+.housing-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.housing-card {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    border-top: 4px solid #f59e0b;
+}
+
+.housing-label {
+    font-size: 0.9rem;
+    color: #92400e;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.housing-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #78350f;
+    margin-bottom: 0.25rem;
+}
+
+.housing-detail {
+    font-size: 0.85rem;
+    color: #92400e;
+}
+
+.worker-housing,
+.urban-rural-split {
+    margin-top: 2rem;
+}
+
+.gap-analysis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.gap-item {
+    background: #f8fafc;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #cbd5e1;
+}
+
+.gap-label {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+}
+
+.gap-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+}
+
+.gap-detail {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.housing-action {
+    background: #fef2f2;
+    border-left: 4px solid #dc2626;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.housing-action p {
+    color: #991b1b;
+    font-weight: 500;
+    margin: 0;
+}
+
+.split-metrics {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.split-card {
+    flex: 1;
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.split-label {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+}
+
+.split-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 0.25rem;
+}
+
+.split-percent {
+    font-size: 1rem;
+    color: #64748b;
+}
+
+/* ============================================
+   Minister's Dashboard
+   ============================================ */
+
+.minister-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.minister-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.minister-card:hover {
+    border-color: #2563eb;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+    transform: translateY(-2px);
+}
+
+.minister-card.highlight {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: white;
+    border-color: #1d4ed8;
+}
+
+.minister-icon {
+    font-size: 2.5rem;
+}
+
+.minister-content {
+    flex: 1;
+}
+
+.minister-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.minister-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.scheme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.scheme-card {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-top: 4px solid #2563eb;
+}
+
+.scheme-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.scheme-icon {
+    font-size: 1.5rem;
+}
+
+.scheme-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.scheme-amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 0.25rem;
+}
+
+.scheme-percent {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.scheme-list {
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.scheme-list div {
+    padding: 0.5rem 0;
+    border-top: 1px solid #e2e8f0;
+}
+
+.timeline {
+    margin-top: 1rem;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border-left: 3px solid #2563eb;
+    margin-bottom: 1rem;
+    background: #f8fafc;
+    border-radius: 0 8px 8px 0;
+}
+
+.timeline-date {
+    font-weight: 600;
+    color: #2563eb;
+    min-width: 100px;
+}
+
+.timeline-event {
+    color: #475569;
+}
+
+/* ============================================
+   Mobile Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+    .role-switcher-container {
+        margin-right: 1rem;
+    }
+
+    .role-switcher {
+        min-width: 150px;
+        font-size: 0.85rem;
+        padding: 0.4rem 0.75rem;
+    }
+
+    .role-banner {
+        margin-right: 1rem;
+        padding: 0.4rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .executive-grid,
+    .crop-grid,
+    .housing-metrics,
+    .minister-overview {
+        grid-template-columns: 1fr;
+    }
+
+    .checklist-grid,
+    .scheme-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .road-overview {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .split-metrics {
+        flex-direction: column;
+    }
+
+    .land-allocation-table,
+    .road-table {
+        font-size: 0.85rem;
+    }
+
+    .land-allocation-table th,
+    .land-allocation-table td,
+    .road-table th,
+    .road-table td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .custom-section {
+        padding: 1.5rem;
+    }
+
+    .dal-mill-metrics,
+    .budget-metrics {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .role-switcher-container,
+    .role-banner {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .role-switcher {
+        width: 100%;
+    }
+
+    .executive-value,
+    .minister-value {
+        font-size: 1.5rem;
+    }
+
+    .crop-name,
+    .scheme-title {
+        font-size: 1rem;
+    }
+}
