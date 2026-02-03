@@ -67,11 +67,51 @@ function initializeRoleView(roleId) {
         }
     }
 
-    // 8. Set default active tab
+    // 8. Initialize tab navigation (critical for role views)
+    initializeTabNavigation();
+
+    // 9. Set default active tab
     setDefaultTab(config);
 
-    // 9. Update last updated timestamp
+    // 10. Update last updated timestamp
     updateLastUpdated();
+}
+
+/**
+ * Initialize tab navigation for role views
+ * Ensures all visible tabs (including custom dashboard) can be clicked
+ */
+function initializeTabNavigation() {
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    navButtons.forEach(button => {
+        // Remove any existing listeners by cloning the button
+        const newButton = button.cloneNode(true);
+        button.parentNode.replaceChild(newButton, button);
+
+        // Add fresh click listener
+        newButton.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+
+            // Remove active class from all buttons and contents
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            // Add active class to clicked button and corresponding content
+            this.classList.add('active');
+            const targetContent = document.getElementById(tabId);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+
+            // Scroll to top of page
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
 }
 
 /**
@@ -205,19 +245,8 @@ function addCustomDashboardTab(roleId) {
     tabButton.setAttribute('data-tab', 'role-dashboard');
     tabButton.textContent = `${config.icon} Dashboard`;
 
-    // Add click event
-    tabButton.addEventListener('click', function() {
-        // Remove active class from all
-        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-        // Activate this tab
-        this.classList.add('active');
-        document.getElementById('role-dashboard').classList.add('active');
-
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    // Note: Click handler will be added by initializeTabNavigation()
+    // No need for a separate click listener here
 
     // Insert as first button (after About if visible, otherwise first)
     const firstButton = nav.querySelector('.nav-btn');
