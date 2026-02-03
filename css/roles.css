@@ -2300,4 +2300,501 @@
     .alert-banner .alert-icon {
         font-size: 2rem;
     }
+
+    .water-allocation-grid,
+    .power-stats-grid,
+    .forest-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .crop-irrigation-table,
+    .infrastructure-grid,
+    .industry-power-grid,
+    .clearance-process,
+    .conversion-process,
+    .compensation-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feeder-table-container,
+    .land-requirement-table-container {
+        overflow-x: scroll;
+    }
+
+    .feeder-table,
+    .land-requirement-table table {
+        min-width: 700px;
+    }
+
+    .process-step {
+        padding: 1rem;
+    }
+}
+
+/* ============================================
+   Water Resources Dashboard
+   ============================================ */
+
+.water-dashboard {
+    padding: 2rem;
+}
+
+.water-allocation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.water-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.water-card:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.crop-irrigation-table {
+    margin-top: 1rem;
+}
+
+.crop-irrigation-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.crop-irrigation-table th,
+.crop-irrigation-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.crop-irrigation-table th {
+    background: #f3f4f6;
+    font-weight: 600;
+    color: #374151;
+}
+
+.crop-irrigation-table tr.highlight-row {
+    background: #fef3c7;
+}
+
+.crop-irrigation-table .table-note {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    font-size: 0.9rem;
+}
+
+.infrastructure-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.infra-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.infra-card h4 {
+    margin-bottom: 1rem;
+    color: #1f2937;
+    font-size: 1.1rem;
+}
+
+.infra-status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.infra-status.alert-red {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.infra-status.alert-yellow {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.infra-details {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.infra-details ul {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.infra-action {
+    padding: 1rem;
+    background: #f0fdf4;
+    border-left: 4px solid #22c55e;
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   GESCOM Power Dashboard
+   ============================================ */
+
+.gescom-dashboard {
+    padding: 2rem;
+}
+
+.power-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.power-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.power-card:hover {
+    border-color: #eab308;
+    box-shadow: 0 4px 12px rgba(234, 179, 8, 0.1);
+}
+
+.industry-power-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.industry-power-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.industry-power-card h4 {
+    margin-bottom: 1rem;
+    color: #1f2937;
+    font-size: 1.1rem;
+}
+
+.power-requirement {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.power-status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.power-action {
+    padding: 1rem;
+    background: #f0fdf4;
+    border-left: 4px solid #22c55e;
+    font-size: 0.9rem;
+}
+
+.power-action.alert-red {
+    background: #fef2f2;
+    border-left-color: #dc2626;
+}
+
+.feeder-table {
+    margin-top: 1rem;
+}
+
+.feeder-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.feeder-table th,
+.feeder-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.feeder-table th {
+    background: #f3f4f6;
+    font-weight: 600;
+    color: #374151;
+}
+
+.feeder-table tr.alert-red {
+    background: #fef2f2;
+}
+
+.feeder-table tr.alert-yellow {
+    background: #fef3c7;
+}
+
+.feeder-table .table-note {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   Forest Officer Dashboard
+   ============================================ */
+
+.forest-dashboard {
+    padding: 2rem;
+}
+
+.forest-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.forest-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.forest-card:hover {
+    border-color: #22c55e;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+}
+
+.clearance-process {
+    margin-top: 1.5rem;
+}
+
+.process-step {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.process-step.alert-red {
+    border-color: #fca5a5;
+    background: #fef2f2;
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #3b82f6;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h4 {
+    margin-bottom: 0.75rem;
+    color: #1f2937;
+    font-size: 1.1rem;
+}
+
+.step-status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.step-details {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.compliance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.compliance-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.compliance-card.alert-yellow {
+    border-color: #fbbf24;
+    background: #fefce8;
+}
+
+.compliance-card h4 {
+    margin-bottom: 1rem;
+    color: #1f2937;
+    font-size: 1.1rem;
+}
+
+.compliance-details {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ============================================
+   Revenue Officer Dashboard
+   ============================================ */
+
+.revenue-dashboard {
+    padding: 2rem;
+}
+
+.land-requirement-table {
+    margin-top: 1rem;
+    overflow-x: auto;
+}
+
+.land-requirement-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.land-requirement-table th,
+.land-requirement-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.land-requirement-table th {
+    background: #f3f4f6;
+    font-weight: 600;
+    color: #374151;
+    white-space: nowrap;
+}
+
+.land-requirement-table tr.alert-red {
+    background: #fef2f2;
+}
+
+.land-requirement-table tr.alert-yellow {
+    background: #fef3c7;
+}
+
+.land-requirement-table tfoot tr.total-row {
+    background: #eff6ff;
+    font-weight: 700;
+}
+
+.conversion-process {
+    margin-top: 1.5rem;
+}
+
+.process-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.process-card h4 {
+    margin-bottom: 0.75rem;
+    color: #1f2937;
+    font-size: 1.1rem;
+}
+
+.process-status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.process-status.alert-red {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.process-status.alert-yellow {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.process-details {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.compensation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.compensation-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.compensation-card.alert-yellow {
+    border-color: #fbbf24;
+    background: #fefce8;
+}
+
+.compensation-card h4 {
+    margin-bottom: 1rem;
+    color: #1f2937;
+    font-size: 1.1rem;
+}
+
+.compensation-details {
+    font-size: 0.95rem;
+    line-height: 1.6;
 }

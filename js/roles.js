@@ -139,28 +139,28 @@ const roleConfigs = {
         id: 'water',
         name: 'Water Resources Officer',
         icon: '💧',
-        description: 'Irrigation, dam levels, industrial water allocation',
+        description: 'Irrigation + 10 MLD industrial water supply, dam management, drought mitigation',
         tabs: ['command', 'baseline', 'roadmap'],
         kpis: ['irrigation', 'credit'],
         alerts: [5],
         roadmap: ['phase1'],
-        industries: [],
+        industries: ['all'],
         showLiveData: true,
-        customDashboard: null
+        customDashboard: 'water-industrial'
     },
 
     'gescom': {
         id: 'gescom',
         name: 'GESCOM Officer',
         icon: '⚡',
-        description: 'Power distribution, industrial connections, feeder management',
+        description: '24x7 power for 4 industrial clusters, 50 MW additional capacity, feeder reliability for 156K jobs',
         tabs: ['command', 'roadmap'],
         kpis: ['credit', 'jobs'],
         alerts: [5],
         roadmap: ['phase1'],
         industries: ['all'],
         showLiveData: false,
-        customDashboard: null
+        customDashboard: 'gescom-power'
     },
 
     'health': {
@@ -196,28 +196,28 @@ const roleConfigs = {
         id: 'forest',
         name: 'Forest Officer',
         icon: '🌲',
-        description: 'Forest clearances, compensatory afforestation',
-        tabs: ['command'],
+        description: 'Forest clearances for limestone belt (500 acres overlap), compensatory afforestation, mining approvals',
+        tabs: ['command', 'roadmap'],
         kpis: [],
         alerts: [2],
-        roadmap: [],
+        roadmap: ['phase1'],
         industries: ['limestone'],
         showLiveData: false,
-        customDashboard: null
+        customDashboard: 'forest-clearances'
     },
 
     'revenue': {
         id: 'revenue',
         name: 'Revenue Officer',
         icon: '📋',
-        description: 'Land acquisition, conversions, mutations',
+        description: 'Land acquisition for 1,625 acres (1,250 industrial + 375 housing), agricultural conversions, mutations',
         tabs: ['command', 'roadmap'],
         kpis: [],
         alerts: [1, 2],
         roadmap: ['all'],
         industries: ['all'],
         showLiveData: false,
-        customDashboard: null
+        customDashboard: 'revenue-land'
     },
 
     'labour': {
@@ -359,6 +359,14 @@ function renderCustomDashboard(roleId, data) {
             return renderHealthDashboard(data);
         case 'labour-safety':
             return renderLabourDashboard(data);
+        case 'water-industrial':
+            return renderWaterDashboard(data);
+        case 'gescom-power':
+            return renderGESCOMDashboard(data);
+        case 'forest-clearances':
+            return renderForestDashboard(data);
+        case 'revenue-land':
+            return renderRevenueDashboard(data);
         default:
             return '';
     }
@@ -2880,6 +2888,787 @@ function renderLabourDashboard(data) {
 
             <div class="dashboard-footer">
                 <p><strong>Role Context:</strong> As Labour Officer, you are the LAST LINE OF DEFENSE for worker rights. Framework v2.0 creates 156K jobs - but if workers are exploited (low wages, unsafe conditions, no benefits), it's a FAILURE. Your inspections, compliance enforcement, and grievance redressal determine if these are GOOD jobs or EXPLOITATION. Reputation matters - companies won't invest if Kalaburagi known for labor violations.</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Water Resources Officer Dashboard
+ */
+function renderWaterDashboard(data) {
+    const currentIrrigationCoverage = 42.8; // % of cultivable area
+    const targetIrrigationCoverage = 65; // by 2034
+    const industrialWaterDemand = 10; // MLD by 2030
+    const currentIndustrialSupply = 2; // MLD
+
+    return `
+        <div class="custom-dashboard water-dashboard">
+            <div class="dashboard-header">
+                <h2>💧 Water Resources Officer - Dual Mission Dashboard</h2>
+                <p class="dashboard-subtitle">Agriculture irrigation + 10 MLD industrial water | Drought-prone region challenge</p>
+            </div>
+
+            <div class="alert-section">
+                <div class="alert-banner alert-red">
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-content">
+                        <h3>The Water Crisis: Agriculture vs Industry Conflict</h3>
+                        <p><strong>Challenge:</strong> Kalaburagi is drought-prone (600mm annual rainfall) → Water scarcity is THE limiting factor for both farming + Framework v2.0</p>
+                        <p><strong>Current Reality:</strong> Only ${currentIrrigationCoverage}% irrigation coverage | Industrial demand: ${currentIndustrialSupply} MLD → ${industrialWaterDemand} MLD (5x increase needed)</p>
+                        <p><strong>Political Risk:</strong> Farmers will resist diverting water to industries → Need smart allocation: drip irrigation (save water) + treated industrial wastewater reuse</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Irrigation + Industrial Water Allocation</h3>
+                <div class="water-allocation-grid">
+                    <div class="water-card">
+                        <div class="stat-big">${currentIrrigationCoverage}% → ${targetIrrigationCoverage}%</div>
+                        <div class="stat-label">Irrigation Coverage Target</div>
+                        <div class="stat-detail">Current: 280,000 acres | Target: 425,000 acres by 2034</div>
+                        <div class="stat-detail"><strong>Need:</strong> KBJNL canal completion + 5,000 solar pump connections</div>
+                    </div>
+                    <div class="water-card alert-yellow">
+                        <div class="stat-big">${currentIndustrialSupply} → ${industrialWaterDemand} MLD</div>
+                        <div class="stat-label">Industrial Water Demand</div>
+                        <div class="stat-detail">PM MITRA: 4 MLD | Aerospace: 2 MLD | Pharma: 2 MLD | Cement: 2 MLD</div>
+                        <div class="stat-detail"><strong>Gap:</strong> Need 8 MLD additional supply by 2030</div>
+                    </div>
+                    <div class="water-card">
+                        <div class="stat-big">15 MLD</div>
+                        <div class="stat-label">Urban + Industrial Total</div>
+                        <div class="stat-detail">Kalaburagi city: 65 MLD | Industrial: 10 MLD | Total: 75 MLD demand by 2030</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Crop-Specific Irrigation Strategy</h3>
+                <div class="crop-irrigation-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Crop</th>
+                                <th>Current Coverage</th>
+                                <th>Target 2034</th>
+                                <th>Water Saved (Drip)</th>
+                                <th>Economic Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tur Dal</strong></td>
+                                <td>28% (48K acres)</td>
+                                <td>55% (95K acres)</td>
+                                <td>30% less water vs flood</td>
+                                <td>₹440 cr/year (₹46K per acre)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bengal Gram</strong></td>
+                                <td>35% (60K acres)</td>
+                                <td>60% (103K acres)</td>
+                                <td>25% less water</td>
+                                <td>₹310 cr/year (₹30K per acre)</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td><strong>Grapes (Premium)</strong></td>
+                                <td>45% (5K acres)</td>
+                                <td>80% (9K acres)</td>
+                                <td>40% less water (drip mandatory)</td>
+                                <td>₹135 cr/year (₹1.5L per acre)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="table-note"><strong>Key:</strong> Drip irrigation saves 25-40% water → Frees up water for industrial use without farmer conflict</div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Industrial Water Supply Infrastructure</h3>
+                <div class="infrastructure-grid">
+                    <div class="infra-card">
+                        <h4>PM MITRA Textile Park (4 MLD)</h4>
+                        <div class="infra-status alert-red">❌ Not Planned Yet</div>
+                        <div class="infra-details">
+                            <strong>Requirement:</strong> 4 MLD (dyeing, washing, steam generation)
+                            <br><strong>Source Options:</strong>
+                            <ul>
+                                <li>KBJNL canal extension (12 km from Sedam)</li>
+                                <li>Dedicated WTP + pipeline (₹45 cr)</li>
+                                <li>Treated wastewater reuse (30% of requirement)</li>
+                            </ul>
+                        </div>
+                        <div class="infra-action"><strong>Action:</strong> DPR by Q2 2026 | Budget allocation Q3 2026 | Construction Q4 2026-2027</div>
+                    </div>
+
+                    <div class="infra-card">
+                        <h4>Aerospace + Pharma (4 MLD Combined)</h4>
+                        <div class="infra-status alert-yellow">⚠️ Partial Planning</div>
+                        <div class="infra-details">
+                            <strong>Requirement:</strong> Pharma-grade water (2 MLD) + Industrial (2 MLD)
+                            <br><strong>Challenge:</strong> Pharma needs WHO-GMP certified water (ultra-filtered)
+                            <br><strong>Source:</strong> Dedicated WTP at Sedam Industrial Area (₹35 cr)
+                        </div>
+                        <div class="infra-action"><strong>Action:</strong> Coordinate with KIADB for WTP location | Partner with pharma companies for co-investment</div>
+                    </div>
+
+                    <div class="infra-card">
+                        <h4>Limestone/Cement Processing (2 MLD)</h4>
+                        <div class="infra-status">✅ Existing Infrastructure</div>
+                        <div class="infra-details">
+                            <strong>Requirement:</strong> 2 MLD (dust suppression, concrete mixing)
+                            <br><strong>Source:</strong> Groundwater (limestone belt has aquifers) + Rainwater harvesting
+                            <br><strong>Status:</strong> Mining companies responsible for own water (bore wells)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">⚡ Priority Actions</h3>
+                <div class="actions-list">
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Complete KBJNL Canal (Phase 2)</div>
+                            <div class="action-desc">Bhima Lift Irrigation Project extension to Sedam/Chittapur → Unlocks 95K acres irrigation + 6 MLD industrial supply. Timeline: Complete by 2028. Budget: ₹850 cr (coordinate with KBJNL).</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Solar Pump Acceleration (5,000 pumps)</div>
+                            <div class="action-desc">ALERT: Only 1,200/5,000 pumps installed → 76% shortfall. Drip irrigation saves 30% water → Frees 3 MLD for industries. Action: Fast-track approvals, farmer training, KUSUM scheme subsidy. Timeline: Complete by Q4 2027.</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Industrial Wastewater Reuse System</div>
+                            <div class="action-desc">Textile industry generates 3 MLD wastewater → Treat and reuse for non-potable (cooling, washing) → Saves 1 MLD fresh water. CETP location: Coordinate with TPO for 50-acre zone. Budget: ₹75 cr.</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card medium">
+                        <div class="action-priority">MEDIUM</div>
+                        <div class="action-content">
+                            <div class="action-title">Water Pricing Policy for Industries</div>
+                            <div class="action-desc">Industrial water pricing: ₹20-30 per kiloliter (vs ₹5 for agriculture) → Revenue for water infrastructure + incentivizes efficiency. Cross-subsidy model: Industries pay higher → Subsidize farmer drip irrigation.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-footer">
+                <p><strong>Role Context:</strong> As Water Resources Officer, you balance the impossible: drought-prone region + increased agricultural irrigation + 10 MLD industrial water demand. Solution = Efficiency: Drip irrigation saves water for industries, treated wastewater reuse, KBJNL canal completion. Political navigation critical: Farmers fear water diversion to industries → Show them drip irrigation benefits + revenue from water pricing → Win-win outcome.</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * GESCOM Officer Dashboard
+ */
+function renderGESCOMDashboard(data) {
+    const currentPowerCapacity = 450; // MW
+    const additionalPowerNeeded = 50; // MW by 2030
+    const industrialConnections = 850; // current
+    const newIndustrialConnections = 450; // by 2034
+
+    return `
+        <div class="custom-dashboard gescom-dashboard">
+            <div class="dashboard-header">
+                <h2>⚡ GESCOM Officer - Industrial Power Reliability Dashboard</h2>
+                <p class="dashboard-subtitle">24x7 power for 4 industrial clusters | 50 MW additional capacity | Feeder upgrades</p>
+            </div>
+
+            <div class="alert-section">
+                <div class="alert-banner alert-yellow">
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-content">
+                        <h3>Power Reliability = Industrial Viability</h3>
+                        <p><strong>Critical Factor:</strong> Aerospace (precision manufacturing) + Pharma (temperature-controlled) cannot tolerate power cuts → Even 1 hour outage = ₹10-50 lakh loss</p>
+                        <p><strong>Current Reality:</strong> Kalaburagi urban = 20-22 hrs supply | Rural industrial areas = 18 hrs supply → UNACCEPTABLE for Framework v2.0</p>
+                        <p><strong>Investment at Risk:</strong> PM MITRA (₹1,300 cr), Aerospace (₹5,000 cr) will not invest without 24x7 power guarantee</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Power Demand & Supply Gap</h3>
+                <div class="power-stats-grid">
+                    <div class="power-card">
+                        <div class="stat-big">${currentPowerCapacity} MW</div>
+                        <div class="stat-label">Current Capacity (Kalaburagi District)</div>
+                        <div class="stat-detail">Urban: 180 MW | Rural: 150 MW | Industrial: 120 MW</div>
+                    </div>
+                    <div class="power-card alert-red">
+                        <div class="stat-big">+${additionalPowerNeeded} MW</div>
+                        <div class="stat-label">Additional Demand by 2030</div>
+                        <div class="stat-detail">PM MITRA: 20 MW | Aerospace: 15 MW | Pharma: 8 MW | Cement: 5 MW | Others: 2 MW</div>
+                    </div>
+                    <div class="power-card">
+                        <div class="stat-big">${industrialConnections} → ${industrialConnections + newIndustrialConnections}</div>
+                        <div class="stat-label">Industrial Connections</div>
+                        <div class="stat-detail">Current: 850 units | New: 450 units by 2034 (53% increase)</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Industry-Specific Power Requirements</h3>
+                <div class="industry-power-grid">
+                    <div class="industry-power-card alert-red">
+                        <h4>🏭 PM MITRA Textile Park (20 MW)</h4>
+                        <div class="power-requirement">
+                            <strong>Load:</strong> 20 MW (6 AM - 10 PM, 16 hours/day)
+                            <br><strong>Criticality:</strong> HIGH (dyeing machines, spinning, weaving)
+                            <br><strong>Outage Impact:</strong> Moderate (can resume after 1-2 hr break)
+                        </div>
+                        <div class="power-status alert-red">❌ Dedicated Feeder Not Planned</div>
+                        <div class="power-action"><strong>Action:</strong> Install 33 KV dedicated feeder from Sedam substation (12 km, ₹18 cr) | Backup: Onsite diesel generators (5 MW) | Timeline: Complete by Q2 2027</div>
+                    </div>
+
+                    <div class="industry-power-card alert-red">
+                        <h4>✈️ Aerospace Components (15 MW)</h4>
+                        <div class="power-requirement">
+                            <strong>Load:</strong> 15 MW (24x7 operations - 3 shifts)
+                            <br><strong>Criticality:</strong> EXTREME (CNC machines, precision tools)
+                            <br><strong>Outage Impact:</strong> SEVERE (1 hr outage = ₹20-50 lakh loss, scrapped parts)
+                        </div>
+                        <div class="power-status alert-red">❌ 24x7 Guarantee NOT Possible with Current Infrastructure</div>
+                        <div class="power-action alert-red"><strong>URGENT:</strong> Dual feeder system (redundancy) + 10 MW onsite solar + battery storage (5 MWh) | ZERO outage tolerance | Budget: ₹85 cr | Partner with companies for co-investment</div>
+                    </div>
+
+                    <div class="industry-power-card alert-yellow">
+                        <h4>💊 Pharmaceutical Packaging (8 MW)</h4>
+                        <div class="power-requirement">
+                            <strong>Load:</strong> 8 MW (24x7, temperature-controlled storage)
+                            <br><strong>Criticality:</strong> EXTREME (medicines spoil without refrigeration)
+                            <br><strong>Outage Impact:</strong> CATASTROPHIC (entire batch = ₹1-2 cr loss)
+                        </div>
+                        <div class="power-status alert-yellow">⚠️ Need Dedicated Feeder + Backup</div>
+                        <div class="power-action"><strong>Action:</strong> 33 KV dedicated feeder + mandatory diesel backup (3 MW) + UPS for critical equipment | Coordinate with KSPCB for generator approvals</div>
+                    </div>
+
+                    <div class="industry-power-card">
+                        <h4>🏗️ Limestone/Cement (5 MW)</h4>
+                        <div class="power-requirement">
+                            <strong>Load:</strong> 5 MW (crushing, grinding, kilns)
+                            <br><strong>Criticality:</strong> LOW (can tolerate 2-3 hr outages)
+                            <br><strong>Outage Impact:</strong> Low (production delay, no material loss)
+                        </div>
+                        <div class="power-status">✅ Existing Infrastructure Adequate</div>
+                        <div class="power-action">Standard industrial connection | Backup generators (company responsibility)</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Feeder Reliability & Upgrades</h3>
+                <div class="feeder-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Industrial Area</th>
+                                <th>Current Feeder</th>
+                                <th>Current Hours</th>
+                                <th>Target (24x7)</th>
+                                <th>Upgrade Required</th>
+                                <th>Budget</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="alert-red">
+                                <td>PM MITRA (Sedam/Chittapur)</td>
+                                <td>No dedicated feeder</td>
+                                <td>18 hrs</td>
+                                <td>24 hrs</td>
+                                <td>New 33 KV feeder (12 km)</td>
+                                <td>₹18 cr</td>
+                            </tr>
+                            <tr class="alert-red">
+                                <td>Sedam Aerospace Cluster</td>
+                                <td>Single feeder (11 KV)</td>
+                                <td>20 hrs</td>
+                                <td>24 hrs (dual)</td>
+                                <td>Dual 33 KV feeders (redundancy)</td>
+                                <td>₹45 cr</td>
+                            </tr>
+                            <tr class="alert-yellow">
+                                <td>Pharma Zone (Sedam)</td>
+                                <td>Shared 11 KV</td>
+                                <td>20 hrs</td>
+                                <td>24 hrs</td>
+                                <td>Dedicated 33 KV feeder</td>
+                                <td>₹22 cr</td>
+                            </tr>
+                            <tr>
+                                <td>Chincholi Limestone Belt</td>
+                                <td>11 KV</td>
+                                <td>18 hrs</td>
+                                <td>20 hrs</td>
+                                <td>Minor upgrades</td>
+                                <td>₹8 cr</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="table-note"><strong>Total Budget:</strong> ₹93 cr for feeder infrastructure (2026-2029) | Potential: Negotiate company co-investment (50-50 model)</div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">⚡ Priority Actions</h3>
+                <div class="actions-list">
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">24x7 Power Guarantee for Aerospace + Pharma</div>
+                            <div class="action-desc">CRITICAL: These industries CANNOT tolerate outages. Install dual feeder system (redundancy) + mandate onsite solar + battery backup. DPR by Q1 2026, construction Q2 2026-Q4 2027. Budget: ₹85 cr (negotiate 50-50 with companies).</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">PM MITRA Dedicated Feeder (33 KV, 12 km)</div>
+                            <div class="action-desc">Textile park needs dedicated 33 KV feeder from Sedam substation (20 MW load). Current infrastructure inadequate. Timeline: DPR Q1 2026, construction Q2-Q4 2026, commissioning Q1 2027. Budget: ₹18 cr.</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Solar + Battery Storage Incentives</div>
+                            <div class="action-desc">Encourage industries to install onsite solar (rooftop + ground-mounted) + battery storage → Reduces GESCOM load, provides backup. Incentive: Fast-track net metering approvals, subsidy linkage (MNRE schemes). Target: 30 MW onsite solar by 2030.</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card medium">
+                        <div class="action-priority">MEDIUM</div>
+                        <div class="action-content">
+                            <div class="action-title">Industrial Tariff Rationalization</div>
+                            <div class="action-desc">Current industrial tariff: ₹6-8 per unit (among highest in South India) → Negotiate special tariff for Framework v2.0 projects: ₹4.5-5 per unit (for first 5 years) → Attracts investment. Lobby KERC (regulatory commission).</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-footer">
+                <p><strong>Role Context:</strong> As GESCOM Officer, you are MAKE-OR-BREAK for Framework v2.0. Industries care about 3 things: Land, Water, Power → If power is unreliable, they won't invest. Aerospace + Pharma have ZERO tolerance for outages. Your mission: Guarantee 24x7 power via dual feeders, solar backup, battery storage. Budget ₹93 cr sounds high → But compare to ₹20,150 cr investment at stake → It's 0.5%. Convince state govt: Power infrastructure = NON-NEGOTIABLE.</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Forest Officer Dashboard
+ */
+function renderForestDashboard(data) {
+    const forestOverlapArea = 500; // acres in limestone belt
+    const compensatoryAfforestation = 1000; // acres needed (2x rule)
+    const clearanceTimeline = 24; // months (current)
+
+    return `
+        <div class="custom-dashboard forest-dashboard">
+            <div class="dashboard-header">
+                <h2>🌲 Forest Officer - Limestone Belt Clearances Dashboard</h2>
+                <p class="dashboard-subtitle">500 acres forest overlap | 2-3 year clearance bottleneck | Compensatory afforestation</p>
+            </div>
+
+            <div class="alert-section">
+                <div class="alert-banner alert-red">
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-content">
+                        <h3>CRITICAL: Forest Clearance = 2-3 Year Bottleneck</h3>
+                        <p><strong>The Problem:</strong> Limestone belt (Chincholi/Sedam) overlaps with reserved forest areas → Mining requires Forest Conservation Act clearance → Takes 24-36 months</p>
+                        <p><strong>Framework Impact:</strong> Limestone/Cement cluster (12,000 jobs, ₹3,150 cr investment) is BLOCKED without clearances</p>
+                        <p><strong>Current Status:</strong> ⚠️ ALERT: Geological survey pending → Mining lease NOT granted → No forest clearance application yet → 2-3 YEAR DELAY ahead</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Forest Overlap & Clearance Requirements</h3>
+                <div class="forest-stats-grid">
+                    <div class="forest-card alert-red">
+                        <div class="stat-big">${forestOverlapArea} acres</div>
+                        <div class="stat-label">Reserved Forest Overlap</div>
+                        <div class="stat-detail">Limestone-rich areas in Chincholi/Sedam belt partially overlap reserved forests</div>
+                        <div class="stat-detail"><strong>Impact:</strong> Cannot mine without Forest Conservation Act clearance</div>
+                    </div>
+                    <div class="forest-card alert-yellow">
+                        <div class="stat-big">${compensatoryAfforestation} acres</div>
+                        <div class="stat-label">Compensatory Afforestation Needed</div>
+                        <div class="stat-detail">Rule: 2x forest land diverted → Must plant 1,000 acres elsewhere</div>
+                        <div class="stat-detail"><strong>Challenge:</strong> Finding suitable degraded land for plantation</div>
+                    </div>
+                    <div class="forest-card alert-red">
+                        <div class="stat-big">${clearanceTimeline} months</div>
+                        <div class="stat-label">Current Clearance Timeline</div>
+                        <div class="stat-detail">Stage 1 clearance: 12 months | Stage 2 clearance: 12 months | Total: 24-36 months</div>
+                        <div class="stat-detail"><strong>Bottleneck:</strong> Central govt approval (MoEFCC) + state wildlife clearance</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Clearance Process & Current Status</h3>
+                <div class="clearance-process">
+                    <div class="process-step alert-red">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Preliminary Proposal (State Level)</h4>
+                            <div class="step-status">❌ NOT STARTED</div>
+                            <div class="step-details">
+                                <strong>Required:</strong> Mining lease holders submit proposal to Karnataka Forest Dept
+                                <br><strong>Documents:</strong> Survey maps, mining plan, environmental impact assessment
+                                <br><strong>Timeline:</strong> 3-4 months for state-level scrutiny
+                                <br><strong>Bottleneck:</strong> ⚠️ Mining survey not complete → Cannot submit proposal
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Stage 1 Forest Clearance (MoEFCC)</h4>
+                            <div class="step-status">⏳ PENDING (after Step 1)</div>
+                            <div class="step-details">
+                                <strong>Authority:</strong> Ministry of Environment, Forest & Climate Change (Central Govt)
+                                <br><strong>Requirements:</strong> In-principle approval for diversion of forest land
+                                <br><strong>Timeline:</strong> 10-12 months (bureaucratic process)
+                                <br><strong>Challenge:</strong> Environmental objections, wildlife clearance if critical habitat
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Compensatory Afforestation Execution</h4>
+                            <div class="step-status">⏳ PENDING (after Stage 1)</div>
+                            <div class="step-details">
+                                <strong>Requirement:</strong> Identify 1,000 acres degraded land for plantation (2x rule)
+                                <br><strong>Execution:</strong> Plant native species, maintain for 10 years, survival rate >80%
+                                <br><strong>Timeline:</strong> 2-3 monsoon seasons for establishment
+                                <br><strong>Budget:</strong> ₹25 cr (₹2.5 lakh per acre x 1,000 acres) - paid by mining companies to CAMPA fund
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Stage 2 Final Forest Clearance</h4>
+                            <div class="step-status">⏳ PENDING (after Step 3)</div>
+                            <div class="step-details">
+                                <strong>Authority:</strong> MoEFCC (final approval)
+                                <br><strong>Requirements:</strong> Compensatory afforestation completed, Net Present Value paid to CAMPA
+                                <br><strong>Timeline:</strong> 8-10 months (after compensatory afforestation)
+                                <br><strong>Outcome:</strong> Final permission to divert forest land for mining
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Environmental Compliance Requirements</h3>
+                <div class="compliance-grid">
+                    <div class="compliance-card">
+                        <h4>Compensatory Afforestation (CA)</h4>
+                        <div class="compliance-details">
+                            <strong>Requirement:</strong> 2x forest land diverted → 1,000 acres plantation needed
+                            <br><strong>Location:</strong> Must be in same district (Kalaburagi) or nearby
+                            <br><strong>Species:</strong> Native species (teak, neem, acacia, tamarind)
+                            <br><strong>Maintenance:</strong> 10-year survival guarantee (>80% survival rate)
+                            <br><strong>Cost:</strong> ₹25 cr (₹2.5 lakh per acre) paid to CAMPA fund
+                        </div>
+                    </div>
+
+                    <div class="compliance-card">
+                        <h4>Net Present Value (NPV)</h4>
+                        <div class="compliance-details">
+                            <strong>Concept:</strong> Monetary value of ecosystem services lost due to forest diversion
+                            <br><strong>Calculation:</strong> ₹10-12 lakh per hectare (for non-protected forest)
+                            <br><strong>Total:</strong> 500 acres = 202 hectares → ₹20-24 cr payable to CAMPA
+                            <br><strong>Use:</strong> Funds used by Forest Dept for wildlife conservation, afforestation elsewhere
+                        </div>
+                    </div>
+
+                    <div class="compliance-card alert-yellow">
+                        <h4>Wildlife Clearance (if applicable)</h4>
+                        <div class="compliance-details">
+                            <strong>Trigger:</strong> If forest area is wildlife corridor or habitat
+                            <br><strong>Authority:</strong> National Board for Wildlife (NBWL) - Central Govt
+                            <br><strong>Risk:</strong> ⚠️ If limestone belt has leopard corridor or important bird area → Clearance may be DENIED
+                            <br><strong>Mitigation:</strong> Conduct wildlife survey early → If habitat exists, redesign mining plan to avoid
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">⚡ Priority Actions</h3>
+                <div class="actions-list">
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Expedite Mining Survey & Clearance Application</div>
+                            <div class="action-desc">CRITICAL BOTTLENECK: Geological survey pending → Cannot apply for forest clearance. Action: Coordinate with Mines Dept + Revenue Dept to complete survey by Q2 2026 → Submit Stage 1 proposal by Q3 2026. Every month delayed = 12,000 jobs delayed.</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Pre-Identify Compensatory Afforestation Land</div>
+                            <div class="action-desc">Don't wait for Stage 1 clearance → Identify 1,000 acres degraded land NOW for plantation. Coordinate with Revenue Dept for land availability. Start land preparation, nursery establishment. Timeline: Identify land by Q1 2026, plantation in monsoon 2026 (June-Sept).</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Wildlife Survey (Rule Out Critical Habitat)</div>
+                            <div class="action-desc">Conduct rapid wildlife assessment in limestone belt → If leopard corridor/important bird area exists → MAJOR PROBLEM (clearance likely denied). If clear → Proceed confidently. Hire wildlife consultant, complete survey by Q1 2026. Budget: ₹15 lakh.</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card medium">
+                        <div class="action-priority">MEDIUM</div>
+                        <div class="action-content">
+                            <div class="action-title">Political Escalation (State to Central)</div>
+                            <div class="action-desc">Forest clearances are SLOW (24-36 months) → Need political push. Karnataka CM should write to Union Environment Minister requesting fast-track clearance (Framework v2.0 national priority). Industry association (mining companies) should lobby MPs, MLAs.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-footer">
+                <p><strong>Role Context:</strong> As Forest Officer, you hold the KEY to the limestone/cement cluster (12,000 jobs, ₹3,150 cr). Forest clearances are the LONGEST bureaucratic process (2-3 years) → Start NOW or delay entire Framework v2.0. Your role: Expedite survey → Submit Stage 1 application → Pre-arrange compensatory afforestation land → Conduct wildlife survey → Lobby for fast-track approval. Environmental compliance is non-negotiable, but speed matters. Balance: Protect forests + enable development.</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Revenue Officer Dashboard
+ */
+function renderRevenueDashboard(data) {
+    const totalLandRequired = 1625; // acres total
+    const industrialLand = 1250; // acres
+    const housingLand = 375; // acres
+    const currentAcquired = 450; // acres (estimate)
+
+    return `
+        <div class="custom-dashboard revenue-dashboard">
+            <div class="dashboard-header">
+                <h2>📋 Revenue Officer - Land Acquisition Dashboard</h2>
+                <p class="dashboard-subtitle">1,625 acres total (1,250 industrial + 375 housing) | Agricultural conversions | Farmer compensation</p>
+            </div>
+
+            <div class="alert-section">
+                <div class="alert-banner alert-red">
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-content">
+                        <h3>Land Acquisition = THE Bottleneck for Framework v2.0</h3>
+                        <p><strong>Critical Reality:</strong> ₹20,150 cr investment requires 1,625 acres land → Currently only ${currentAcquired} acres acquired (28%) → 1,175 acres shortfall</p>
+                        <p><strong>Challenge:</strong> Fragmented land holdings (2-5 acres per farmer) + Farmer resistance + Agricultural land conversion (requires state approval)</p>
+                        <p><strong>Political Risk:</strong> Land acquisition = MOST politically sensitive → One protest = project delay/cancellation → Need transparent, fair compensation + jobs for affected families</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Land Requirement by Industry</h3>
+                <div class="land-requirement-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Industry/Purpose</th>
+                                <th>Land Required</th>
+                                <th>Current Status</th>
+                                <th>Location</th>
+                                <th>Conversion Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="alert-yellow">
+                                <td><strong>PM MITRA Textile Park</strong></td>
+                                <td>300 acres (park) + 125 acres (worker housing) = <strong>425 acres</strong></td>
+                                <td>⚠️ 200 acres identified, not acquired</td>
+                                <td>Sedam/Chittapur area</td>
+                                <td>Agricultural → Industrial (approval pending)</td>
+                            </tr>
+                            <tr class="alert-red">
+                                <td><strong>Aerospace Components Cluster</strong></td>
+                                <td>500 acres (industrial) + 75 acres (housing) = <strong>575 acres</strong></td>
+                                <td>❌ Land NOT identified yet</td>
+                                <td>Sedam Industrial Area expansion</td>
+                                <td>Agricultural → Industrial (not applied)</td>
+                            </tr>
+                            <tr class="alert-yellow">
+                                <td><strong>Pharmaceutical Zone</strong></td>
+                                <td>200 acres (pharma) + 40 acres (housing) = <strong>240 acres</strong></td>
+                                <td>⚠️ 80 acres KIADB land available, 160 acres needed</td>
+                                <td>Sedam/Kalaburagi Growth Centre</td>
+                                <td>KIADB land (✅) + 160 acres conversion pending</td>
+                            </tr>
+                            <tr class="alert-yellow">
+                                <td><strong>Limestone/Cement Processing</strong></td>
+                                <td>200 acres (processing) + 75 acres (housing) = <strong>275 acres</strong></td>
+                                <td>⚠️ 100 acres govt land, 175 acres needed</td>
+                                <td>Chincholi limestone belt</td>
+                                <td>Mining lease land + 175 acres conversion</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Support Infrastructure</strong></td>
+                                <td>Road widening: 60 acres | CETP: 50 acres = <strong>110 acres</strong></td>
+                                <td>✅ Govt land available</td>
+                                <td>Distributed across districts</td>
+                                <td>Govt land (no conversion)</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="total-row">
+                                <td><strong>TOTAL</strong></td>
+                                <td><strong>${totalLandRequired} acres</strong></td>
+                                <td><strong>${currentAcquired} acres acquired (${Math.round(currentAcquired/totalLandRequired*100)}%)</strong></td>
+                                <td colspan="2"><strong>Gap: ${totalLandRequired - currentAcquired} acres</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Land Conversion Process & Timeline</h3>
+                <div class="conversion-process">
+                    <div class="process-card">
+                        <h4>Step 1: Land Survey & Ownership Verification</h4>
+                        <div class="process-status alert-yellow">⚠️ Partially Complete</div>
+                        <div class="process-details">
+                            <strong>Task:</strong> Survey 1,625 acres → Identify land parcels, verify ownership (7/12 extracts, RTC)
+                            <br><strong>Challenge:</strong> Fragmented holdings (100+ farmers for 500 acres) + Some land has disputed ownership
+                            <br><strong>Timeline:</strong> 3-4 months for complete survey
+                            <br><strong>Status:</strong> PM MITRA area surveyed, Aerospace/Pharma areas pending
+                        </div>
+                    </div>
+
+                    <div class="process-card">
+                        <h4>Step 2: Agricultural Land Conversion Approval</h4>
+                        <div class="process-status alert-red">❌ NOT STARTED</div>
+                        <div class="process-details">
+                            <strong>Authority:</strong> Deputy Commissioner (DC) → State Govt approval required for >50 acres
+                            <br><strong>Requirements:</strong> Justify public purpose (industrial development), environmental NOC, TPO zoning approval
+                            <br><strong>Timeline:</strong> 6-8 months (bureaucratic approval)
+                            <br><strong>Political Risk:</strong> Farmer organizations may oppose → Need transparent public hearings, fair compensation
+                        </div>
+                    </div>
+
+                    <div class="process-card">
+                        <h4>Step 3: Compensation Negotiation</h4>
+                        <div class="process-status alert-yellow">⚠️ Ongoing (PM MITRA only)</div>
+                        <div class="process-details">
+                            <strong>Formula:</strong> Market value x 2-4 (as per Land Acquisition Act 2013)
+                            <br><strong>Avg Compensation:</strong> ₹15-25 lakh per acre (Sedam area), ₹8-12 lakh per acre (Chincholi)
+                            <br><strong>Additional Benefits:</strong> Employment to 1 family member + Rehabilitation package
+                            <br><strong>Challenge:</strong> Farmers demand 5x market value → Negotiation needed
+                        </div>
+                    </div>
+
+                    <div class="process-card">
+                        <h4>Step 4: Land Acquisition & Handover</h4>
+                        <div class="process-status alert-red">❌ Only 200 acres for PM MITRA in process</div>
+                        <div class="process-details">
+                            <strong>Process:</strong> Compensation paid → Land registered in KIADB/Govt name → Handed over to industries
+                            <br><strong>Timeline:</strong> 4-6 months after compensation agreement
+                            <br><strong>Total Budget:</strong> ₹2,000-2,500 cr for 1,625 acres (₹12-15 lakh avg per acre)
+                            <br><strong>Funding:</strong> State Govt + Central schemes (PM MITRA, Industrial Corridor)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">Farmer Compensation & Rehabilitation</h3>
+                <div class="compensation-grid">
+                    <div class="compensation-card">
+                        <h4>Compensation Formula (Land Acquisition Act 2013)</h4>
+                        <div class="compensation-details">
+                            <strong>Base:</strong> Market value of land (avg ₹5-8 lakh per acre in Sedam, ₹3-5 lakh in Chincholi)
+                            <br><strong>Multiplier:</strong> 2x (rural) to 4x (urban) as per Act
+                            <br><strong>Final Avg:</strong> ₹12-15 lakh per acre
+                            <br><strong>Total Budget:</strong> ₹2,000-2,500 cr for 1,625 acres
+                        </div>
+                    </div>
+
+                    <div class="compensation-card">
+                        <h4>Additional Benefits</h4>
+                        <div class="compensation-details">
+                            <strong>Employment:</strong> 1 job per affected family (priority in new industries)
+                            <br><strong>Skill Training:</strong> ITI/skill courses for youth (garment, aerospace skills)
+                            <br><strong>Housing:</strong> If displaced → Alternative housing (PMAY subsidy)
+                            <br><strong>Livelihood Restoration:</strong> ₹5-10 lakh additional for lost income (for 1 year)
+                        </div>
+                    </div>
+
+                    <div class="compensation-card alert-yellow">
+                        <h4>⚠️ Political Sensitivity</h4>
+                        <div class="compensation-details">
+                            <strong>Farmer Demands:</strong> Often 5x market value (₹30-40 lakh per acre) → Unrealistic
+                            <br><strong>Negotiation Strategy:</strong> Emphasize jobs for children + Fair compensation (2-4x) + Quick payment (no delays)
+                            <br><strong>Risk:</strong> One farmer protest → Media coverage → Project stalled → Need transparent process + DC's leadership
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <h3 class="section-heading">⚡ Priority Actions</h3>
+                <div class="actions-list">
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Complete Land Survey for All 4 Clusters</div>
+                            <div class="action-desc">CRITICAL: Aerospace (575 acres) + Pharma (160 acres) + Limestone (175 acres) = 910 acres NOT surveyed yet. Action: Deploy survey teams immediately, complete by Q2 2026. Identify land parcels, verify ownership (7/12 extracts), create master list of farmers. Timeline: 4 months.</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Agricultural Land Conversion Approval (State Govt)</div>
+                            <div class="action-desc">Submit conversion applications for 1,175 acres (4 clusters) to State Govt by Q2 2026. Require: Public purpose justification (Framework v2.0 national priority), environmental NOC, TPO zoning approval. State approval takes 6-8 months → Start NOW or delay entire Framework.</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Transparent Compensation Negotiation (Avoid Protests)</div>
+                            <div class="action-desc">Land acquisition = MOST politically sensitive. Strategy: Public hearings (Gram Sabha) → Explain Framework benefits (jobs, schools, hospitals) → Fair compensation (2-4x market value) → Employment guarantee (1 job per family) → No middlemen (direct payment). If farmers trust process → Smooth acquisition. If perception of corruption → Protests, delays.</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Budget Allocation (₹2,000-2,500 cr)</div>
+                            <div class="action-desc">Land compensation = ₹2,000-2,500 cr over 2026-2029. Funding sources: State Budget (₹800 cr), Central PM MITRA Grant (₹300 cr), Industrial Corridor Fund (₹500 cr), KIADB land sales (₹400-900 cr). Coordinate with Finance Dept for budget approvals by Q3 2026.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-footer">
+                <p><strong>Role Context:</strong> As Revenue Officer, you are the GATEKEEPER for Framework v2.0. No land = No industries = No 156,700 jobs. Your mission: Acquire 1,625 acres (1,250 industrial + 375 housing) by 2027-2029 through transparent, fair process. Challenges: Fragmented land holdings (100+ farmers per cluster), agricultural conversion approval (6-8 months), farmer resistance (compensation demands). Success formula: Fast surveys → State conversion approval → Fair compensation (2-4x) → Employment guarantee → Transparent process. If farmers trust you → Smooth acquisition. If they suspect corruption → Protests, delays, project cancellation.</p>
             </div>
         </div>
     `;
