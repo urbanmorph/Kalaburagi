@@ -226,19 +226,15 @@ function renderRoleCustomDashboard(roleId, data) {
     let customSection = document.getElementById('role-dashboard');
 
     if (!customSection) {
-        // Create custom section before footer
-        const main = document.querySelector('.main .container');
-        const footer = document.querySelector('.footer');
+        // Create custom section inside main container (with other tabs)
+        const mainContainer = document.querySelector('.main .container');
 
         customSection = document.createElement('div');
         customSection.id = 'role-dashboard';
         customSection.className = 'tab-content';
 
-        if (footer && footer.previousElementSibling) {
-            footer.parentNode.insertBefore(customSection, footer);
-        } else {
-            main.appendChild(customSection);
-        }
+        // Append to main container (same level as other tab-content divs)
+        mainContainer.appendChild(customSection);
     }
 
     // Render custom dashboard content
