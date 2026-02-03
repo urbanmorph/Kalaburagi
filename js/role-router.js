@@ -122,6 +122,12 @@ function renderRoleHeader(config) {
     const headerMeta = document.querySelector('.header-meta');
     if (!headerMeta) return;
 
+    // Remove existing role banner if present
+    const existingBanner = headerMeta.querySelector('.role-banner');
+    if (existingBanner) {
+        existingBanner.remove();
+    }
+
     // Create role info banner
     const roleBanner = document.createElement('div');
     roleBanner.className = 'role-banner';
@@ -130,9 +136,15 @@ function renderRoleHeader(config) {
         <span class="role-name">${config.name}</span>
     `;
 
-    // Insert before the update time
+    // Insert after the role switcher if it exists, otherwise before update time
+    const roleSwitcher = headerMeta.querySelector('.role-switcher-container');
     const updateTime = headerMeta.querySelector('.update-time');
-    if (updateTime) {
+
+    if (roleSwitcher && roleSwitcher.nextSibling) {
+        // Insert after the role switcher
+        headerMeta.insertBefore(roleBanner, roleSwitcher.nextSibling);
+    } else if (updateTime) {
+        // Fallback: insert before update time
         headerMeta.insertBefore(roleBanner, updateTime);
     } else {
         headerMeta.appendChild(roleBanner);
@@ -310,10 +322,14 @@ function switchRole(roleId) {
  */
 function initializeRoleSwitcher() {
     const headerMeta = document.querySelector('.header-meta');
-    if (!headerMeta) return;
+    if (!headerMeta) {
+        console.warn('Header meta element not found - cannot add role switcher');
+        return;
+    }
 
     // Check if switcher already exists
     if (document.getElementById('roleSwitcher')) {
+        console.log('Role switcher already exists');
         return;
     }
 
@@ -322,13 +338,14 @@ function initializeRoleSwitcher() {
     switcherContainer.className = 'role-switcher-container';
     switcherContainer.innerHTML = renderRoleSwitcher();
 
-    // Insert before update time
-    const updateTime = headerMeta.querySelector('.update-time');
-    if (updateTime) {
-        headerMeta.insertBefore(switcherContainer, updateTime);
+    // Always insert at the beginning of header-meta (before everything else)
+    if (headerMeta.firstChild) {
+        headerMeta.insertBefore(switcherContainer, headerMeta.firstChild);
     } else {
         headerMeta.appendChild(switcherContainer);
     }
+
+    console.log('Role switcher initialized');
 
     // Set current role
     const currentRole = getCurrentRole();
