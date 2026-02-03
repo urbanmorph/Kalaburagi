@@ -173,8 +173,15 @@ function updateTabVisibility(config) {
  * @param {object} config - Role configuration
  */
 function setDefaultTab(config) {
-    // Default to first visible tab (usually 'command' for roles)
-    const defaultTab = config.tabs[0] || 'about';
+    // If role has a custom dashboard, make it the default tab
+    // Otherwise, default to first visible tab (usually 'command' for roles)
+    let defaultTab;
+
+    if (config.customDashboard && document.getElementById('role-dashboard')) {
+        defaultTab = 'role-dashboard';
+    } else {
+        defaultTab = config.tabs[0] || 'about';
+    }
 
     // Remove active class from all tabs and buttons
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -187,6 +194,8 @@ function setDefaultTab(config) {
     if (targetButton && targetContent) {
         targetButton.classList.add('active');
         targetContent.classList.add('active');
+    } else {
+        console.warn(`Could not activate default tab: ${defaultTab}`);
     }
 }
 
@@ -219,11 +228,14 @@ function renderRoleCustomDashboard(roleId, data) {
     const customHTML = renderCustomDashboard(roleId, data);
     if (customHTML) {
         customSection.innerHTML = customHTML;
-        customSection.style.display = 'block';
+        // Don't set inline display style - let CSS handle it via .active class
 
         // Add custom dashboard to navigation if not already there
         addCustomDashboardTab(roleId);
+    } else {
+        console.warn(`No custom dashboard HTML generated for role: ${roleId}`);
     }
+}
 }
 
 /**
