@@ -82,14 +82,14 @@ const roleConfigs = {
         id: 'beo',
         name: 'Block Education Officer',
         icon: '📚',
-        description: 'School enrollment, infrastructure, skill development programs',
+        description: 'Education infrastructure, enrollment, skill development, school-to-employment pipeline',
         tabs: ['command', 'roadmap'],
-        kpis: ['credit', 'jobs', 'income'],
+        kpis: ['jobs', 'income'],
         alerts: [],
         roadmap: ['phase2'],
-        industries: ['all'],
+        industries: ['garments', 'aerospace', 'pharma', 'limestone'],
         showLiveData: false,
-        customDashboard: null
+        customDashboard: 'beo-education'
     },
 
     'municipal-commissioner': {
@@ -347,6 +347,8 @@ function renderCustomDashboard(roleId, data) {
             return renderMinisterDashboard(data);
         case 'municipal-commissioner-urban':
             return renderMunicipalCommissionerDashboard(data);
+        case 'beo-education':
+            return renderBEODashboard(data);
         default:
             return '';
     }
@@ -1598,6 +1600,459 @@ function renderMunicipalCommissionerDashboard(data) {
             <div class="dashboard-footer">
                 <p><strong>Data Sources:</strong> Kalaburagi City Corporation Records, PMAY Portal, AMRUT MIS, Framework v2.0</p>
                 <p><strong>Role Context:</strong> As Municipal Commissioner, you are the chief executive officer responsible for urban services delivery to 5.5 lakh citizens and supporting 156,700 new industrial jobs by 2034. Your coordination with district administration, state departments, and industrial bodies is critical to Kalaburagi's transformation.</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Block Education Officer - Education & Skills Dashboard
+ */
+function renderBEODashboard(data) {
+    // Education infrastructure baseline
+    const totalSchools = 4109;
+    const primarySchools = 1177;
+    const upperPrimarySchools = 1685;
+    const totalEnrollment = 135000;
+    const pupilTeacherRatio = 29;
+    const literacyRate = 64.85;
+    const stateAvgLiteracy = 75.6;
+
+    // Framework goals relevant to education
+    const totalJobsTarget = 156700;
+    const skillBudget = 600; // crores in Phase 2
+
+    // Industry-specific skill requirements
+    const industries = [
+        { name: 'Garments & Textiles', jobs: 26000, skillsNeeded: 'Sewing, quality control, basic English', annualTarget: 5200 },
+        { name: 'Aerospace Components', jobs: 12000, skillsNeeded: 'STEM foundation, technical drawing, precision', annualTarget: 2400 },
+        { name: 'Pharmaceutical Packaging', jobs: 6700, skillsNeeded: 'Chemistry, hygiene, documentation', annualTarget: 1340 },
+        { name: 'Limestone & Cement', jobs: 12000, skillsNeeded: 'Safety, physical fitness, numerical skills', annualTarget: 2400 }
+    ];
+
+    // Education-to-employment pipeline gaps
+    const currentClass10Pass = 18000; // per year
+    const targetClass10Pass = 22000;
+    const currentITIEnrollment = 2200; // Kalaburagi students per year
+    const targetITIEnrollment = 8000;
+    const currentDropoutRate = 35; // percentage
+    const targetDropoutRate = 15;
+
+    // Block-wise data
+    const blocks = [
+        { name: 'Chittapur', schools: 339, ptrPrimary: 25, ptrUpperPrimary: 32, focus: 'High enrollment maintenance' },
+        { name: 'Kalaburagi South', schools: 178, ptrPrimary: 22, ptrUpperPrimary: 28, focus: 'Urban infrastructure strain' },
+        { name: 'Jewargi', schools: 285, ptrPrimary: 28, ptrUpperPrimary: 44, focus: 'URGENT: Teacher shortage' },
+        { name: 'Aland', schools: 245, ptrPrimary: 17, ptrUpperPrimary: 26, focus: 'Best PTR, rural access issues' },
+        { name: 'Afzalpur', schools: 298, ptrPrimary: 24, ptrUpperPrimary: 35, focus: 'Male enrollment campaign needed' },
+        { name: 'Chincholi', schools: 312, ptrPrimary: 26, ptrUpperPrimary: 38, focus: 'Infrastructure upgrades' },
+        { name: 'Sedam', schools: 352, ptrPrimary: 27, ptrUpperPrimary: 36, focus: 'Industrial skills training hub' }
+    ];
+
+    return `
+        <div class="custom-dashboard beo-dashboard">
+            <div class="dashboard-header">
+                <h2>📚 Block Education Officer - Education & Skills Pipeline Dashboard</h2>
+                <p class="dashboard-subtitle">Building the skilled workforce for ${(totalJobsTarget/1000).toFixed(0)}K industrial jobs by 2034</p>
+            </div>
+
+            <!-- Education Infrastructure Overview -->
+            <div class="edu-overview-grid">
+                <div class="edu-stat-card">
+                    <div class="stat-icon">🏫</div>
+                    <div class="stat-content">
+                        <div class="stat-value">${totalSchools.toLocaleString('en-IN')}</div>
+                        <div class="stat-label">Total Schools</div>
+                        <div class="stat-meta">${primarySchools} primary | ${upperPrimarySchools} upper-primary</div>
+                    </div>
+                </div>
+
+                <div class="edu-stat-card">
+                    <div class="stat-icon">👨‍🎓</div>
+                    <div class="stat-content">
+                        <div class="stat-value">${(totalEnrollment/1000).toFixed(0)}K</div>
+                        <div class="stat-label">Student Enrollment</div>
+                        <div class="stat-meta">Elementary level (Classes 1-8)</div>
+                    </div>
+                </div>
+
+                <div class="edu-stat-card">
+                    <div class="stat-icon">👩‍🏫</div>
+                    <div class="stat-content">
+                        <div class="stat-value">${pupilTeacherRatio}:1</div>
+                        <div class="stat-label">Pupil-Teacher Ratio</div>
+                        <div class="stat-meta">RTE Mandate: 30:1 (meets standard)</div>
+                    </div>
+                </div>
+
+                <div class="edu-stat-card alert-yellow">
+                    <div class="stat-icon">📖</div>
+                    <div class="stat-content">
+                        <div class="stat-value">${literacyRate}%</div>
+                        <div class="stat-label">District Literacy</div>
+                        <div class="stat-meta">State avg: ${stateAvgLiteracy}% (gap: ${(stateAvgLiteracy - literacyRate).toFixed(1)}%)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- THE CRITICAL CHALLENGE -->
+            <section class="dashboard-section alert-section">
+                <div class="alert-banner alert-red">
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-content">
+                        <h3>THE EDUCATION-EMPLOYMENT PIPELINE CRISIS</h3>
+                        <p><strong>Framework Goal:</strong> Create ${(totalJobsTarget/1000).toFixed(0)}K industrial jobs by 2034</p>
+                        <p><strong>Reality:</strong> Current education system produces only 2,200 ITI-skilled youth/year</p>
+                        <p><strong>Required:</strong> 15,000 industry-ready skilled workers annually by 2030</p>
+                        <p><strong>Gap:</strong> 12,800 skilled workers/year shortfall → Industries will fail without your action</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Industry Skill Requirements -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">Industry-Specific Skill Requirements (Your Responsibility)</h3>
+
+                <div class="industry-skills-grid">
+                    ${industries.map(industry => `
+                        <div class="industry-skill-card">
+                            <div class="industry-header">
+                                <h4>${industry.name}</h4>
+                                <span class="jobs-badge">${(industry.jobs/1000).toFixed(0)}K jobs</span>
+                            </div>
+                            <div class="skill-requirements">
+                                <div class="skill-label">Skills Needed:</div>
+                                <div class="skill-list">${industry.skillsNeeded}</div>
+                            </div>
+                            <div class="annual-target">
+                                <span class="target-label">Annual Target:</span>
+                                <span class="target-value">${industry.annualTarget.toLocaleString('en-IN')} skilled youth/year</span>
+                            </div>
+                            <div class="education-actions">
+                                <strong>BEO Action Required:</strong>
+                                ${industry.name === 'Garments & Textiles' ? `
+                                    <ul>
+                                        <li>Introduce pre-vocational sewing in 15 model schools (Classes 8-10)</li>
+                                        <li>Basic English proficiency programs for factory communication</li>
+                                        <li>Quality mindset training (attention to detail)</li>
+                                        <li>Partner with NTTF for curriculum</li>
+                                    </ul>
+                                ` : industry.name === 'Aerospace Components' ? `
+                                    <ul>
+                                        <li>Recruit 150 science teachers for rural schools (25% current vacancy)</li>
+                                        <li>STEM camps with VTU partnership</li>
+                                        <li>Establish 5 "Aerospace Prep" schools in Sedam block</li>
+                                        <li>Technical drawing as elective subject</li>
+                                    </ul>
+                                ` : industry.name === 'Pharmaceutical Packaging' ? `
+                                    <ul>
+                                        <li>Upgrade science labs in 25 schools near industrial areas</li>
+                                        <li>Guest lectures from pharma professionals</li>
+                                        <li>Hygiene and cleanliness discipline programs</li>
+                                        <li>Documentation skills training</li>
+                                    </ul>
+                                ` : `
+                                    <ul>
+                                        <li>Safety education modules in Classes 8-10</li>
+                                        <li>School visits to mining sites (safety protocols)</li>
+                                        <li>Physical fitness programs</li>
+                                        <li>Numerical skills emphasis (measurements)</li>
+                                    </ul>
+                                `}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </section>
+
+            <!-- Education Pipeline Gaps -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">Critical Pipeline Gaps (2026-2034)</h3>
+
+                <div class="pipeline-grid">
+                    <div class="pipeline-card alert-yellow">
+                        <div class="pipeline-header">
+                            <span class="pipeline-icon">🎓</span>
+                            <h4>Class 10 Completion</h4>
+                        </div>
+                        <div class="pipeline-stats">
+                            <div class="pipeline-current">
+                                <span class="stat-label">Current</span>
+                                <span class="stat-value">${currentClass10Pass.toLocaleString('en-IN')}/year</span>
+                            </div>
+                            <div class="pipeline-arrow">→</div>
+                            <div class="pipeline-target">
+                                <span class="stat-label">Target (2030)</span>
+                                <span class="stat-value">${targetClass10Pass.toLocaleString('en-IN')}/year</span>
+                            </div>
+                        </div>
+                        <div class="pipeline-gap">
+                            <strong>Gap:</strong> +${(targetClass10Pass - currentClass10Pass).toLocaleString('en-IN')} students/year
+                        </div>
+                        <div class="pipeline-action">
+                            <strong>Action:</strong> Reduce dropout rate from ${currentDropoutRate}% to ${targetDropoutRate}%
+                        </div>
+                    </div>
+
+                    <div class="pipeline-card alert-red">
+                        <div class="pipeline-header">
+                            <span class="pipeline-icon">🔧</span>
+                            <h4>ITI Enrollment (Kalaburagi Students)</h4>
+                        </div>
+                        <div class="pipeline-stats">
+                            <div class="pipeline-current">
+                                <span class="stat-label">Current</span>
+                                <span class="stat-value">${currentITIEnrollment.toLocaleString('en-IN')}/year</span>
+                            </div>
+                            <div class="pipeline-arrow">→</div>
+                            <div class="pipeline-target">
+                                <span class="stat-label">Target (2030)</span>
+                                <span class="stat-value">${targetITIEnrollment.toLocaleString('en-IN')}/year</span>
+                            </div>
+                        </div>
+                        <div class="pipeline-gap alert-red">
+                            <strong>CRITICAL GAP:</strong> +${(targetITIEnrollment - currentITIEnrollment).toLocaleString('en-IN')} students/year (3.6x increase needed!)
+                        </div>
+                        <div class="pipeline-action">
+                            <strong>Actions:</strong>
+                            <ul>
+                                <li>Change parent mindset: ITI = Good Career (not inferior to degrees)</li>
+                                <li>Establish ITI awareness programs in all high schools</li>
+                                <li>Coordinate with Industries Dept for hostel support (rural students)</li>
+                                <li>Industry job guarantee tie-ups for ITI graduates</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-card alert-yellow">
+                        <div class="pipeline-header">
+                            <span class="pipeline-icon">📉</span>
+                            <h4>Dropout Crisis</h4>
+                        </div>
+                        <div class="dropout-stats">
+                            <div class="dropout-current alert-red">
+                                <div class="dropout-label">Current Dropout Rate</div>
+                                <div class="dropout-value">${currentDropoutRate}%</div>
+                                <div class="dropout-impact">~6,300 children drop out before Class 10 annually</div>
+                            </div>
+                            <div class="dropout-target alert-green">
+                                <div class="dropout-label">Target (2030)</div>
+                                <div class="dropout-value">${targetDropoutRate}%</div>
+                                <div class="dropout-impact">Reduce by ${currentDropoutRate - targetDropoutRate}% points</div>
+                            </div>
+                        </div>
+                        <div class="dropout-reasons">
+                            <strong>Primary Reasons:</strong>
+                            <ul>
+                                <li><strong>Economic:</strong> Child labour in agriculture, family migration to Bangalore</li>
+                                <li><strong>Academic:</strong> Poor learning outcomes → students lose interest</li>
+                                <li><strong>Infrastructure:</strong> No high schools in village → can't afford to travel</li>
+                                <li><strong>Gender:</strong> Girls face safety concerns, early marriage pressure</li>
+                            </ul>
+                        </div>
+                        <div class="dropout-solutions">
+                            <strong>BEO Solutions:</strong>
+                            <ul>
+                                <li>Bridge courses for Class 9-10 students at risk</li>
+                                <li>Free transport/hostel for girls (coordinate with KHB)</li>
+                                <li>Parent counseling: focus on long-term economic benefits</li>
+                                <li>Track migrant families: ensure children enrolled in Bangalore schools</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Block-wise Performance -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">Block-wise School Infrastructure & Priorities</h3>
+
+                <div class="blocks-table-container">
+                    <table class="blocks-table">
+                        <thead>
+                            <tr>
+                                <th>Block</th>
+                                <th>Schools</th>
+                                <th>PTR Primary</th>
+                                <th>PTR Upper-Primary</th>
+                                <th>Priority Focus Area</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${blocks.map(block => `
+                                <tr class="${block.ptrUpperPrimary > 40 ? 'alert-row-red' : block.ptrUpperPrimary > 35 ? 'alert-row-yellow' : ''}">
+                                    <td><strong>${block.name}</strong></td>
+                                    <td>${block.schools}</td>
+                                    <td>${block.ptrPrimary}:1 ${block.ptrPrimary > 30 ? '⚠️' : '✓'}</td>
+                                    <td class="${block.ptrUpperPrimary > 40 ? 'alert-red' : block.ptrUpperPrimary > 35 ? 'alert-yellow' : ''}">
+                                        ${block.ptrUpperPrimary}:1 ${block.ptrUpperPrimary > 35 ? '⚠️' : '✓'}
+                                    </td>
+                                    <td>${block.focus}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    <div class="table-note">
+                        <strong>Note:</strong> RTE Mandate is 30:1 (primary) and 35:1 (upper-primary).
+                        <span class="alert-text">Jewargi block urgently needs 45 additional teachers for upper-primary level.</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Priority Actions -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">⚡ Priority Actions (Next 12 Months)</h3>
+
+                <div class="actions-list">
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Recruit 150 Science Teachers for Rural Schools</div>
+                            <div class="action-desc">25% science teacher positions vacant → directly undermines aerospace and pharma workforce pipeline. STEM proficiency below state average.</div>
+                            <div class="action-owner">Coordinate: DDPI, KPSC (Karnataka Public Service Commission)</div>
+                            <div class="action-timeline">Deadline: Q4 2026 (recruitment cycle)</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Launch "ITI = Good Career" Awareness Campaign</div>
+                            <div class="action-desc">Need 3.6x increase in ITI enrollment (2,200 → 8,000/year). Parent mindset is biggest barrier. Industries offering ₹15-25K starting salaries for ITI graduates.</div>
+                            <div class="action-owner">Coordinate: ITI Principals, Industries Dept, Udyog Mitra</div>
+                            <div class="action-timeline">Launch: April 2026 (before Class 10 results)</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Establish 15 Pre-Vocational Model Schools (Garment Skills)</div>
+                            <div class="action-desc">PM MITRA requires 26,000 garment workers by 2034. Introduce sewing, textile crafts in Classes 8-10 to prepare students for industry pathway.</div>
+                            <div class="action-owner">Coordinate: NTTF (National Tool & Training Foundation), PM MITRA Project Office</div>
+                            <div class="action-timeline">Pilot: 3 schools by July 2026 | Scale: 15 schools by 2027</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Upgrade Science Labs in 25 Schools Near Industrial Areas</div>
+                            <div class="action-desc">Only 40% schools have functional science labs. Aerospace and pharma clusters need strong STEM foundation. Budget: ₹15 cr (₹60 lakh/school).</div>
+                            <div class="action-owner">Coordinate: PWD (construction), Samagra Shiksha funds</div>
+                            <div class="action-timeline">Target: 10 schools by Dec 2026 | 25 schools by June 2027</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Dropout Intervention: Girls' Hostel + Transport</div>
+                            <div class="action-desc">35% dropout rate → 6,300 children lost annually. Girls especially vulnerable post-Class 8 (no high school in village). Free transport/hostel can retain 2,000+ girls/year.</div>
+                            <div class="action-owner">Coordinate: KHB (hostel construction), Transport Dept</div>
+                            <div class="action-timeline">Pilot: 5 hostels (100 girls each) by Jan 2027</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card medium">
+                        <div class="action-priority">MEDIUM</div>
+                        <div class="action-content">
+                            <div class="action-title">Industry Exposure Visits for High School Students</div>
+                            <div class="action-desc">50% high schools to have MoU with local industries for quarterly visits. Students see real careers → motivation to complete education and pursue ITI.</div>
+                            <div class="action-owner">Coordinate: KIADB, Industry HR departments</div>
+                            <div class="action-timeline">Target: 25 MoUs by Dec 2026</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card medium">
+                        <div class="action-priority">MEDIUM</div>
+                        <div class="action-content">
+                            <div class="action-title">Teacher Training: 50 Hours/Year for All Teachers</div>
+                            <div class="action-desc">Quality improvement essential. Focus: pedagogy, digital teaching tools, vocational awareness, student counseling.</div>
+                            <div class="action-owner">DIET (District Institute of Education & Training)</div>
+                            <div class="action-timeline">Ongoing - track quarterly compliance</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Success Metrics -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">📊 Success Metrics (2026-2034 Targets)</h3>
+
+                <div class="metrics-grid">
+                    <div class="metric-box">
+                        <div class="metric-title">Class 10 Pass Rate</div>
+                        <div class="metric-progress">
+                            <div class="metric-current">Current: 72%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 72%; background: #f59e0b;"></div>
+                            </div>
+                            <div class="metric-target">Target 2030: 85%</div>
+                        </div>
+                    </div>
+
+                    <div class="metric-box">
+                        <div class="metric-title">ITI Enrollment (Annual)</div>
+                        <div class="metric-progress">
+                            <div class="metric-current">Current: 2,200 students</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 27.5%; background: #ef4444;"></div>
+                            </div>
+                            <div class="metric-target">Target 2030: 8,000 students</div>
+                        </div>
+                    </div>
+
+                    <div class="metric-box">
+                        <div class="metric-title">Dropout Rate</div>
+                        <div class="metric-progress">
+                            <div class="metric-current">Current: 35% (URGENT)</div>
+                            <div class="progress-bar-reverse">
+                                <div class="progress-fill-reverse" style="width: 35%; background: #ef4444;"></div>
+                            </div>
+                            <div class="metric-target">Target 2030: 15% (lower is better)</div>
+                        </div>
+                    </div>
+
+                    <div class="metric-box">
+                        <div class="metric-title">Science Teacher Vacancies</div>
+                        <div class="metric-progress">
+                            <div class="metric-current">Current: 150 vacant (25%)</div>
+                            <div class="progress-bar-reverse">
+                                <div class="progress-fill-reverse" style="width: 25%; background: #ef4444;"></div>
+                            </div>
+                            <div class="metric-target">Target 2027: 0 vacancies</div>
+                        </div>
+                    </div>
+
+                    <div class="metric-box">
+                        <div class="metric-title">Functional Science Labs</div>
+                        <div class="metric-progress">
+                            <div class="metric-current">Current: 40% schools</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%; background: #f59e0b;"></div>
+                            </div>
+                            <div class="metric-target">Target 2029: 80% schools</div>
+                        </div>
+                    </div>
+
+                    <div class="metric-box">
+                        <div class="metric-title">Industry-Ready Youth (Annual Output)</div>
+                        <div class="metric-progress">
+                            <div class="metric-current">Current: ~1,500/year</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 10%; background: #ef4444;"></div>
+                            </div>
+                            <div class="metric-target">Target 2034: 15,000/year</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-footer">
+                <p><strong>Data Sources:</strong> District Education Statistics (IndiaStatDistricts), Karnataka School Education Department, Framework v2.0, DDPI Kalaburagi</p>
+                <p><strong>Role Context:</strong> As Block Education Officer, you are THE CRITICAL LINCHPIN in the Framework v2.0 success. Without a skilled workforce pipeline, the ₹20,150 cr investment and 156,700 jobs will fail. Your actions in education directly determine whether industries thrive or collapse. The responsibility is enormous, but so is the impact.</p>
+                <p><strong>Key Challenge:</strong> You must fundamentally transform mindsets → ITI is a dignified, well-paying career path. Parent counseling, industry exposure, and job guarantees are your weapons. Use them aggressively.</p>
             </div>
         </div>
     `;
