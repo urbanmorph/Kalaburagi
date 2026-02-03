@@ -131,23 +131,28 @@ function renderRoleHeader(config) {
     // Create role info banner
     const roleBanner = document.createElement('div');
     roleBanner.className = 'role-banner';
+    roleBanner.style.display = 'inline-flex'; // Ensure inline display
     roleBanner.innerHTML = `
         <span class="role-icon">${config.icon}</span>
         <span class="role-name">${config.name}</span>
     `;
 
-    // Insert after the role switcher if it exists, otherwise before update time
+    // Insert after the role switcher (which is always first)
     const roleSwitcher = headerMeta.querySelector('.role-switcher-container');
-    const updateTime = headerMeta.querySelector('.update-time');
-
     if (roleSwitcher && roleSwitcher.nextSibling) {
         // Insert after the role switcher
         headerMeta.insertBefore(roleBanner, roleSwitcher.nextSibling);
-    } else if (updateTime) {
-        // Fallback: insert before update time
-        headerMeta.insertBefore(roleBanner, updateTime);
-    } else {
+    } else if (roleSwitcher) {
+        // Switcher is the only child, insert after it
         headerMeta.appendChild(roleBanner);
+    } else {
+        // No switcher (shouldn't happen), insert at beginning
+        const updateTime = headerMeta.querySelector('.update-time');
+        if (updateTime) {
+            headerMeta.insertBefore(roleBanner, updateTime);
+        } else {
+            headerMeta.appendChild(roleBanner);
+        }
     }
 }
 
@@ -328,22 +333,25 @@ function initializeRoleSwitcher() {
     }
 
     // Check if switcher already exists
-    if (document.getElementById('roleSwitcher')) {
+    const existingSwitcher = document.getElementById('roleSwitcher');
+    if (existingSwitcher) {
         console.log('Role switcher already exists');
+        // Make sure it's visible
+        const switcherContainer = existingSwitcher.closest('.role-switcher-container');
+        if (switcherContainer) {
+            switcherContainer.style.display = 'flex';
+        }
         return;
     }
 
     // Create switcher container
     const switcherContainer = document.createElement('div');
     switcherContainer.className = 'role-switcher-container';
+    switcherContainer.style.display = 'inline-flex'; // Ensure inline display
     switcherContainer.innerHTML = renderRoleSwitcher();
 
-    // Always insert at the beginning of header-meta (before everything else)
-    if (headerMeta.firstChild) {
-        headerMeta.insertBefore(switcherContainer, headerMeta.firstChild);
-    } else {
-        headerMeta.appendChild(switcherContainer);
-    }
+    // Insert at the beginning of header-meta to ensure it's always visible
+    headerMeta.insertBefore(switcherContainer, headerMeta.firstChild);
 
     console.log('Role switcher initialized');
 
