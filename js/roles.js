@@ -2062,6 +2062,463 @@ function renderBEODashboard(data) {
     `;
 }
 
+/**
+ * Town Planning Officer - Land Use & Zoning Dashboard
+ */
+function renderTPODashboard(data) {
+    const industries = [
+        { name: 'PM MITRA Textile Park', land: 300, status: 'Land identified - rezoning urgent', jobs: 26000, workers: 3000 },
+        { name: 'Aerospace Cluster (Sedam)', land: 500, status: 'Expansion notification pending', jobs: 12000, workers: 2000 },
+        { name: 'Pharmaceutical Packaging', land: 200, status: 'Pharma zone to be notified', jobs: 6700, workers: 800 },
+        { name: 'Limestone & Cement Processing', land: 250, status: 'Mining buffer zones needed', jobs: 12000, workers: 2000 }
+    ];
+
+    const totalLandRequired = industries.reduce((sum, i) => sum + i.land, 0);
+    const totalHousingBeds = industries.reduce((sum, i) => sum + i.workers, 0);
+    const workerHousingLand = 375; // acres for 3 zones
+
+    return `
+        <div class="custom-dashboard tpo-dashboard">
+            <div class="dashboard-header">
+                <h2>🏗️ Town Planning Officer - Industrial Zoning & Land Use Dashboard</h2>
+                <p class="dashboard-subtitle">KUDA Master Plan 2041 amendments for ${totalLandRequired} acres industrial + ${workerHousingLand} acres worker housing</p>
+            </div>
+
+            <!-- Land Crisis Alert -->
+            <div class="alert-section">
+                <div class="alert-banner alert-red">
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-content">
+                        <h3>URGENT: Industrial Land Zoning Crisis</h3>
+                        <p><strong>Framework v2.0 requires ${totalLandRequired} acres</strong> for 4 industrial clusters + ${workerHousingLand} acres for ${totalHousingBeds} worker hostel beds</p>
+                        <p><strong>Current KUDA Master Plan 2041:</strong> Prepared BEFORE Framework → Does not zone for these industries</p>
+                        <p><strong>Your Action:</strong> Emergency master plan amendments + fast-track approvals needed Q2-Q3 2026</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Industry Zoning Requirements -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">Industry-Specific Land Use Planning Requirements</h3>
+                <div class="industry-land-grid">
+                    ${industries.map(industry => `
+                        <div class="land-req-card">
+                            <div class="land-header">
+                                <h4>${industry.name}</h4>
+                                <span class="jobs-badge">${(industry.jobs/1000).toFixed(1)}K jobs</span>
+                            </div>
+                            <div class="land-stats">
+                                <div class="land-stat">
+                                    <span class="stat-label">Land Required</span>
+                                    <span class="stat-value">${industry.land} acres</span>
+                                </div>
+                                <div class="land-stat">
+                                    <span class="stat-label">Worker Beds</span>
+                                    <span class="stat-value">${industry.workers.toLocaleString('en-IN')}</span>
+                                </div>
+                            </div>
+                            <div class="land-status ${industry.status.includes('urgent') || industry.status.includes('pending') ? 'alert-yellow' : 'alert-green'}">
+                                <strong>Status:</strong> ${industry.status}
+                            </div>
+                            <div class="tpo-actions">
+                                ${industry.name.includes('PM MITRA') ? `
+                                    <strong>TPO Actions:</strong>
+                                    <ul>
+                                        <li>Rezone 300 acres agricultural→industrial (Sedam/Chittapur)</li>
+                                        <li>125-acre mixed-use zone for 3,000 hostel beds</li>
+                                        <li>FAR relaxation 2.5 (dormitories 6-8 stories)</li>
+                                        <li>12 km approach road widening (NH-9 to park)</li>
+                                        <li>500m greenbelt buffer from residential areas</li>
+                                    </ul>
+                                ` : industry.name.includes('Aerospace') ? `
+                                    <strong>TPO Actions:</strong>
+                                    <ul>
+                                        <li>Expand Sedam Industrial Area by 550 acres</li>
+                                        <li>"High-Precision Manufacturing Zone" (vibration/dust control)</li>
+                                        <li>Height clearances with Airport Authority</li>
+                                        <li>Engineer/technician housing (villas vs dormitories)</li>
+                                        <li>R&D zone for IIT partnership</li>
+                                    </ul>
+                                ` : industry.name.includes('Pharmaceutical') ? `
+                                    <strong>TPO Actions:</strong>
+                                    <ul>
+                                        <li>Dedicated pharma zone (200 acres)</li>
+                                        <li>No polluting industries within 2 km</li>
+                                        <li>Coordinate CETP location with KSPCB</li>
+                                        <li>1 km residential buffer (chemical handling)</li>
+                                        <li>Pharma-grade water certification required</li>
+                                    </ul>
+                                ` : `
+                                    <strong>TPO Actions:</strong>
+                                    <ul>
+                                        <li>Industrial zone in Chincholi/Sedam (limestone belt)</li>
+                                        <li>5 km buffer from residential (dust, noise, heavy traffic)</li>
+                                        <li>Dedicated truck routes (no residential passage)</li>
+                                        <li>Mandatory 30% greenbelt</li>
+                                        <li>Forest clearance coordination</li>
+                                    </ul>
+                                `}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </section>
+
+            <!-- Worker Housing Zones -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">Critical: Worker Housing Zones (${workerHousingLand} acres)</h3>
+                <div class="housing-zones-grid">
+                    <div class="zone-card alert-red">
+                        <h4>Zone 1: PM MITRA Worker Zone</h4>
+                        <div class="zone-details">
+                            <div class="zone-spec"><strong>Capacity:</strong> 3,000 beds + 1,500 rental units</div>
+                            <div class="zone-spec"><strong>Land:</strong> 150 acres (Sedam/Chittapur)</div>
+                            <div class="zone-spec"><strong>Zoning:</strong> Mixed-Use Residential-Commercial (MURC)</div>
+                            <div class="zone-spec"><strong>FAR:</strong> 2.5 (allow 6-8 story dormitories)</div>
+                            <div class="zone-spec"><strong>Distance:</strong> 3-5 km from textile park</div>
+                        </div>
+                        <div class="zone-action alert-red">
+                            <strong>URGENT:</strong> Notify MURC zone by Q1 2027 | Fast-track KHB building approvals
+                        </div>
+                    </div>
+
+                    <div class="zone-card alert-yellow">
+                        <h4>Zone 2: Sedam Industrial Worker Zone</h4>
+                        <div class="zone-details">
+                            <div class="zone-spec"><strong>Capacity:</strong> 2,500 beds + 2,000 rental units</div>
+                            <div class="zone-spec"><strong>Land:</strong> 150 acres</div>
+                            <div class="zone-spec"><strong>Type:</strong> Skilled Worker Housing (aerospace/pharma)</div>
+                            <div class="zone-spec"><strong>Mix:</strong> 60% dormitories, 40% 1-2 BHK apartments</div>
+                        </div>
+                        <div class="zone-action alert-yellow">
+                            Notify by Q2 2027 | Higher quality for skilled workers
+                        </div>
+                    </div>
+
+                    <div class="zone-card">
+                        <h4>Zone 3: Limestone Belt Worker Colony</h4>
+                        <div class="zone-details">
+                            <div class="zone-spec"><strong>Capacity:</strong> 2,000 beds</div>
+                            <div class="zone-spec"><strong>Land:</strong> 75 acres (Chincholi area)</div>
+                            <div class="zone-spec"><strong>Type:</strong> Basic dormitories (away from mining dust)</div>
+                            <div class="zone-spec"><strong>FAR:</strong> 1.8</div>
+                        </div>
+                        <div class="zone-action">
+                            Notify by Q3 2027 | Health considerations (dust exposure)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fast-Track Approval System -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">Approval Process Reform</h3>
+                <div class="approval-reform-card">
+                    <div class="reform-problem">
+                        <strong>Current Problem:</strong> Building approval takes 90-120 days → Industries frustrated, investment delayed
+                    </div>
+                    <div class="reform-solution">
+                        <strong>TPO's Fast-Track System for Framework v2.0:</strong>
+                        <div class="reform-grid">
+                            <div class="reform-item">
+                                <div class="reform-title">1. Single-Window Cell</div>
+                                <div class="reform-desc">Dedicated officer for Framework projects | Pre-approved layouts | 30-day target</div>
+                            </div>
+                            <div class="reform-item">
+                                <div class="reform-title">2. Digital Approval</div>
+                                <div class="reform-desc">Online submission | Auto-scrutiny software | Parallel NOC processing</div>
+                            </div>
+                            <div class="reform-item">
+                                <div class="reform-title">3. Deemed Approval</div>
+                                <div class="reform-desc">45-day rule: No response = Auto-approved | TPO liability for post-approval</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reform-target">
+                        <strong>Target:</strong> 100% Framework projects approved within 45 days by 2027
+                    </div>
+                </div>
+            </section>
+
+            <!-- Priority Actions -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">⚡ Priority Actions (Next 6 Months)</h3>
+                <div class="actions-list">
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Master Plan Amendment: Rezone 1,625 Acres</div>
+                            <div class="action-desc">${totalLandRequired} acres industrial + ${workerHousingLand} acres worker housing. Submit to KUDA Commissioner by March 2026.</div>
+                            <div class="action-owner">Coordinate: Revenue Dept (land conversion), KIADB, DC office</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">PM MITRA Land Conversion Approval</div>
+                            <div class="action-desc">300 acres agricultural→industrial conversion. MoU signed Dec 2024 but land NOT approved yet. Deadline: Q2 2026.</div>
+                            <div class="action-owner">Coordinate: Revenue Officer, District Collector</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">45 km Approach Road Widening Master Plan</div>
+                            <div class="action-desc">Upgrade roads from 2-lane (15m) to 4-lane (30m). Budget: ₹125 cr. Coordinate land acquisition for 15m additional width.</div>
+                            <div class="action-owner">Coordinate: PWD (construction), Revenue (acquisition)</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Aerospace Height Clearances (Airport Authority)</div>
+                            <div class="action-desc">Sedam cluster near Kalaburagi Airport. Need height restriction zoning + security clearances (if defense applications).</div>
+                            <div class="action-owner">Coordinate: Airport Authority, Defence (if applicable)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-footer">
+                <p><strong>Data Sources:</strong> KUDA Master Plan 2041, Framework v2.0, Karnataka Town & Country Planning Act 1961</p>
+                <p><strong>Role Context:</strong> As TPO, you are the GATEKEEPER for Framework v2.0 land use. Without your master plan amendments and fast-track approvals, the ₹20,150 cr investment CANNOT happen. Industries need legal zoning + building permissions to start construction. Your urgency determines the timeline.</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Karnataka Housing Board - Worker Housing Crisis Dashboard
+ */
+function renderKHBHousingDashboard(data) {
+    const pmayTotal = 15000;
+    const pmayCompleted = 3200;
+    const pmayPending = pmayTotal - pmayCompleted;
+    const pmayProgress = ((pmayCompleted / pmayTotal) * 100).toFixed(1);
+
+    const workerHousingNeeded = 8000; // beds
+    const workerHousingCurrent = 0;
+    const rentalUnitsNeeded = 5000;
+
+    const slumHouseholds = 9000;
+    const slumUpgradable = 5200;
+    const slumRelocate = 1300;
+
+    return `
+        <div class="custom-dashboard khb-dashboard">
+            <div class="dashboard-header">
+                <h2>🏘️ Karnataka Housing Board - Worker Housing Crisis Dashboard</h2>
+                <p class="dashboard-subtitle">Build 8,000 hostel beds + 5,000 rental units by 2030 | Clear 11,800 PMAY backlog | Rehabilitate 9,000 slum families</p>
+            </div>
+
+            <!-- Worker Housing Crisis Alert -->
+            <div class="alert-section">
+                <div class="alert-banner alert-red">
+                    <div class="alert-icon">🚨</div>
+                    <div class="alert-content">
+                        <h3>WORKER HOUSING CRISIS: Zero Purpose-Built Dormitories</h3>
+                        <p><strong>Framework Reality:</strong> 156,700 jobs → 40,000-50,000 migrant workers by 2034</p>
+                        <p><strong>Current Housing:</strong> ZERO purpose-built worker dormitories in Kalaburagi district</p>
+                        <p><strong>Consequence:</strong> Workers will live in slums, illegal settlements, overcrowded rooms (10-15 people/room) → Social problems, health crisis, industrial productivity loss → Framework v2.0 FAILS</p>
+                        <p><strong>KHB's Mission:</strong> Build ${workerHousingNeeded.toLocaleString('en-IN')} hostel beds + ${rentalUnitsNeeded.toLocaleString('en-IN')} affordable rental units by 2030 (₹645.5 cr investment)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Industry-Specific Worker Housing -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">Industry-Specific Worker Housing Requirements</h3>
+                <div class="worker-housing-grid">
+                    <div class="worker-housing-card alert-red">
+                        <div class="housing-header">
+                            <h4>👔 PM MITRA Textile Park (26,000 workers)</h4>
+                            <span class="urgent-badge">MOST URGENT</span>
+                        </div>
+                        <div class="housing-requirements">
+                            <div class="req-item"><strong>Need:</strong> 3,000 hostel beds (2,100 women, 900 men)</div>
+                            <div class="req-item"><strong>Profile:</strong> Age 18-35, rural migrants, ₹10-15K/month income</div>
+                            <div class="req-item"><strong>Affordability:</strong> ₹1,200-1,500/month/bed (incl. food)</div>
+                            <div class="req-item"><strong>Location:</strong> 3-5 km from textile park (cycling distance)</div>
+                            <div class="req-item"><strong>Cost:</strong> ₹48.5 cr (7 women's + 3 men's hostels)</div>
+                        </div>
+                        <div class="housing-model">
+                            <strong>Model:</strong> Women's hostels (4-6/room, 24x7 security) | Men's hostels (6-8/room) | Common kitchen, medical room, recreation
+                        </div>
+                        <div class="housing-timeline alert-red">
+                            <strong>Timeline:</strong> Start construction Q3 2026 | First 1,000 beds by Dec 2027 | Full 3,000 beds by 2029
+                        </div>
+                        <div class="housing-coordination">
+                            <strong>Coordination:</strong> KIADB (land allocation 25 acres), TPO (FAR relaxation 2.5), Industries Dept (₹20 cr subsidy from PM MITRA fund), Private developers (PPP model)
+                        </div>
+                    </div>
+
+                    <div class="worker-housing-card alert-yellow">
+                        <div class="housing-header">
+                            <h4>✈️💊 Aerospace & Pharma (18,700 workers)</h4>
+                        </div>
+                        <div class="housing-requirements">
+                            <div class="req-item"><strong>Need:</strong> 2,000 skilled worker apartments + 2,000 hostel beds</div>
+                            <div class="req-item"><strong>Profile:</strong> ITI diploma holders, technicians, ₹15-25K/month</div>
+                            <div class="req-item"><strong>Type:</strong> 1-2 BHK for married, shared hostels for single</div>
+                            <div class="req-item"><strong>Location:</strong> Sedam town (near industrial cluster)</div>
+                            <div class="req-item"><strong>Cost:</strong> ₹282 cr</div>
+                        </div>
+                        <div class="housing-model">
+                            <strong>Model:</strong> PMAY Affordable Rental Housing Complex (ARHC) scheme | Rent ₹3,500-5,500/month (apartments), ₹2,000/month (hostels)
+                        </div>
+                        <div class="housing-timeline alert-yellow">
+                            <strong>Timeline:</strong> 2028-2030
+                        </div>
+                    </div>
+
+                    <div class="worker-housing-card">
+                        <div class="housing-header">
+                            <h4>🏗️ Limestone & Cement (12,000 workers)</h4>
+                        </div>
+                        <div class="housing-requirements">
+                            <div class="req-item"><strong>Need:</strong> 2,000 basic dormitory beds</div>
+                            <div class="req-item"><strong>Profile:</strong> Manual labor, machine operators, ₹12-18K/month</div>
+                            <div class="req-item"><strong>Type:</strong> Barrack-style dormitories (8-10 workers/room)</div>
+                            <div class="req-item"><strong>Location:</strong> Chincholi (10-15 km from mining - health reasons)</div>
+                            <div class="req-item"><strong>Cost:</strong> ₹15 cr (highly subsidized)</div>
+                        </div>
+                        <div class="housing-model">
+                            <strong>Model:</strong> Basic facilities | Rent ₹800/month/bed | Health screening (silicosis prevention) | Good ventilation (dust exposure)
+                        </div>
+                        <div class="housing-timeline">
+                            <strong>Timeline:</strong> 2029-2031
+                        </div>
+                    </div>
+                </div>
+
+                <div class="total-investment-card">
+                    <h4>Total Worker Housing Program (2026-2034)</h4>
+                    <div class="investment-summary">
+                        <div class="investment-item"><strong>Hostel Beds:</strong> 7,000 beds (₹100.5 cr)</div>
+                        <div class="investment-item"><strong>Rental Apartments:</strong> 5,000 units (₹540 cr)</div>
+                        <div class="investment-item"><strong>Total Investment:</strong> ₹645.5 cr over 8 years</div>
+                    </div>
+                    <div class="funding-mix">
+                        <strong>Funding Mix:</strong> PMAY (54%) + Industries Dept (23%) + Private PPP (16%) + KHB (7%)
+                    </div>
+                </div>
+            </section>
+
+            <!-- PMAY Backlog -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">PMAY Backlog: Clear Before Adding Worker Housing</h3>
+                <div class="pmay-status-card alert-yellow">
+                    <div class="pmay-stats">
+                        <div class="pmay-stat">
+                            <div class="stat-label">Sanctioned</div>
+                            <div class="stat-value">${pmayTotal.toLocaleString('en-IN')}</div>
+                        </div>
+                        <div class="pmay-stat alert-green">
+                            <div class="stat-label">Completed</div>
+                            <div class="stat-value">${pmayCompleted.toLocaleString('en-IN')}</div>
+                            <div class="stat-percent">${pmayProgress}%</div>
+                        </div>
+                        <div class="pmay-stat alert-red">
+                            <div class="stat-label">Pending</div>
+                            <div class="stat-value">${pmayPending.toLocaleString('en-IN')}</div>
+                            <div class="stat-impact">5,800 under construction | 6,000 not started</div>
+                        </div>
+                    </div>
+                    <div class="pmay-problem">
+                        <strong>Problem:</strong> Slow completion (21%) → Must clear backlog BEFORE adding worker housing burden
+                    </div>
+                    <div class="pmay-actions">
+                        <strong>Fast-Track Actions (2026-2028):</strong>
+                        <ul>
+                            <li>Blacklist slow contractors (impose penalties) | Mobilize new contractors with performance bonds</li>
+                            <li>Re-verify 6,000 pending beneficiaries by Jun 2026 (15% can't be traced - migrated/dead/ineligible)</li>
+                            <li>Third-party quality audits (25% completed houses have defects)</li>
+                            <li>Target: Complete 8,000 pending houses by Dec 2028</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slum Rehabilitation -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">Slum Rehabilitation (9,000 households)</h3>
+                <div class="slum-rehab-grid">
+                    <div class="slum-card">
+                        <h4>In-Situ Upgradation (Basava Vasati Yojana)</h4>
+                        <div class="slum-stats">
+                            <div class="slum-stat"><strong>Households:</strong> ${slumUpgradable.toLocaleString('en-IN')}</div>
+                            <div class="slum-stat"><strong>Components:</strong> Pucca houses, individual toilets (35%→100%), electricity, water taps, drainage</div>
+                            <div class="slum-stat"><strong>Cost:</strong> ₹2.5 lakh/household | Total: ₹130 cr</div>
+                        </div>
+                        <div class="slum-timeline">Target: Complete by 2029</div>
+                    </div>
+
+                    <div class="slum-card alert-yellow">
+                        <h4>Relocation Projects</h4>
+                        <div class="slum-stats">
+                            <div class="slum-stat"><strong>Households:</strong> ${slumRelocate.toLocaleString('en-IN')} (hazardous locations - railway tracks, river banks)</div>
+                            <div class="slum-stat"><strong>Land Needed:</strong> 65 acres for G+2 townships</div>
+                            <div class="slum-stat"><strong>Compensation:</strong> Free housing + ₹50,000 shifting allowance</div>
+                            <div class="slum-stat"><strong>Cost:</strong> ₹50 cr</div>
+                        </div>
+                        <div class="slum-timeline">Target: Complete by 2028</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Priority Actions -->
+            <section class="dashboard-section">
+                <h3 class="section-heading">⚡ Priority Actions (Next 12 Months)</h3>
+                <div class="actions-list">
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">Secure 125 Acres Land for Worker Housing Zones</div>
+                            <div class="action-desc">Coordinate with KIADB (land allocation) and TPO (zoning notification) for 3 worker housing zones. Without land, cannot start construction.</div>
+                            <div class="action-owner">Deadline: Q2 2026</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card urgent">
+                        <div class="action-priority">URGENT</div>
+                        <div class="action-content">
+                            <div class="action-title">PM MITRA Worker Hostels: DPR + Funding Approval</div>
+                            <div class="action-desc">Prepare Detailed Project Report for 3,000 hostel beds (₹48.5 cr). Secure ₹20 cr subsidy from PM MITRA fund + ₹15 cr PMAY ARHC + ₹13.5 cr private PPP.</div>
+                            <div class="action-owner">Deadline: Q3 2026 | Start construction Q4 2026</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Empanel 25+ New Contractors</div>
+                            <div class="action-desc">Currently only 12-15 contractors → Cannot handle simultaneous PMAY backlog + worker housing. Need performance-based contracts.</div>
+                            <div class="action-owner">Deadline: Q2 2026</div>
+                        </div>
+                    </div>
+
+                    <div class="action-card high">
+                        <div class="action-priority">HIGH</div>
+                        <div class="action-content">
+                            <div class="action-title">Clear 8,000 Pending PMAY Houses</div>
+                            <div class="action-desc">Fast-track completion: Blacklist slow contractors, re-verify beneficiaries, quality audits. Target: Dec 2028.</div>
+                            <div class="action-owner">Monthly review with DC office</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-footer">
+                <p><strong>Data Sources:</strong> KHB Records, PMAY Portal, Framework v2.0, Karnataka Affordable Housing Policy 2016</p>
+                <p><strong>Role Context:</strong> As KHB Officer, you are responsible for preventing a humanitarian crisis. 40,000 workers without proper housing = slums, disease, crime, industrial failure. Your worker housing program (₹645.5 cr) is NOT optional - it's ESSENTIAL for Framework v2.0 success. Start land acquisition and DPRs immediately.</p>
+            </div>
+        </div>
+    `;
+}
+
 // Export for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
