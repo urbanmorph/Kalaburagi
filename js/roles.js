@@ -519,19 +519,7 @@ function renderAgricultureDashboard(data) {
             </div>
             ` : ''}
 
-            <div class="fpo-tracker">
-                <h3>FPO Formation Tracker</h3>
-                <div class="fpo-progress">
-                    <div class="progress-label">
-                        <span>15 / 50 FPOs Formed</span>
-                        <span>30%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 30%"></div>
-                    </div>
-                    <div class="fpo-detail">Farmers covered: 30,000 / 100,000</div>
-                </div>
-            </div>
+            ${renderFPOSection()}
         </div>
     `;
 }
@@ -815,6 +803,119 @@ function renderMinisterDashboard(data) {
 }
 
 /**
+ * Render FPO Section
+ * Shows Farmer Producer Organization data and formation progress
+ */
+function renderFPOSection() {
+    // Check if FPO data is available
+    if (typeof fpoData === 'undefined') {
+        return '<p class="data-note">FPO data loading...</p>';
+    }
+
+    const summary = fpoData.summary;
+    const financial = fpoData.financialMetrics;
+
+    return `
+        <div class="custom-section fpo-dashboard">
+            <h3 class="section-subtitle">
+                🌾 FPO Formation & Farmer Integration
+                <span class="data-source-badge">${fpoData.source}</span>
+            </h3>
+
+            ${fpoData.note ? `<div class="alert alert-info">
+                <strong>Note:</strong> ${fpoData.note}
+            </div>` : ''}
+
+            <div class="fpo-progress-card">
+                <div class="fpo-progress-header">
+                    <h4>FPO Formation Progress</h4>
+                    <div class="progress-percentage">${summary.percentComplete}%</div>
+                </div>
+                <div class="progress-bar large">
+                    <div class="progress-fill" style="width: ${summary.percentComplete}%"></div>
+                </div>
+                <div class="progress-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Current</span>
+                        <span class="stat-value">${summary.totalFPOs}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Target (2032)</span>
+                        <span class="stat-value">${summary.targetBy2032}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Gap Remaining</span>
+                        <span class="stat-value">${summary.gapRemaining}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-grid-3">
+                <div class="kpi-card">
+                    <div class="kpi-label">Active FPOs</div>
+                    <div class="kpi-value">${summary.activeFPOs}</div>
+                    <div class="kpi-detail">${summary.underFormationFPOs} under formation</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Member Farmers</div>
+                    <div class="kpi-value">${financial.totalMemberFarmers.toLocaleString('en-IN')}</div>
+                    <div class="kpi-detail">Avg ${financial.averageMembersPerFPO} per FPO</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Annual Turnover</div>
+                    <div class="kpi-value">₹${(financial.totalAnnualTurnover / 10000000).toFixed(1)} Cr</div>
+                    <div class="kpi-detail">Avg ₹${(financial.averageTurnoverPerFPO / 10000000).toFixed(2)} cr/FPO</div>
+                </div>
+            </div>
+
+            <div class="fpo-breakdown">
+                <div class="breakdown-col">
+                    <h4>By Taluk</h4>
+                    <div class="type-list">
+                        ${Object.entries(fpoData.byTaluk).map(([taluk, count]) => `
+                            <div class="type-item">
+                                <span class="type-name">${taluk}</span>
+                                <span class="type-count">${count}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="breakdown-col">
+                    <h4>By Commodity Focus</h4>
+                    <div class="type-list">
+                        ${Object.entries(fpoData.byCommodity).map(([commodity, count]) => `
+                            <div class="type-item">
+                                <span class="type-name">${commodity}</span>
+                                <span class="type-count">${count}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="breakdown-col">
+                    <h4>Roadmap Targets</h4>
+                    <div class="growth-stats">
+                        ${Object.entries(fpoData.roadmapTargets).map(([phase, details]) => `
+                            <div class="growth-item">
+                                <div class="growth-label">${details.years}</div>
+                                <div class="growth-value">+${details.targetNew} FPOs</div>
+                                <div class="growth-focus">${details.focus}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-source-note">
+                <small>Source: ${fpoData.source} | Last Updated: ${new Date(fpoData.lastUpdated).toLocaleDateString('en-IN')} |
+                <a href="${fpoData.sourceUrl}" target="_blank">View Source</a></small>
+            </div>
+        </div>
+    `;
+}
+
+/**
  * Render MSME Section
  * Shows MSME registration data from Open Government Data Platform
  */
@@ -937,6 +1038,7 @@ if (typeof module !== 'undefined' && module.exports) {
         roleConfigs,
         filterDataForRole,
         renderCustomDashboard,
-        renderMSMESection
+        renderMSMESection,
+        renderFPOSection
     };
 }
