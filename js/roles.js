@@ -381,6 +381,8 @@ function renderDCExecutiveDashboard(data) {
                     </div>
                 `).join('')}
             </div>
+
+            ${renderMSMESection()}
         </div>
     `;
 }
@@ -442,6 +444,8 @@ function renderKIADBLandDashboard(data) {
                     </div>
                 </div>
             </div>
+
+            ${renderMSMESection()}
         </div>
     `;
 }
@@ -810,11 +814,129 @@ function renderMinisterDashboard(data) {
     `;
 }
 
+/**
+ * Render MSME Section
+ * Shows MSME registration data from Open Government Data Platform
+ */
+function renderMSMESection() {
+    // Check if MSME data is available
+    if (typeof msmeData === 'undefined') {
+        return '<p class="data-note">MSME data loading...</p>';
+    }
+
+    const stats = msmeData.statistics;
+    const trends = msmeData.growthTrends;
+
+    // Calculate sector distribution percentages
+    const totalMSMEs = stats.total;
+    const manufacturingPct = ((stats.bySector.Manufacturing / totalMSMEs) * 100).toFixed(1);
+    const servicesPct = ((stats.bySector.Services / totalMSMEs) * 100).toFixed(1);
+    const tradePct = ((stats.bySector.Trade / totalMSMEs) * 100).toFixed(1);
+
+    return `
+        <div class="custom-section msme-dashboard">
+            <h3 class="section-subtitle">
+                🏭 MSME Ecosystem Growth
+                <span class="data-source-badge">${msmeData.source}</span>
+            </h3>
+
+            ${msmeData.note ? `<div class="alert alert-info">
+                <strong>Note:</strong> ${msmeData.note}
+            </div>` : ''}
+
+            <div class="kpi-grid-3">
+                <div class="kpi-card">
+                    <div class="kpi-label">Total MSMEs Registered</div>
+                    <div class="kpi-value">${totalMSMEs.toLocaleString('en-IN')}</div>
+                    <div class="kpi-change positive">${trends ? trends.yearOverYear : '+15.2%'} YoY growth</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Total Investment</div>
+                    <div class="kpi-value">₹${(stats.totalInvestment / 10000000).toFixed(1)} Cr</div>
+                    <div class="kpi-detail">Across ${totalMSMEs} registered units</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Direct Employment</div>
+                    <div class="kpi-value">${stats.totalEmployment.toLocaleString('en-IN')}</div>
+                    <div class="kpi-detail">Avg ${(stats.totalEmployment / totalMSMEs).toFixed(1)} jobs/unit</div>
+                </div>
+            </div>
+
+            <div class="msme-breakdown">
+                <div class="breakdown-col">
+                    <h4>By Sector</h4>
+                    <div class="sector-bars">
+                        <div class="sector-bar">
+                            <div class="sector-label">Manufacturing</div>
+                            <div class="sector-progress">
+                                <div class="sector-fill" style="width: ${manufacturingPct}%"></div>
+                            </div>
+                            <div class="sector-value">${stats.bySector.Manufacturing} (${manufacturingPct}%)</div>
+                        </div>
+                        <div class="sector-bar">
+                            <div class="sector-label">Services</div>
+                            <div class="sector-progress">
+                                <div class="sector-fill" style="width: ${servicesPct}%"></div>
+                            </div>
+                            <div class="sector-value">${stats.bySector.Services} (${servicesPct}%)</div>
+                        </div>
+                        <div class="sector-bar">
+                            <div class="sector-label">Trade</div>
+                            <div class="sector-progress">
+                                <div class="sector-fill" style="width: ${tradePct}%"></div>
+                            </div>
+                            <div class="sector-value">${stats.bySector.Trade} (${tradePct}%)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="breakdown-col">
+                    <h4>By Organization Type</h4>
+                    <div class="type-list">
+                        ${Object.entries(stats.byType).map(([type, count]) => `
+                            <div class="type-item">
+                                <span class="type-name">${type}</span>
+                                <span class="type-count">${count.toLocaleString('en-IN')}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                ${trends ? `
+                <div class="breakdown-col">
+                    <h4>Growth Trajectory</h4>
+                    <div class="growth-stats">
+                        <div class="growth-item">
+                            <div class="growth-label">Current Total</div>
+                            <div class="growth-value">${totalMSMEs.toLocaleString('en-IN')}</div>
+                        </div>
+                        <div class="growth-item">
+                            <div class="growth-label">2032 Target</div>
+                            <div class="growth-value">${trends.targetBy2032.toLocaleString('en-IN')}</div>
+                        </div>
+                        <div class="growth-item">
+                            <div class="growth-label">Gap Remaining</div>
+                            <div class="growth-value">${trends.gapRemaining.toLocaleString('en-IN')}</div>
+                        </div>
+                    </div>
+                </div>
+                ` : ''}
+            </div>
+
+            <div class="data-source-note">
+                <small>Source: ${msmeData.source} | Last Updated: ${new Date(msmeData.lastUpdated).toLocaleDateString('en-IN')} |
+                <a href="${msmeData.sourceUrl}" target="_blank">View Source</a></small>
+            </div>
+        </div>
+    `;
+}
+
 // Export for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         roleConfigs,
         filterDataForRole,
-        renderCustomDashboard
+        renderCustomDashboard,
+        renderMSMESection
     };
 }

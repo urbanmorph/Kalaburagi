@@ -835,3 +835,164 @@
         font-size: 1rem;
     }
 }
+
+/* ============================================
+   MSME Dashboard Styles
+   ============================================ */
+
+.msme-dashboard {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.data-source-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background: #e3f2fd;
+    color: #1976d2;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    font-weight: normal;
+}
+
+.kpi-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.msme-breakdown {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.breakdown-col h4 {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+.sector-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sector-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.sector-label {
+    font-size: 0.875rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.sector-progress {
+    width: 100%;
+    height: 24px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.sector-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4caf50, #66bb6a);
+    transition: width 0.3s ease;
+}
+
+.sector-value {
+    font-size: 0.875rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.type-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.type-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 4px;
+    border-left: 3px solid #2196f3;
+}
+
+.type-name {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.type-count {
+    font-size: 0.875rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.growth-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.growth-item {
+    padding: 0.75rem;
+    background: white;
+    border-radius: 4px;
+    border-left: 3px solid #ff9800;
+}
+
+.growth-label {
+    font-size: 0.75rem;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.growth-value {
+    font-size: 1.25rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.data-source-note {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+}
+
+.data-source-note small {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.data-source-note a {
+    color: #1976d2;
+    text-decoration: none;
+}
+
+.data-source-note a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .msme-breakdown {
+        grid-template-columns: 1fr;
+    }
+
+    .kpi-grid-3 {
+        grid-template-columns: 1fr;
+    }
+}
