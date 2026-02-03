@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Diagnostic</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        .pass { color: green; }
+        .fail { color: red; }
+        .info { color: blue; }
+        pre { background: #f5f5f5; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Dashboard Diagnostic Tool</h1>
+    <div id="results"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/live-data.js"></script>
+    <script src="js/msme-data.js"></script>
+    <script src="js/fpo-data.js"></script>
+    <script src="js/udyog-mitra-data.js"></script>
+    <script src="js/slbc-credit-data.js"></script>
+    <script src="js/kiadb-land-data.js"></script>
+    <script src="js/roles.js"></script>
+    <script src="js/role-router.js"></script>
+
+    <script>
+        const results = document.getElementById('results');
+
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = message;
+            results.appendChild(div);
+        }
+
+        function test(name, condition) {
+            log(`${condition ? '✓' : '✗'} ${name}`, condition ? 'pass' : 'fail');
+            return condition;
+        }
+
+        log('=== Data Module Tests ===', 'info');
+        test('dashboardData loaded', typeof dashboardData !== 'undefined');
+        test('msmeData loaded', typeof msmeData !== 'undefined');
+        test('fpoData loaded', typeof fpoData !== 'undefined');
+        test('udyogMitraData loaded', typeof udyogMitraData !== 'undefined');
+        test('slbcCreditData loaded', typeof slbcCreditData !== 'undefined');
+        test('kiadbLandData loaded', typeof kiadbLandData !== 'undefined');
+
+        log('\n=== Role Configuration Tests ===', 'info');
+        test('roleConfigs loaded', typeof roleConfigs !== 'undefined');
+        if (typeof roleConfigs !== 'undefined') {
+            test('DC config exists', roleConfigs['dc'] !== undefined);
+            test('KIADB config exists', roleConfigs['kiadb'] !== undefined);
+            test('Agriculture config exists', roleConfigs['agriculture'] !== undefined);
+
+            if (roleConfigs['dc']) {
+                log(`DC custom dashboard: ${roleConfigs['dc'].customDashboard}`, 'info');
+            }
+        }
+
+        log('\n=== Function Tests ===', 'info');
+        test('renderCustomDashboard exists', typeof renderCustomDashboard !== 'undefined');
+        test('renderMSMESection exists', typeof renderMSMESection !== 'undefined');
+        test('renderFPOSection exists', typeof renderFPOSection !== 'undefined');
+        test('renderUdyogMitraSection exists', typeof renderUdyogMitraSection !== 'undefined');
+
+        log('\n=== Rendering Tests ===', 'info');
+        if (typeof renderCustomDashboard !== 'undefined' && typeof dashboardData !== 'undefined') {
+            try {
+                const dcHTML = renderCustomDashboard('dc', dashboardData);
+                test('DC dashboard generates HTML', dcHTML && dcHTML.length > 0);
+                if (dcHTML) {
+                    log(`DC HTML length: ${dcHTML.length} characters`, 'pass');
+                }
+            } catch (e) {
+                log(`Error rendering DC dashboard: ${e.message}`, 'fail');
+            }
+        }
+
+        log('\n=== MSME Data Sample ===', 'info');
+        if (typeof msmeData !== 'undefined') {
+            const pre = document.createElement('pre');
+            pre.textContent = JSON.stringify({
+                total: msmeData.statistics?.total,
+                source: msmeData.source,
+                lastUpdated: msmeData.lastUpdated
+            }, null, 2);
+            results.appendChild(pre);
+        }
+
+        log('\n=== DOM Tests ===', 'info');
+        test('header-meta exists', document.querySelector('.header-meta') !== null);
+        test('role-dashboard div exists', document.getElementById('role-dashboard') !== null);
+
+        log('\n=== Role Router Tests ===', 'info');
+        test('getCurrentRole exists', typeof getCurrentRole !== 'undefined');
+        test('initializeRoleView exists', typeof initializeRoleView !== 'undefined');
+
+        if (typeof getCurrentRole !== 'undefined') {
+            const currentRole = getCurrentRole();
+            log(`Current role: ${currentRole}`, 'info');
+        }
+    </script>
+</body>
+</html>
