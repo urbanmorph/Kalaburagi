@@ -253,7 +253,6 @@ function renderRoleCustomDashboard(roleId, data) {
         console.warn(`No custom dashboard HTML generated for role: ${roleId}`);
     }
 }
-}
 
 /**
  * Add custom dashboard tab to navigation
