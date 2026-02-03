@@ -446,6 +446,7 @@ function renderKIADBLandDashboard(data) {
             </div>
 
             ${renderMSMESection()}
+            ${renderUdyogMitraSection()}
         </div>
     `;
 }
@@ -803,6 +804,128 @@ function renderMinisterDashboard(data) {
 }
 
 /**
+ * Render Udyog Mitra Investment Pipeline Section
+ * Shows investment proposals, clearances, and bottlenecks
+ */
+function renderUdyogMitraSection() {
+    // Check if Udyog Mitra data is available
+    if (typeof udyogMitraData === 'undefined') {
+        return '<p class="data-note">Investment data loading...</p>';
+    }
+
+    const summary = udyogMitraData.summary;
+    const efficiency = udyogMitraData.clearanceEfficiency;
+    const bottlenecks = udyogMitraData.bottlenecks;
+
+    return `
+        <div class="custom-section investment-pipeline">
+            <h3 class="section-subtitle">
+                💼 Investment Pipeline & Clearances
+                <span class="data-source-badge">${udyogMitraData.source}</span>
+            </h3>
+
+            ${udyogMitraData.note ? `<div class="alert alert-info">
+                <strong>Note:</strong> ${udyogMitraData.note}
+            </div>` : ''}
+
+            <div class="kpi-grid-3">
+                <div class="kpi-card">
+                    <div class="kpi-label">Total Proposals</div>
+                    <div class="kpi-value">${summary.totalProposals}</div>
+                    <div class="kpi-detail">${summary.approvedProposals} approved, ${summary.pendingProposals} pending</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Proposed Investment</div>
+                    <div class="kpi-value">₹${(summary.proposedInvestment / 10000000).toFixed(0)} Cr</div>
+                    <div class="kpi-detail">Realized: ₹${(summary.realizedInvestment / 10000000).toFixed(0)} cr (${summary.realizationRate.toFixed(1)}%)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Projected Employment</div>
+                    <div class="kpi-value">${summary.projectedEmployment.toLocaleString('en-IN')}</div>
+                    <div class="kpi-detail">From approved proposals</div>
+                </div>
+            </div>
+
+            <div class="investment-breakdown">
+                <div class="breakdown-section">
+                    <h4>Investment by Sector</h4>
+                    <div class="sector-bars">
+                        ${Object.entries(udyogMitraData.proposalsBySector).map(([sector, data]) => `
+                            <div class="sector-bar">
+                                <div class="sector-label">${sector}</div>
+                                <div class="sector-stats">
+                                    <span>${data.count} proposals</span>
+                                    <span>₹${(data.investment / 10000000).toFixed(0)}cr</span>
+                                    <span>${data.employment.toLocaleString('en-IN')} jobs</span>
+                                </div>
+                                <div class="sector-progress">
+                                    <div class="sector-fill approved" style="width: ${(data.status.approved / data.count * 100)}%" title="Approved: ${data.status.approved}"></div>
+                                    <div class="sector-fill pending" style="width: ${(data.status.pending / data.count * 100)}%" title="Pending: ${data.status.pending}"></div>
+                                    <div class="sector-fill rejected" style="width: ${(data.status.rejected / data.count * 100)}%" title="Rejected: ${data.status.rejected}"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="breakdown-section">
+                    <h4>Clearance Efficiency</h4>
+                    <div class="efficiency-metrics">
+                        <div class="metric-row">
+                            <span class="metric-label">Avg Processing Time</span>
+                            <span class="metric-value ${efficiency.averageProcessingTime > efficiency.targetProcessingTime ? 'status-red' : 'status-green'}">
+                                ${efficiency.averageProcessingTime} days
+                            </span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Target Time</span>
+                            <span class="metric-value">${efficiency.targetProcessingTime} days</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Within 30 Days</span>
+                            <span class="metric-value status-green">${efficiency.within30Days} approvals</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Within 90 Days</span>
+                            <span class="metric-value status-yellow">${efficiency.within90Days} approvals</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Beyond 90 Days</span>
+                            <span class="metric-value status-red">${efficiency.beyond90Days} approvals</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            ${bottlenecks && bottlenecks.length > 0 ? `
+            <div class="bottlenecks-section">
+                <h4>⚠️ Clearance Bottlenecks</h4>
+                <div class="bottleneck-list">
+                    ${bottlenecks.map(bottleneck => `
+                        <div class="bottleneck-item">
+                            <div class="bottleneck-header">
+                                <span class="bottleneck-stage">${bottleneck.stage}</span>
+                                <span class="bottleneck-delay">${bottleneck.avgDelay} days avg delay</span>
+                            </div>
+                            <div class="bottleneck-details">
+                                <span>${bottleneck.delayedProposals} proposals affected</span>
+                                <span class="bottleneck-impact">Impact: ${bottleneck.impact}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            ` : ''}
+
+            <div class="data-source-note">
+                <small>Source: ${udyogMitraData.source} | Last Updated: ${new Date(udyogMitraData.lastUpdated).toLocaleDateString('en-IN')} |
+                <a href="${udyogMitraData.sourceUrl}" target="_blank">View Source</a></small>
+            </div>
+        </div>
+    `;
+}
+
+/**
  * Render FPO Section
  * Shows Farmer Producer Organization data and formation progress
  */
@@ -1039,6 +1162,7 @@ if (typeof module !== 'undefined' && module.exports) {
         filterDataForRole,
         renderCustomDashboard,
         renderMSMESection,
-        renderFPOSection
+        renderFPOSection,
+        renderUdyogMitraSection
     };
 }

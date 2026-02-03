@@ -1090,3 +1090,142 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ============================================
+   Investment Pipeline (Udyog Mitra) Styles
+   ============================================ */
+
+.investment-pipeline {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.investment-breakdown {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.breakdown-section h4 {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+.sector-stats {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.sector-fill.approved {
+    background: linear-gradient(90deg, #4caf50, #66bb6a);
+}
+
+.sector-fill.pending {
+    background: linear-gradient(90deg, #ff9800, #ffb74d);
+}
+
+.sector-fill.rejected {
+    background: linear-gradient(90deg, #f44336, #ef5350);
+}
+
+.efficiency-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 4px;
+}
+
+.metric-label {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.metric-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.metric-value.status-green {
+    color: #4caf50;
+}
+
+.metric-value.status-yellow {
+    color: #ff9800;
+}
+
+.metric-value.status-red {
+    color: #f44336;
+}
+
+.bottlenecks-section {
+    margin-top: 1.5rem;
+}
+
+.bottlenecks-section h4 {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #d32f2f;
+}
+
+.bottleneck-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.bottleneck-item {
+    padding: 1rem;
+    background: white;
+    border-radius: 4px;
+    border-left: 4px solid #ff9800;
+}
+
+.bottleneck-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.bottleneck-stage {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.bottleneck-delay {
+    font-size: 0.85rem;
+    color: #f44336;
+    font-weight: 600;
+}
+
+.bottleneck-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.bottleneck-impact {
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .investment-breakdown {
+        grid-template-columns: 1fr;
+    }
+}
