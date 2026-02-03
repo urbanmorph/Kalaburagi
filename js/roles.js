@@ -52,28 +52,28 @@ const roleConfigs = {
     // Tier 2: Infrastructure & Planning
     'tpo': {
         id: 'tpo',
-        name: 'Town Planning Officer',
+        name: 'Town Planning Officer (KUDA)',
         icon: '🏗️',
-        description: 'Urban planning, building approvals, zoning, industrial area development',
+        description: 'Urban planning, zoning for 4 industrial clusters, worker housing zones, fast-track approvals',
         tabs: ['command', 'roadmap'],
-        kpis: [],
-        alerts: [1],
+        kpis: ['jobs', 'income'],
+        alerts: [1, 2],
         roadmap: ['phase1', 'phase2', 'phase3'],
         industries: ['all'],
         showLiveData: false,
-        customDashboard: null
+        customDashboard: 'tpo-planning'
     },
 
     'khb': {
         id: 'khb',
         name: 'Karnataka Housing Board',
         icon: '🏘️',
-        description: 'Housing progress, PMAY schemes, worker hostels for industrial workforce',
+        description: 'Worker housing crisis: 8K hostel beds + 5K rental units, PMAY completion, slum rehabilitation',
         tabs: ['command', 'roadmap'],
-        kpis: ['jobs'],
+        kpis: ['jobs', 'income'],
         alerts: [1],
-        roadmap: ['phase1'],
-        industries: ['garments'],
+        roadmap: ['phase1', 'phase2'],
+        industries: ['all'],
         showLiveData: false,
         customDashboard: 'khb-housing'
     },
@@ -349,6 +349,10 @@ function renderCustomDashboard(roleId, data) {
             return renderMunicipalCommissionerDashboard(data);
         case 'beo-education':
             return renderBEODashboard(data);
+        case 'tpo-planning':
+            return renderTPODashboard(data);
+        case 'khb-housing':
+            return renderKHBHousingDashboard(data);
         default:
             return '';
     }
