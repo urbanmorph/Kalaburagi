@@ -46,3 +46,6 @@ yarn-error.log*
 temp/
 tmp/
 *.backup-jan2026
+
+# Supporting docs
+supporting-docs/

@@ -1900,6 +1900,303 @@ a:hover {
     padding: 2rem 1.5rem;
 }
 
+/* ============================================
+   About Tab - Three Card Layout
+   ============================================ */
+.about-three-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.about-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.about-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.about-card--goals .about-card__header {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-bottom-color: #bfdbfe;
+}
+
+.about-card--sectors .about-card__header {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-bottom-color: #bbf7d0;
+}
+
+.about-card--stakeholders .about-card__header {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-bottom-color: #fcd34d;
+}
+
+.about-card__icon {
+    font-size: 1.5rem;
+}
+
+.about-card__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin: 0;
+}
+
+.about-card__body {
+    padding: 1.25rem 1.5rem;
+    flex: 1;
+    max-height: 420px;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 0.4s ease;
+}
+
+.about-card__body.expanded {
+    max-height: 2000px;
+}
+
+.about-card__body.has-overflow::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(transparent, #fff);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.about-card__body.expanded.has-overflow::after {
+    opacity: 0;
+}
+
+.about-card__toggle {
+    display: none;
+    width: 100%;
+    padding: 0.625rem 1.5rem;
+    background: var(--gray-50);
+    border: none;
+    border-top: 1px solid var(--gray-200);
+    color: var(--primary-blue);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    font-family: var(--font-sans);
+}
+
+.about-card__toggle:hover {
+    background: var(--gray-100);
+}
+
+.about-card__toggle.visible {
+    display: block;
+}
+
+/* Goals Card */
+.about-card__goal-item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.about-card__goal-item:last-child {
+    border-bottom: none;
+}
+
+.about-card__goal-metric {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--primary-blue-dark);
+    margin-bottom: 0.25rem;
+}
+
+.about-card__goal-label {
+    font-size: 0.8125rem;
+    color: var(--gray-600);
+    line-height: 1.4;
+}
+
+/* Sectors Card */
+.about-card__subtitle {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gray-500);
+    margin: 1.25rem 0 0.75rem;
+}
+
+.about-card__subtitle:first-child {
+    margin-top: 0;
+}
+
+.about-card__sector-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.about-card__sector-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 44px;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.about-card__sector-name {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--gray-700);
+}
+
+.about-card__sector-bar-track {
+    height: 8px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.about-card__sector-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+.about-card__sector-pct {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gray-600);
+    text-align: right;
+}
+
+.about-card__sector-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.about-card__sector-list li {
+    padding: 0.5rem 0;
+    font-size: 0.8125rem;
+    color: var(--gray-700);
+    line-height: 1.4;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.about-card__sector-list li:last-child {
+    border-bottom: none;
+}
+
+.about-card__industry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.about-card__industry-tag {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.625rem;
+    background: var(--gray-50);
+    border-radius: 8px;
+    border: 1px solid var(--gray-200);
+}
+
+.about-card__industry-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+}
+
+.about-card__industry-name {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--gray-800);
+}
+
+.about-card__industry-detail {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    margin-top: 0.125rem;
+}
+
+/* Stakeholders Card */
+.about-card__stakeholder-item {
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid var(--gray-300);
+    background: var(--gray-50);
+}
+
+.about-card__stakeholder-item:last-child {
+    margin-bottom: 0;
+}
+
+.about-card__stakeholder--urgent {
+    border-left-color: var(--status-red);
+    background: var(--status-red-light);
+}
+
+.about-card__stakeholder-role {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 0.25rem;
+}
+
+.about-card__stakeholder-action {
+    font-size: 0.8125rem;
+    color: var(--gray-600);
+    line-height: 1.4;
+}
+
+.about-card__stakeholder--urgent .about-card__stakeholder-action {
+    color: var(--gray-700);
+}
+
+.about-bottom-links {
+    margin-top: 1rem;
+}
+
+/* Responsive: stack cards on smaller screens */
+@media (max-width: 1024px) {
+    .about-three-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .about-card__body {
+        max-height: none;
+    }
+
+    .about-card__industry-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-card__industry-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-card__sector-row {
+        grid-template-columns: 70px 1fr 40px;
+    }
+}
+
 /* Quick Navigation Cards */
 .quick-nav {
     margin: 3rem 0;

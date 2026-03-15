@@ -46,137 +46,214 @@
             
             <!-- Tab 1: About -->
             <div class="tab-content active" id="about">
-                
-                <!-- Hero Section -->
-                <section class="about-hero-inline">
-                    <h1 class="hero-title">About This Dashboard</h1>
-                    <p class="hero-subtitle">How Kalaburagi is Moving from Rank 30 to Top 15 by 2034</p>
-                    <div class="hero-stats">
-                        <div class="hero-stat">
-                            <div class="stat-number">30/30</div>
-                            <div class="stat-label">Current Rank</div>
-                        </div>
-                        <div class="hero-arrow">→</div>
-                        <div class="hero-stat highlight">
-                            <div class="stat-number">15/30</div>
-                            <div class="stat-label">Target by 2034</div>
-                        </div>
-                        <div class="hero-stat">
-                            <div class="stat-number">₹20,150 Cr</div>
-                            <div class="stat-label">Investment</div>
-                        </div>
-                        <div class="hero-stat">
-                            <div class="stat-number">156,700</div>
-                            <div class="stat-label">New Jobs</div>
-                        </div>
-                    </div>
-                </section>
 
-                <!-- Progress Indicator -->
-                <div class="progress-banner">
-                    <div class="progress-info">
-                        <strong>Current Status:</strong> Phase 1 Foundation (Years 1-3, 2026-2029)
+                <!-- Three Card Overview -->
+                <div class="about-three-cards">
+
+                    <!-- Card 1: Goals -->
+                    <div class="about-card about-card--goals">
+                        <div class="about-card__header">
+                            <span class="about-card__icon">🎯</span>
+                            <h2 class="about-card__title">Goals</h2>
+                        </div>
+                        <div class="about-card__body">
+                            <div class="about-card__goal-item">
+                                <div class="about-card__goal-metric">Rank 30 → 15</div>
+                                <div class="about-card__goal-label">Per capita income ranking among Karnataka's 30 districts by 2034</div>
+                            </div>
+                            <div class="about-card__goal-item">
+                                <div class="about-card__goal-metric">₹1.25L → ₹2.50L</div>
+                                <div class="about-card__goal-label">Per capita income — doubling in 8 years (₹1,04,000 more per person annually)</div>
+                            </div>
+                            <div class="about-card__goal-item">
+                                <div class="about-card__goal-metric">156,700 New Jobs</div>
+                                <div class="about-card__goal-label">100K from core programs + 56.7K from 4 new industries</div>
+                            </div>
+                            <div class="about-card__goal-item">
+                                <div class="about-card__goal-metric">₹20,150 Cr Investment</div>
+                                <div class="about-card__goal-label">₹17,700cr core programs + ₹2,450cr for new industries (Central 35%, State 23%, Banks 26%, Private 16%)</div>
+                            </div>
+                            <div class="about-card__goal-item">
+                                <div class="about-card__goal-metric">88% → 50% Rainfed</div>
+                                <div class="about-card__goal-label">Irrigation expansion: 2,200 borewells + drip irrigation for 50,000 hectares</div>
+                            </div>
+                            <div class="about-card__goal-item">
+                                <div class="about-card__goal-metric">Reduce Migration</div>
+                                <div class="about-card__goal-label">43% of Bangalore construction workers are from Kalaburagi — create local opportunities so families stay together</div>
+                            </div>
+                        </div>
+                        <button class="about-card__toggle" onclick="toggleCardExpand(this)">Show more ▾</button>
                     </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 30%"></div>
+
+                    <!-- Card 2: Industries & Sectors -->
+                    <div class="about-card about-card--sectors">
+                        <div class="about-card__header">
+                            <span class="about-card__icon">🏭</span>
+                            <h2 class="about-card__title">Industries & Sectors</h2>
+                        </div>
+                        <div class="about-card__body">
+                            <h3 class="about-card__subtitle">Existing Sectors (GDDP Composition)</h3>
+                            <div class="about-card__sector-bars">
+                                <div class="about-card__sector-row">
+                                    <span class="about-card__sector-name">Services</span>
+                                    <div class="about-card__sector-bar-track">
+                                        <div class="about-card__sector-bar-fill" style="width: 53.7%; background: var(--primary-blue);"></div>
+                                    </div>
+                                    <span class="about-card__sector-pct">53.7%</span>
+                                </div>
+                                <div class="about-card__sector-row">
+                                    <span class="about-card__sector-name">Agriculture</span>
+                                    <div class="about-card__sector-bar-track">
+                                        <div class="about-card__sector-bar-fill" style="width: 25.5%; background: var(--status-green);"></div>
+                                    </div>
+                                    <span class="about-card__sector-pct">25.5%</span>
+                                </div>
+                                <div class="about-card__sector-row">
+                                    <span class="about-card__sector-name">Industry</span>
+                                    <div class="about-card__sector-bar-track">
+                                        <div class="about-card__sector-bar-fill" style="width: 20.8%; background: var(--accent-orange);"></div>
+                                    </div>
+                                    <span class="about-card__sector-pct">20.8%</span>
+                                </div>
+                            </div>
+
+                            <h3 class="about-card__subtitle">Core Programs</h3>
+                            <ul class="about-card__sector-list">
+                                <li><strong>Agro-Processing</strong> — 300+ dal mill upgrades, FPO formation, food processing clusters (₹2,400 cr)</li>
+                                <li><strong>Water & Irrigation</strong> — Borewells, drip irrigation, dam management (₹3,200 cr)</li>
+                                <li><strong>Rural Connectivity</strong> — Roads to markets, power infrastructure (₹1,300 cr)</li>
+                                <li><strong>Skill Development</strong> — Train 36,000 youth in solar tech, food processing, logistics</li>
+                            </ul>
+
+                            <h3 class="about-card__subtitle">4 New Industries (₹2,450 Cr)</h3>
+                            <div class="about-card__industry-grid">
+                                <div class="about-card__industry-tag">
+                                    <span class="about-card__industry-icon">👔</span>
+                                    <div>
+                                        <div class="about-card__industry-name">Garments & Textiles</div>
+                                        <div class="about-card__industry-detail">PM MITRA park, 25,000 jobs</div>
+                                    </div>
+                                </div>
+                                <div class="about-card__industry-tag">
+                                    <span class="about-card__industry-icon">🏗️</span>
+                                    <div>
+                                        <div class="about-card__industry-name">Limestone & Cement</div>
+                                        <div class="about-card__industry-detail">Mini cement plants, 8,000 jobs</div>
+                                    </div>
+                                </div>
+                                <div class="about-card__industry-tag">
+                                    <span class="about-card__industry-icon">✈️</span>
+                                    <div>
+                                        <div class="about-card__industry-name">Aerospace Components</div>
+                                        <div class="about-card__industry-detail">KIADB Sedam cluster, 15,000 jobs</div>
+                                    </div>
+                                </div>
+                                <div class="about-card__industry-tag">
+                                    <span class="about-card__industry-icon">💊</span>
+                                    <div>
+                                        <div class="about-card__industry-name">Pharma Packaging</div>
+                                        <div class="about-card__industry-detail">WHO-GMP facility, 8,700 jobs</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="about-card__toggle" onclick="toggleCardExpand(this)">Show more ▾</button>
                     </div>
-                    <div class="progress-label">30% through Phase 1 (Year 1 of 8)</div>
+
+                    <!-- Card 3: Who Should Do What Next -->
+                    <div class="about-card about-card--stakeholders">
+                        <div class="about-card__header">
+                            <span class="about-card__icon">👥</span>
+                            <h2 class="about-card__title">Who Should Do What Next</h2>
+                        </div>
+                        <div class="about-card__body">
+                            <div class="about-card__stakeholder-item about-card__stakeholder--urgent">
+                                <div class="about-card__stakeholder-role">District Collector</div>
+                                <div class="about-card__stakeholder-action">Release ₹50L geological survey fund for limestone belt — currently <strong>OVERDUE</strong>. Unblock Phase 1 cement production timeline.</div>
+                            </div>
+                            <div class="about-card__stakeholder-item about-card__stakeholder--urgent">
+                                <div class="about-card__stakeholder-role">KIADB Officer</div>
+                                <div class="about-card__stakeholder-action">Complete land allocation for 4 industrial clusters (1,250 acres). Garments park at 10%, aerospace at 5% — fast-track approvals needed.</div>
+                            </div>
+                            <div class="about-card__stakeholder-item">
+                                <div class="about-card__stakeholder-role">Revenue Officer</div>
+                                <div class="about-card__stakeholder-action">Process land acquisition for 1,625 acres (1,250 industrial + 375 housing). Clear agricultural-to-industrial conversions and mutations.</div>
+                            </div>
+                            <div class="about-card__stakeholder-item">
+                                <div class="about-card__stakeholder-role">Town Planning Officer (KUDA)</div>
+                                <div class="about-card__stakeholder-action">Finalize zoning for 4 industrial clusters and worker housing zones. Fast-track layout approvals for PM MITRA garments park.</div>
+                            </div>
+                            <div class="about-card__stakeholder-item">
+                                <div class="about-card__stakeholder-role">Water Resources Officer</div>
+                                <div class="about-card__stakeholder-action">Plan 10 MLD industrial water supply for new clusters. Continue borewell program — current irrigation at 11.3%, target 50%.</div>
+                            </div>
+                            <div class="about-card__stakeholder-item">
+                                <div class="about-card__stakeholder-role">GESCOM Officer</div>
+                                <div class="about-card__stakeholder-action">Ensure 24x7 power for 4 industrial zones. Commission 50 MW additional capacity and upgrade feeder reliability.</div>
+                            </div>
+                            <div class="about-card__stakeholder-item">
+                                <div class="about-card__stakeholder-role">Forest Officer</div>
+                                <div class="about-card__stakeholder-action">Process forest clearances for limestone belt (500 acres overlap). Finalize compensatory afforestation plan for mining sites.</div>
+                            </div>
+                            <div class="about-card__stakeholder-item">
+                                <div class="about-card__stakeholder-role">Agriculture Officer</div>
+                                <div class="about-card__stakeholder-action">Scale dal mill upgrades from 45 to 300. Expand FPO network from 23 to 50, enrolling 100,000 farmers.</div>
+                            </div>
+                            <div class="about-card__stakeholder-item">
+                                <div class="about-card__stakeholder-role">Block Education Officer</div>
+                                <div class="about-card__stakeholder-action">Launch skill training pipeline aligned to 4 new industries. Target: 36,000 youth trained with 80% placement guarantee.</div>
+                            </div>
+                            <div class="about-card__stakeholder-item">
+                                <div class="about-card__stakeholder-role">Karnataka Housing Board</div>
+                                <div class="about-card__stakeholder-action">Build 8,000 hostel beds and 5,000 rental units near industrial zones. Complete pending PMAY housing units.</div>
+                            </div>
+                            <div class="about-card__stakeholder-item">
+                                <div class="about-card__stakeholder-role">Health Department</div>
+                                <div class="about-card__stakeholder-action">Set up occupational health clinics near industrial clusters. Plan PHC upgrades for 156K incoming workforce.</div>
+                            </div>
+                            <div class="about-card__stakeholder-item">
+                                <div class="about-card__stakeholder-role">Labour Officer</div>
+                                <div class="about-card__stakeholder-action">Prepare factory safety inspection framework for 4 new industries. Set up dispute resolution and worker welfare systems.</div>
+                            </div>
+                        </div>
+                        <button class="about-card__toggle" onclick="toggleCardExpand(this)">Show more ▾</button>
+                    </div>
+
                 </div>
 
-                <!-- About Sections -->
-                <div class="about-sections">
-                    
-                    <!-- Why This Matters -->
-                    <section class="content-section">
-                        <div class="section-header" onclick="toggleAboutSection('about-section1')">
-                            <div class="section-title">
-                                <span class="section-icon">💡</span>
-                                <h2>Why This Matters to You</h2>
-                            </div>
-                            <span class="toggle-icon">▼</span>
-                        </div>
-                        <div id="about-section1" class="section-body active">
-                            <div class="callout callout-warning">
-                                <strong>The Reality:</strong> Kalaburagi ranks 30/30 among Karnataka districts in per capita income
-                            </div>
-                            
-                            <p>What does this mean for you and your family?</p>
-                            
-                            <div class="comparison-box">
-                                <div class="comparison-item">
-                                    <div class="comparison-label">Kalaburagi Average</div>
-                                    <div class="comparison-value">₹1,25,000/year</div>
-                                </div>
-                                <div class="comparison-vs">vs</div>
-                                <div class="comparison-item highlight">
-                                    <div class="comparison-label">Karnataka Average</div>
-                                    <div class="comparison-value">₹2,66,000/year</div>
-                                </div>
-                            </div>
-
-                            <p><strong>Your neighbor in Bangalore earns 2x more doing the same work.</strong> That's not because they're smarter or work harder. It's because Bangalore has infrastructure, industries, and opportunities that Kalaburagi lacks.</p>
-
-                            <div class="stat-grid">
-                                <div class="stat-card">
-                                    <div class="stat-big">43%</div>
-                                    <div class="stat-desc">of Bangalore construction workers are from Kalaburagi</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-big">88%</div>
-                                    <div class="stat-desc">of our agriculture is rainfed (vs 55% state average)</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-big">₹50,000</div>
-                                    <div class="stat-desc">average annual farmer income (vs ₹1.2L in top districts)</div>
-                                </div>
-                            </div>
-
-                            <div class="callout callout-success">
-                                <strong>The Promise:</strong> Reaching rank 15 by 2030 means ₹2,10,000 per capita income - that's <strong>₹85,000 more per family annually</strong>. This is not just a number. It's your child's education, your family's healthcare, your ability to stay in Kalaburagi instead of migrating.
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Quick Links to Other Tabs -->
-                    <div class="quick-nav">
-                        <h3>Explore the Dashboard:</h3>
-                        <div class="quick-nav-grid">
-                            <button class="quick-nav-card" onclick="switchToTab('command')">
-                                <span class="nav-icon">📊</span>
-                                <span class="nav-title">Command Center</span>
-                                <span class="nav-desc">Live data & progress tracking</span>
-                            </button>
-                            <button class="quick-nav-card" onclick="switchToTab('baseline')">
-                                <span class="nav-icon">📈</span>
-                                <span class="nav-title">Baseline Data</span>
-                                <span class="nav-desc">Where we started (2022)</span>
-                            </button>
-                            <button class="quick-nav-card" onclick="switchToTab('roadmap')">
-                                <span class="nav-icon">🗺️</span>
-                                <span class="nav-title">Investment Roadmap</span>
-                                <span class="nav-desc">₹20,150 cr plan details</span>
-                            </button>
-                            <button class="quick-nav-card" onclick="switchToTab('sources')">
-                                <span class="nav-icon">📚</span>
-                                <span class="nav-title">Data Sources</span>
-                                <span class="nav-desc">Where our numbers come from</span>
-                            </button>
-                        </div>
-                        <p style="text-align: center; margin-top: 2rem; color: #6b7280;">
-                            <strong>New here?</strong> Start with Command Center to see real-time progress, or jump to the Roadmap to understand the full plan.
-                        </p>
+                <!-- Quick Links -->
+                <div class="quick-nav">
+                    <h3>Explore the Dashboard:</h3>
+                    <div class="quick-nav-grid">
+                        <button class="quick-nav-card" onclick="switchToTab('command')">
+                            <span class="nav-icon">📊</span>
+                            <span class="nav-title">Command Center</span>
+                            <span class="nav-desc">Live data & progress tracking</span>
+                        </button>
+                        <button class="quick-nav-card" onclick="switchToTab('baseline')">
+                            <span class="nav-icon">📈</span>
+                            <span class="nav-title">Baseline Data</span>
+                            <span class="nav-desc">Where we started (2022)</span>
+                        </button>
+                        <button class="quick-nav-card" onclick="switchToTab('roadmap')">
+                            <span class="nav-icon">🗺️</span>
+                            <span class="nav-title">Investment Roadmap</span>
+                            <span class="nav-desc">₹20,150 cr plan details</span>
+                        </button>
+                        <button class="quick-nav-card" onclick="switchToTab('sources')">
+                            <span class="nav-icon">📚</span>
+                            <span class="nav-title">Data Sources</span>
+                            <span class="nav-desc">Where our numbers come from</span>
+                        </button>
                     </div>
-
-                    <!-- Read Full Story -->
-                    <div style="text-align: center; margin: 3rem 0; padding: 2rem; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 12px;">
-                        <h3 style="margin-bottom: 1rem; color: #1e40af;">Want to know more?</h3>
-                        <p style="margin-bottom: 1.5rem; color: #475569;">Read the complete story: How we're tracking progress, who's responsible, how to participate, and detailed FAQs.</p>
-                        <a href="about.html" class="cta-button" style="display: inline-block; background: #1e40af; color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s;">Read Full Context →</a>
-                    </div>
-
                 </div>
+
+                <div style="text-align: center; margin: 2rem 0; padding: 1.5rem; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 12px;">
+                    <a href="about.html" class="cta-button" style="display: inline-block; background: #1e40af; color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600;">Read Full Context →</a>
+                </div>
+
             </div>
-            
+
             <!-- Tab 2: Command Center -->
             <div class="tab-content" id="command">
                 

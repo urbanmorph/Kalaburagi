@@ -112,6 +112,35 @@ function toggleAboutSection(sectionId) {
 }
 
 // ============================================
+// About Card Expand/Collapse
+// ============================================
+function toggleCardExpand(btn) {
+    const card = btn.closest('.about-card');
+    const body = card.querySelector('.about-card__body');
+    const isExpanded = body.classList.toggle('expanded');
+    btn.textContent = isExpanded ? 'Show less ▴' : 'Show more ▾';
+}
+
+// Detect which cards overflow and show their toggle buttons
+function initCardOverflow() {
+    document.querySelectorAll('.about-card__body').forEach(body => {
+        const btn = body.nextElementSibling;
+        if (!btn || !btn.classList.contains('about-card__toggle')) return;
+        if (body.scrollHeight > body.clientHeight) {
+            body.classList.add('has-overflow');
+            btn.classList.add('visible');
+        } else {
+            body.classList.remove('has-overflow');
+            btn.classList.remove('visible');
+        }
+    });
+}
+
+// Run on load and resize
+window.addEventListener('load', initCardOverflow);
+window.addEventListener('resize', initCardOverflow);
+
+// ============================================
 // Render Alerts
 // ============================================
 function renderAlerts(filteredAlerts) {
