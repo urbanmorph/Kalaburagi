@@ -1,60 +1,60 @@
 // ============================================
 // Live Data Feed - Auto-updated by GitHub Actions
-// Last Updated: 1/5/2026, 6:48:14 am
+// Last Updated: 2/5/2026, 6:39:22 am
 // ============================================
 
 const liveData = {
-    "lastUpdated": "2026-05-01T01:18:14.761Z",
+    "lastUpdated": "2026-05-02T01:09:22.181Z",
     "commodityPrices": {
         "turDal": {
             "market": "Kalaburagi APMC",
-            "price": 9544,
+            "price": 9513,
             "unit": "₹/quintal",
-            "date": "2026-05-01",
-            "priceChange": 89,
-            "percentChange": 0.9,
-            "lastWeekPrice": 9455
+            "date": "2026-05-02",
+            "priceChange": -31,
+            "percentChange": -0.3,
+            "lastWeekPrice": 9544
         },
         "bengalGram": {
             "market": "Kalaburagi APMC",
-            "price": 5895,
+            "price": 5808,
             "unit": "₹/quintal",
-            "date": "2026-05-01",
-            "priceChange": 49,
-            "percentChange": 0.8,
-            "lastWeekPrice": 5846
+            "date": "2026-05-02",
+            "priceChange": -87,
+            "percentChange": -1.5,
+            "lastWeekPrice": 5895
         },
         "greenGram": {
             "market": "Kalaburagi APMC",
-            "price": 7154,
+            "price": 7126,
             "unit": "₹/quintal",
-            "date": "2026-05-01",
-            "priceChange": 43,
-            "percentChange": 0.6,
-            "lastWeekPrice": 7111
+            "date": "2026-05-02",
+            "priceChange": -28,
+            "percentChange": -0.4,
+            "lastWeekPrice": 7154
         }
     },
     "rainfall": {
         "district": "Kalaburagi",
         "today": {
-            "amount": 0,
+            "amount": 3.8,
             "unit": "mm",
-            "date": "2026-05-01"
+            "date": "2026-05-02"
         },
         "thisWeek": {
-            "amount": 1.1,
+            "amount": 13.3,
             "unit": "mm",
             "period": "Last 7 days"
         },
         "thisMonth": {
-            "amount": 16.3,
+            "amount": 6.9,
             "unit": "mm",
             "period": "May 2026",
             "normalAmount": 8,
             "deviation": 25
         },
         "thisSeason": {
-            "amount": 407.8,
+            "amount": 403,
             "unit": "mm",
             "period": "Jun-Dec 2024",
             "normalAmount": 528,
@@ -63,7 +63,7 @@ const liveData = {
         },
         "lastRainfall": {
             "amount": 2.5,
-            "date": "2026-04-29"
+            "date": "2026-04-30"
         }
     },
     "dataQuality": {
